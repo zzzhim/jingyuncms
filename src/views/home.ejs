@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('common/head', head); %>
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <h1 class="title"><%= title %></h1>
+  <p>EJS Welcome to <%= title %></p>
+
+  <ul>
+    <% list.forEach((item) => { %>
+      <li>
+        <p>
+          <%= item.title %>
+        </p>
+        <p>
+          <%= item.desc %>
+        </p>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
+
+<script src="js/login.js"></script>
