@@ -7,6 +7,7 @@ import dayjs from "dayjs"
 import { isPathExists } from "../../utils/isPathExists"
 import { mkdirPath } from "../../utils/mkdirPath"
 import { M3u8ToMp4Converter } from "../../utils/m3u8ToMp4"
+import axios from "axios"
 
 const base_url = path.join(__dirname, '../../ffmpeg')
 const ffmpeg = fluentFfmpeg().setFfmpegPath(ffmpegInstaller.path)
