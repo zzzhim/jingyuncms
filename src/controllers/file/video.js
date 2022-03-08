@@ -53,7 +53,7 @@ class Video {
           '-map 0',
           '-f hls',
           '-hls_time 5',
-          '-segment_time 5',
+          // '-segment_time 5',
           '-hls_segment_filename',
           `cache_%v/${dayjs().year()}/${dayjs().month()}/${dayjs().date()}/%d.ts`
         ])

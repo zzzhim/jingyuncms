@@ -14,13 +14,13 @@ import { base64_img } from "./src/config"
 
 const app = new Koa()
 
-// const list = fs.readdirSync(process.cwd() + '/cache_0/2022/2/8')
-
-// list.forEach((item) => {
-//   const data = fs.readFileSync(process.cwd() + '/cache_0/2022/2/8/' + item, "base64")
-//   fs.writeFileSync(`${process.cwd() + '/cache_0/2022/2/8/'}${item.substring(0, item.length - 6)}.png`, base64_img + data, "base64")
-//   fs.rmSync(process.cwd() + '/cache_0/2022/2/8/' + item)
-// })
+const list = fs.readdirSync(process.cwd() + '/cache_0/2022/2/9')
+console.log(list)
+list.filter(item => item.substring(item.length - 3) === '.ts').forEach((item) => {
+  const data = fs.readFileSync(process.cwd() + '/cache_0/2022/2/9/' + item, "base64")
+  fs.writeFileSync(`${process.cwd() + '/cache_0/2022/2/9/'}${item.substring(0, item.length - 3)}.png`, base64_img + data, "base64")
+  fs.rmSync(process.cwd() + '/cache_0/2022/2/9/' + item)
+})
 
 // app.keys = [ SECRET_KEY ]
 
