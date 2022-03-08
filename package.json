@@ -12,14 +12,19 @@
     "gulpTest": "cross-env APP_NODE_ENV=test gulp build",
     "prod": "npm run build && cross-env APP_NODE_ENV=prod node ./dist/index.js",
     "build": "cross-env APP_NODE_ENV=prod webpack --config webpack.config.js && cross-env APP_NODE_ENV=prod gulp build",
-    "buildStart": "npm run build && cross-env APP_NODE_ENV=prod node ./dist/index.js"
+    "buildStart": "npm run build && cross-env APP_NODE_ENV=prod node ./dist/index.js",
+    "exit": "taskkill -PID task -F"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@koa/cors": "^3.1.0",
     "autoprefixer": "^10.4.2",
+    "axios": "^0.26.0",
+    "dayjs": "^1.10.8",
     "ejs": "^3.1.6",
+    "fluent-ffmpeg": "^2.1.2",
     "joi": "^17.6.0",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
