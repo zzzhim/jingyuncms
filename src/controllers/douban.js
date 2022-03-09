@@ -2,11 +2,14 @@ import puppeteer from "puppeteer"
 import response from "../utils/response"
 
 const getDocumentData = () => {
-  console.log(document)
   const _dom = document.querySelector('#content')
 
   const videoName = () => {
     const str = _dom.querySelector('h1 span[property="v:itemreviewed"]')
+
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
 
     return str ? str.innerText.trim() : ''
   }
@@ -14,11 +17,19 @@ const getDocumentData = () => {
   const year = () => {
     const str = _dom.querySelector('h1 span.year')
 
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
+
     return str ? str.innerText.trim() : ''
   }
 
   const imgUrl = () => {
     const str = _dom.querySelector('#mainpic img[rel="v:image"]')
+
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
 
     return str ? str.src : ''
   }
@@ -26,35 +37,54 @@ const getDocumentData = () => {
   const daoyan = () => {
     const str = _dom.querySelector('#info > span:nth-of-type(1) .attrs')
 
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
+
     return str ? str.innerText.trim() : ''
   }
 
   const bianju = () => {
     const str = _dom.querySelector('#info > span:nth-of-type(2) .attrs')
 
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
+
     return str ? str.innerText.trim() : ''
   }
 
   const zhuyan = () => {
-    let str = _dom.querySelectorAll('#info > span:nth-of-type(3) .attrs span a') || []
+    let str = _dom.querySelectorAll('#info > span:nth-of-type(3) .attrs span a')
+    
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
 
     if(str.length) {
       str = Array.prototype.slice.call(str).map(item => item.innerText).join(",")
+
+      return str.trim()
     }
 
-    // return str ? str.innerText.trim() : ''
-    return str.trim()
+    return ''
   }
 
   // 类型
   const type = () => {
-    let str = _dom.querySelectorAll('span[property="v:genre"]') || []
+    let str = _dom.querySelectorAll('span[property="v:genre"]')
+
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
 
     if(str.length) {
       str = Array.prototype.slice.call(str).map(item => item.innerText).join(",")
+
+      return str.trim()
     }
 
-    return str.trim()
+    return ''
   }
 
   // 地区
@@ -75,12 +105,20 @@ const getDocumentData = () => {
   const time = () => {
     let str = _dom.querySelector('span[property="v:initialReleaseDate"]')
 
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
+
     return str.innerText.trim()
   }
 
   // 片长
   const pianchang = () => {
     let str = _dom.querySelector('span[property="v:runtime"]')
+
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
 
     return str.innerText.trim()
   }
@@ -94,13 +132,21 @@ const getDocumentData = () => {
 
   // 评分
   const pingfen = () => {
-    const str = _dom.querySelector('[property="v:average"]') || ""
+    const str = _dom.querySelector('[property="v:average"]')
+
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
 
     return str.innerText.trim()
   }
 
   const desc = () => {
     const str = _dom.querySelector('#link-report')
+
+    if(Object.prototype.toString.call(str) === '[object Null]') {
+      return ""
+    }
 
     return str ? str.innerText.trim() : ''
   }
@@ -140,7 +186,7 @@ export const getDoubanVideoData = ({ doubanId }) => {
       await browser.close();
     } catch (error) {
       console.log(error)
-      reject(error)
+      reject(response.error(500, {}, '获取数据失败'))
     }
   })
 }

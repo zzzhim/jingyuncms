@@ -51,8 +51,40 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
+  },
+
+  {
+    path: '/video',
+    component: Layout,
+    name: 'video',
+    redirect: '/video/videoList',
+    meta: { title: '视频', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'videoList',
+        name: 'videoList',
+        component: () => import('@/views/video/list/index'),
+        meta: { title: '视频列表', icon: 'dashboard' }
+      },
+    ]
+  },
+
+  {
+    path: '/collection',
+    component: Layout,
+    name: 'collection',
+    redirect: '/collection/setup',
+    meta: { title: '采集', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'setup',
+        name: 'setup',
+        component: () => import('@/views/collection/setup/index'),
+        meta: { title: '自定义接口', icon: 'dashboard' }
+      },
+    ]
   },
 
   {
