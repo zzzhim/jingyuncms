@@ -1,10 +1,10 @@
-const path = require('path');
+const path = require('path')
 const TerserPlugin = require("terser-webpack-plugin")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
 module.exports = {
-  // mode: process.env.NODE_ENV === "prod" ? 'production' : "development", 
+  // mode: process.env.NODE_ENV === "prod" ? 'production' : "development",
   mode: 'production',
   target: "node",
   entry: './index.js',

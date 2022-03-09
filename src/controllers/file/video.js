@@ -39,25 +39,26 @@ class Video {
    */
   async mp4ToM3U8({}) {
     // ffmpeg -i music23.ts -c copy -map 0 -f segment -segment_list music23.m3u8 -segment_time 5 music23_%5d.ts
-    const pathStr = `src/ffmpeg/cache/${dayjs().year()}/${dayjs().month()}/${dayjs().date()}/2022_03_08 15_17_57`
+    // const pathStr = `src/ffmpeg/cache/${dayjs().year()}/${dayjs().month()}/${dayjs().date()}/0`
 
     // 判断路径是否存在
-    if(!isPathExists(__dirname + '../../../' + pathStr)) {
-      // 创建文件夹
-      mkdirPath( '/' + pathStr)
-    }
+    // if(!isPathExists(__dirname + '../../../' + pathStr)) {
+    //   // 创建文件夹
+    //   mkdirPath( '/' + pathStr)
+    // }
 
     try {
       ffmpeg
-        .addInput(base_url + `/video/2022_03_08 15_17_57.mp4`)
+        .addInput(base_url + `/video/0.mp4`)
         .outputOptions([
           '-map 0',
           '-f hls',
-          '-segment_time 5',
+          '-hls_time 5',
+          // '-segment_time 5',
           '-hls_segment_filename',
           `cache_%v/${dayjs().year()}/${dayjs().month()}/${dayjs().date()}/%d.ts`
         ])
-        .output(base_url + `/m3u8/2022_03_08 15_17_57.m3u8`) // 索引输出路径
+        .output(base_url + `/m3u8/0.m3u8`) // 索引输出路径
         .on('start', (commandLine) => {
           console.log('切片开始')
         })
@@ -105,6 +106,14 @@ class Video {
     return response.success(200, {
 
     }, '下载开始')
+  }
+
+  /**
+   * 
+   * 视频列表
+  */
+  async localVideoMp4List() {
+
   }
 }
 
