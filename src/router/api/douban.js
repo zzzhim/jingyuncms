@@ -1,5 +1,5 @@
-const Router = require('koa-router')
-const { getVideoData } = require('../../controllers/douban')
+import Router from 'koa-router'
+import { getDoubanVideoData } from '../../controllers/douban'
 
 const router = new Router({
   prefix: '/douban'
@@ -10,14 +10,12 @@ const router = new Router({
  * @param {string} id 豆瓣ID
  * @description 利用爬虫获取视频数据
  */
-router.get('/getVideoData', async (ctx, next) => {
-  const { id } = ctx.query
+router.get('/getDoubanVideoData', async (ctx) => {
+  const { doubanId } = ctx.query
 
-  const data = await getVideoData({ id })
+  const data = await getDoubanVideoData({ doubanId })
 
   ctx.body = data
 })
 
-module.exports = {
-  commonRouter: router
-}
+export const doubanRouter = router

@@ -1,7 +1,6 @@
 const { MacAdminUserModel } = require("../model/user")
 const response = require("../utils/response")
-var md5 = require('md5')
-
+const md5 = require('md5')
 
 class Login {
   /**

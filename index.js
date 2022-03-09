@@ -51,6 +51,7 @@ app
       /^\/api\/user\/login/,
       /^\/api\/common/,
       /^\/api\/video\/list/,
+      /^\/api\/douban/,
     ],
   }))
   .use(koaBody())

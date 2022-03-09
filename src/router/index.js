@@ -1,16 +1,13 @@
 import Router from "koa-router"
-const { apiRouter } = require('./api/index')
-const { loginRouter } = require('./views/login')
-const { homeRouter } = require('./views/home')
+import { apiRouter } from "./api/index"
+import { loginRouter } from "./views/login"
+import { homeRouter } from "./views/home"
 
-const router = new Router({
-  // prefix: '/api'
-})
+const router = new Router()
 
 router
   .use(loginRouter.routes(), loginRouter.allowedMethods())
   .use(homeRouter.routes(), homeRouter.allowedMethods())
   .use(apiRouter.routes(), apiRouter.allowedMethods())
-
 
 export { router }
