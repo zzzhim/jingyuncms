@@ -124,14 +124,17 @@ const MacVod = sequelize.define(
     'vod_area': {
       type: DataTypes.STRING(20),
       allowNull: false,
+      comment: "地区",
     },
     'vod_lang': {
       type: DataTypes.STRING(10),
       allowNull: false,
+      comment: "语言",
     },
     'vod_year': {
       type: DataTypes.STRING(10),
       allowNull: false,
+      comment: "年份",
     },
     'vod_version': {
       type: DataTypes.STRING(30),
@@ -225,6 +228,7 @@ const MacVod = sequelize.define(
     'vod_score_all': {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      comment: "总评分"
     },
     'vod_score_num': {
       type: DataTypes.MEDIUMINT({ length: 8 }),
@@ -253,10 +257,12 @@ const MacVod = sequelize.define(
     'vod_douban_id': {
       type: DataTypes.INTEGER({ length: 10, unsigned: true }),
       allowNull: false,
+      comment: "豆瓣ID",
     },
     'vod_douban_score': {
       type: DataTypes.DECIMAL(3, 1),
       allowNull: false,
+      comment: "豆瓣评分",
     },
     'vod_reurl': {
       type: DataTypes.STRING,
