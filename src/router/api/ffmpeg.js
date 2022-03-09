@@ -18,7 +18,8 @@ router.get('/file/video', async (ctx, next) => {
 })
 
 router.get('/file/mp4ToM3U8', async (ctx, next) => {
-  const res = await mp4ToM3U8({})
+  const { fileName } = ctx.query
+  const res = await mp4ToM3U8({ fileName })
 
   ctx.body = res
 })
