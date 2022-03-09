@@ -6,7 +6,13 @@ const router = new Router({
 })
 
 router.get('/file/video', async (ctx, next) => {
-  const res = await videoFileList({})
+  const { videoName = "", pageNo = 1, pageSize = 10 } = ctx.query
+
+  const res = await videoFileList({
+    videoName,
+    pageNo,
+    pageSize,
+  })
 
   ctx.body = res
 })

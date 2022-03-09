@@ -103,9 +103,7 @@ class Video {
       .output(fileName)
       .run()
 
-    return response.success(200, {
-
-    }, '下载开始')
+    return response.success(200, {}, '下载开始')
   }
 
   /**
