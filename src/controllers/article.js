@@ -1,4 +1,5 @@
 const { ArticleModel } = require("../model/article")
+const { default: logger } = require("../utils/logger")
 const response = require("../utils/response")
 
 class Article {
@@ -16,7 +17,7 @@ class Article {
 
       return response.success(200)
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -45,7 +46,7 @@ class Article {
 
       return response.success(200)
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -83,7 +84,7 @@ class Article {
         }
       )
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -108,7 +109,7 @@ class Article {
 
       return response.success(200)
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -150,7 +151,7 @@ class Article {
         '该条数据不存在'
       )
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }

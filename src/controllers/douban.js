@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer"
+import logger from "../utils/logger"
 import response from "../utils/response"
 
 const getDocumentData = () => {
@@ -185,7 +186,7 @@ export const getDoubanVideoData = ({ doubanId }) => {
       resolve(response.success(200, data))
       await browser.close();
     } catch (error) {
-      console.log(error)
+      logger.error(error)
       reject(response.error(500, {}, '获取数据失败'))
     }
   })

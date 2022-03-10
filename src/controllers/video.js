@@ -2,6 +2,7 @@ const { MacVodModel } = require("../model/vod")
 const response = require("../utils/response")
 const { LetterNumtoLine } = require("../utils/toLine")
 const { Op } = require("sequelize")
+const { default: logger } = require("../utils/logger")
 
 class Article {
   /**
@@ -86,8 +87,7 @@ class Article {
         }
       )
     } catch (error) {
-      console.log(error)
-
+      logger.error(error)
       return response.error(500)
     }
   }

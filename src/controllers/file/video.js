@@ -9,6 +9,7 @@ import { mkdirPath } from "../../utils/mkdirPath"
 import { M3u8ToMp4Converter } from "../../utils/m3u8ToMp4"
 import axios from "axios"
 import fs from "fs"
+import logger from "../../utils/logger"
 
 const base_url = path.join(__dirname, '../../ffmpeg')
 const ffmpeg = fluentFfmpeg().setFfmpegPath(ffmpegInstaller.path)
@@ -39,7 +40,7 @@ class Video {
         fileList: arr,
       })
     } catch (error) {
-      console.log(error)
+      logger.error(error)
       return response.error(500, {}, error)
     }
   }
@@ -76,22 +77,22 @@ class Video {
         ])
         .output(base_url + `/m3u8/${name}.m3u8`) // 索引输出路径
         .on('start', (commandLine) => {
-          console.log('切片开始')
+          logger.info('切片开始')
         })
         .on('error', (err, stdout, stderr) => {
-          console.log('切片报错: ' + err.message)
+          logger.error('切片报错: ' + err.message)
         })
         .on('progress', (progress) => {
-          console.log('切片进度: ' + progress.percent + '% done')
+          logger.info('切片进度: ' + progress.percent + '% done')
         })
         .on('end', (err, stdout, stderr) => {
-          console.log('切片结束' /*, err, stdout, stderr*/)
+          logger.info('切片结束' /*, err, stdout, stderr*/)
         })
         .run()
 
       return response.success(200, {}, '切片开始')
     } catch (error) {
-      console.log(error)
+      logger.error(error)
       return response.error(500, {}, error)
     }
   }
@@ -107,14 +108,14 @@ class Video {
     ffmpeg
       .addInput(fileUrl)
       .on("error", error => {
-        console.log(error)
+        logger.error(error)
       })
       .on('progress', function(progress) {
-        console.log('下载进度: 已完成 ' + progress.percent + '%。');
+        logger.info('下载进度: 已完成 ' + progress.percent + '%。');
       })
       .on("end", () => {
-        console.log('下载进度: 已完成 100%。\n');
-        console.log('=========================');
+        logger.debug('下载进度: 已完成 100%。\n');
+        logger.info('=========================');
       })
       .outputOptions("-c copy")
       .outputOptions("-bsf:a aac_adtstoasc")

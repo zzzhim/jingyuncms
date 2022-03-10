@@ -1,6 +1,7 @@
 const { Op } = require("sequelize")
 const { MacRecommendConfigModel } = require("../model/recommend_config")
 const { MacRecommendListModel } = require("../model/recommend_list")
+const { default: logger } = require("../utils/logger")
 
 const response = require("../utils/response")
 
@@ -49,7 +50,7 @@ class MacRecommendConfig {
         }
       )
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -88,7 +89,7 @@ class MacRecommendConfig {
 
       return response.success(200)
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -134,7 +135,7 @@ class MacRecommendConfig {
 
       return response.success(200)
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -160,7 +161,7 @@ class MacRecommendConfig {
 
       return response.success(200)
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -213,7 +214,7 @@ class MacRecommendConfig {
         }
       )
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -268,7 +269,7 @@ class MacRecommendConfig {
 
       return response.success(200)
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -331,7 +332,7 @@ class MacRecommendConfig {
 
       return response.success(200)
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }
@@ -357,7 +358,7 @@ class MacRecommendConfig {
 
       return response.success(200)
     } catch (error) {
-      console.log(error)
+      logger.error(error)
 
       return response.error(500)
     }

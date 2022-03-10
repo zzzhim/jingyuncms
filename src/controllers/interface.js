@@ -1,3 +1,4 @@
+import logger from "../utils/logger"
 import response from "../utils/response"
 
 /**
@@ -9,7 +10,7 @@ export const add = ({ doubanId }) => {
     
     return response.success(200, data)
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     return response.success(500, {}, error)
   }
 }

@@ -1,6 +1,7 @@
 
 import ffmpegInstaller from '@ffmpeg-installer/ffmpeg'
 import fluentFfmpeg from 'fluent-ffmpeg'
+import logger from './logger'
 const ffmpeg = fluentFfmpeg().setFfmpegPath(ffmpegInstaller.path)
 
 function m3u8ToMp4Converter() {
@@ -13,11 +14,11 @@ function m3u8ToMp4Converter() {
         reject(new Error(error));
       })
       .on('progress', function(progress) {
-        console.log('下载进度: 已完成 ' + progress.percent + '%。');
+        logger.info('下载进度: 已完成 ' + progress.percent + '%。');
       })
       .on("end", () => {
-        console.log('下载进度: 已完成 100%。\n');
-        console.log('=========================');
+        logger.debug('下载进度: 已完成 100%。\n');
+        logger.info('=========================');
         resolve(fileName)
       })
       .outputOptions("-c copy")

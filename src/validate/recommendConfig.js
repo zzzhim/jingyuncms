@@ -15,7 +15,7 @@ async function addConfigValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    console.log(error)
+    logger.error(error)
 
     ctx.body = response.warning(500, {}, error)
   }
@@ -35,7 +35,7 @@ async function editConfigValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    console.log(error)
+    logger.error(error)
 
     ctx.body = response.warning(500, {}, error)
   }
@@ -49,7 +49,7 @@ async function delConfigValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    console.log(error)
+    logger.error(error)
 
     ctx.body = response.warning(500, {}, error)
   }
@@ -85,7 +85,7 @@ async function addBindValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    console.log(error)
+    logger.error(error)
 
     ctx.body = response.warning(500, {}, error)
   }
