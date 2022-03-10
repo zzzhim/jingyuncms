@@ -15,16 +15,19 @@ const MacVod = sequelize.define(
       type: DataTypes.SMALLINT({ length: 6 }),
       allowNull: false,
       defaultValue: 0,
+      comment: "分类id",
     },
     'type_id_1': {
       type: DataTypes.SMALLINT({ length: 6 }),
       allowNull: false,
       defaultValue: 0,
+      comment: "一级分类id",
     },
     'group_id': {
       type: DataTypes.SMALLINT({ length: 6 }),
       allowNull: false,
       defaultValue: 0,
+      comment: "用户组id",
     },
     'vod_name': {
       type: DataTypes.STRING,
@@ -34,74 +37,87 @@ const MacVod = sequelize.define(
     'vod_sub': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "副标题",
     },
     'vod_en': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "别名",
     },
     'vod_status': {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      comment: "状态0未审1已审",
     },
     'vod_letter': {
       type: DataTypes.CHAR(1),
       allowNull: false,
+      comment: "首字母",
     },
     'vod_color': {
       type: DataTypes.STRING(6),
       allowNull: false,
+      comment: "颜色",
     },
     'vod_tag': {
       type: DataTypes.STRING(100),
       allowNull: false,
+      comment: "标签",
     },
     'vod_class': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "扩展分类",
     },
     'vod_pic': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "图片",
     },
     'vod_pic_thumb': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "缩略图",
     },
     'vod_pic_slide': {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    'vod_pic_screenshot': {
-      type: DataTypes.TEXT,
-      allowNull: true,
+      comment: "幻灯图",
     },
     'vod_actor': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "主演",
     },
     'vod_director': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "导演",
     },
     'vod_writer': {
       type: DataTypes.STRING(100),
       allowNull: false,
+      comment: "编剧",
     },
     'vod_behind': {
       type: DataTypes.STRING(100),
       allowNull: false,
+      comment: "幕后",
     },
     'vod_blurb': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "简介",
     },
     'vod_remarks': {
       type: DataTypes.STRING(100),
       allowNull: false,
+      comment: "备注",
     },
     'vod_pubdate': {
       type: DataTypes.STRING(100),
       allowNull: false,
+      comment: "上映日期",
     },
     'vod_total': {
       type: DataTypes.MEDIUMINT({ length: 8, unsigned: true }),
@@ -116,10 +132,12 @@ const MacVod = sequelize.define(
     'vod_tv': {
       type: DataTypes.STRING(30),
       allowNull: false,
+      comment: "上映电视台",
     },
     'vod_weekday': {
       type: DataTypes.STRING(30),
       allowNull: false,
+      comment: "节目周期",
     },
     'vod_area': {
       type: DataTypes.STRING(20),
@@ -139,30 +157,17 @@ const MacVod = sequelize.define(
     'vod_version': {
       type: DataTypes.STRING(30),
       allowNull: false,
+      comment: "版本-dvd,hd,720p",
     },
     'vod_state': {
       type: DataTypes.STRING(30),
       allowNull: false,
+      comment: "资源类别-正片,预告片,花絮",
     },
     'vod_author': {
       type: DataTypes.STRING(60),
       allowNull: false,
-    },
-    'vod_jumpurl': {
-      type: DataTypes.STRING(150),
-      allowNull: false,
-    },
-    'vod_tpl': {
-      type: DataTypes.STRING(30),
-      allowNull: false,
-    },
-    'vod_tpl_play': {
-      type: DataTypes.STRING(30),
-      allowNull: false,
-    },
-    'vod_tpl_down': {
-      type: DataTypes.STRING(30),
-      allowNull: false,
+      comment: "编辑人员",
     },
     'vod_isend': {
       type: DataTypes.TINYINT({ length: 1 }),
@@ -172,58 +177,62 @@ const MacVod = sequelize.define(
     'vod_lock': {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      comment: "是否锁定视频",
     },
     'vod_level': {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      comment: "推荐级别",
     },
     'vod_copyright': {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      comment: "是否开启版权提示",
     },
     'vod_points': {
       type: DataTypes.SMALLINT({ length: 6 }),
       allowNull: false,
-    },
-    'vod_points_play': {
-      type: DataTypes.SMALLINT({ length: 6 }),
-      allowNull: false,
-    },
-    'vod_points_down': {
-      type: DataTypes.SMALLINT({ length: 6 }),
-      allowNull: false,
+      comment: "访问视频需要积分",
     },
     'vod_hits': {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      comment: "总点击量",
     },
     'vod_hits_day': {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      comment: "日点击量",
     },
     'vod_hits_week': {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      comment: "周点击量",
     },
     'vod_hits_month': {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      comment: "月点击量",
     },
     'vod_duration': {
       type: DataTypes.STRING(10),
       allowNull: false,
+      comment: "时长",
     },
     'vod_up': {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      comment: "顶数",
     },
     'vod_down': {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      comment: "踩数",
     },
     'vod_score': {
       type: DataTypes.DECIMAL(3, 1),
       allowNull: false,
+      comment: "平均分",
     },
     'vod_score_all': {
       type: DataTypes.MEDIUMINT({ length: 8 }),
@@ -233,26 +242,32 @@ const MacVod = sequelize.define(
     'vod_score_num': {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      comment: "评分次数"
     },
     'vod_time': {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
+      comment: "更新时间",
     },
     'vod_time_add': {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
+      comment: "添加时间",
     },
     'vod_time_hits': {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
+      comment: "点击时间",
     },
     'vod_time_make': {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
+      comment: "生成时间",
     },
     'vod_trysee': {
       type: DataTypes.SMALLINT({ length: 6 }),
       allowNull: false,
+      comment: "试看时长分",
     },
     'vod_douban_id': {
       type: DataTypes.INTEGER({ length: 10, unsigned: true }),
@@ -267,86 +282,57 @@ const MacVod = sequelize.define(
     'vod_reurl': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "来源地址",
     },
     'vod_rel_vod': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "关联视频ids",
     },
     'vod_rel_art': {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    'vod_pwd': {
-      type: DataTypes.STRING(10),
-      allowNull: false,
-    },
-    'vod_pwd_url': {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    'vod_pwd_play': {
-      type: DataTypes.STRING(10),
-      allowNull: false,
-    },
-    'vod_pwd_play_url': {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    'vod_pwd_down': {
-      type: DataTypes.STRING(10),
-      allowNull: false,
-    },
-    'vod_pwd_down_url': {
-      type: DataTypes.STRING,
-      allowNull: false,
+      comment: "关联文章ids",
     },
     'vod_content': {
       type: DataTypes.TEXT,
       allowNull: false,
+      comment: "详细介绍",
     },
     'vod_play_from': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "播放组",
     },
     'vod_play_server': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "播放服务器组",
     },
     'vod_play_note': {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "播放备注",
     },
     'vod_play_url': {
       type: DataTypes.TEXT({ length: "medium" }),
       allowNull: false,
-    },
-    'vod_down_from': {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    'vod_down_server': {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    'vod_down_note': {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    'vod_down_url': {
-      type: DataTypes.TEXT({ length: "medium" }),
-      allowNull: false,
+      comment: "播放地址",
     },
     'vod_plot': {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      comment: "是否包含分集剧情",
     },
     'vod_plot_name': {
       type: DataTypes.TEXT({ length: "medium" }),
       allowNull: false,
+      comment: "分集剧情名称",
     },
     'vod_plot_detail': {
       type: DataTypes.TEXT({ length: "medium" }),
       allowNull: false,
+      comment: "分集剧情详情",
     },
     'is_delete': {
       type: DataTypes.ENUM("0", "1"),
@@ -356,156 +342,19 @@ const MacVod = sequelize.define(
   },
   {
     freezeTableName: true,
-    indexes: [
-      {
-        name: 'type_id',
-        fields: ['type_id'],
-      },
-      {
-        name: 'type_id_1',
-        fields: ['type_id_1'],
-      },
-      {
-        name: 'vod_level',
-        fields: ['vod_level'],
-      },
-      {
-        name: 'vod_hits',
-        fields: ['vod_hits'],
-      },
-      {
-        name: 'vod_letter',
-        fields: ['vod_letter'],
-      },
-      {
-        name: 'vod_name',
-        fields: ['vod_name'],
-      },
-      {
-        name: 'vod_year',
-        fields: ['vod_year'],
-      },
-      {
-        name: 'vod_area',
-        fields: ['vod_area'],
-      },
-      {
-        name: 'vod_lang',
-        fields: ['vod_lang'],
-      },
-      {
-        name: 'vod_tag',
-        fields: ['vod_tag'],
-      },
-      {
-        name: 'vod_class',
-        fields: ['vod_class'],
-      },
-      {
-        name: 'vod_lock',
-        fields: ['vod_lock'],
-      },
-      {
-        name: 'vod_up',
-        fields: ['vod_up'],
-      },
-      {
-        name: 'vod_down',
-        fields: ['vod_down'],
-      },
-      {
-        name: 'vod_en',
-        fields: ['vod_en'],
-      },
-      {
-        name: 'vod_hits_day',
-        fields: ['vod_hits_day'],
-      },
-      {
-        name: 'vod_hits_week',
-        fields: ['vod_hits_week'],
-      },
-      {
-        name: 'vod_hits_month',
-        fields: ['vod_hits_month'],
-      },
-      {
-        name: 'vod_plot',
-        fields: ['vod_plot'],
-      },
-      {
-        name: 'vod_points_play',
-        fields: ['vod_points_play'],
-      },
-      {
-        name: 'vod_points_down',
-        fields: ['vod_points_down'],
-      },
-      {
-        name: 'group_id',
-        fields: ['group_id'],
-      },
-      {
-        name: 'vod_time_add',
-        fields: ['vod_time_add'],
-      },
-      {
-        name: 'vod_time',
-        fields: ['vod_time'],
-      },
-      {
-        name: 'vod_time_make',
-        fields: ['vod_time_make'],
-      },
-      {
-        name: 'vod_actor',
-        fields: ['vod_actor'],
-      },
-      {
-        name: 'vod_director',
-        fields: ['vod_director'],
-      },
-      {
-        name: 'vod_score_all',
-        fields: ['vod_score_all'],
-      },
-      {
-        name: 'vod_score_num',
-        fields: ['vod_score_num'],
-      },
-      {
-        name: 'vod_total',
-        fields: ['vod_total'],
-      },
-      {
-        name: 'vod_score',
-        fields: ['vod_score'],
-      },
-      {
-        name: 'vod_version',
-        fields: ['vod_version'],
-      },
-      {
-        name: 'vod_state',
-        fields: ['vod_state'],
-      },
-      {
-        name: 'vod_isend',
-        fields: ['vod_isend'],
-      },
-    ]
+    indexes: []
   }
 )
 
-MacVod.sync({ // 如果表不存在,则创建该表(如果已经存在,则不执行任何操作)
-  // force: true, // 将创建表,如果表已经存在,则将其首先删除
-  alter: true, // 这将检查数据库中表的当前状态(它具有哪些列,它们的数据类型等),然后在表中进行必要的更改以使其与模型匹配.
-}).then(res => {
-  console.log(`vod------创建成功`)
-}).catch(err => {
-  console.log(`vod------创建失败`)
-  console.log(err)
-})
+// MacVod.sync({ // 如果表不存在,则创建该表(如果已经存在,则不执行任何操作)
+//   // force: true, // 将创建表,如果表已经存在,则将其首先删除
+//   alter: true, // 这将检查数据库中表的当前状态(它具有哪些列,它们的数据类型等),然后在表中进行必要的更改以使其与模型匹配.
+// }).then(res => {
+//   console.log(`vod------创建成功`)
+// }).catch(err => {
+//   console.log(`vod------创建失败`)
+//   console.log(err)
+// })
 
 module.exports = {
   MacVodModel: MacVod

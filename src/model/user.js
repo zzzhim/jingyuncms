@@ -34,10 +34,10 @@ const MacAdminUser = sequelize.define(
   }
 )
 
-MacAdminUser.sync({
-  // force: true,
-  alter: true,
-})
+// MacAdminUser.sync({
+//   // force: true,
+//   alter: true,
+// })
 
 module.exports = {
   MacAdminUserModel: MacAdminUser

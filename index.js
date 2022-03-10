@@ -2,7 +2,6 @@ import cors from "@koa/cors"
 import Koa from "koa"
 import koaBody from "koa-body"
 import render from "koa-ejs"
-import jwt from "koa-jwt"
 import logger from "koa-logger"
 import session from "koa-session"
 import koaStatic from 'koa-static'
@@ -15,9 +14,9 @@ import { router } from "./src/router"
 const app = new Koa()
 
 require("./src/model/sequelize")
-require("./src/model/vod")
-require("./src/model/recommend_config")
-require("./src/model/recommend_list")
+// require("./src/model/vod")
+// require("./src/model/recommend_config")
+// require("./src/model/recommend_list")
 
 // const list = fs.readdirSync(process.cwd() + '/cache_0/2022/2/9')
 // console.log(list)
@@ -43,17 +42,15 @@ app
   .use(session({
     key: SESSION_KEY
   }, app))
-  .use(jwt({
-    secret: SECRET_KEY,
-  }).unless({
-    path: [
-      /^\/public/,
-      /^\/api\/user\/login/,
-      /^\/api\/common/,
-      /^\/api\/video\/list/,
-      /^\/api\/douban/,
-    ],
-  }))
+  // .use(jwt({
+  //   secret: SECRET_KEY,
+  // }).unless({
+  //   path: [
+  //     /^\/public/,
+  //     /^\/api\/user\/login/,
+  //     /^\/api\/common/,
+  //   ],
+  // }))
   .use(koaBody())
   .use(router.routes(), router.allowedMethods())
   .use(koaStatic(path.join(__dirname, './src/static')))
