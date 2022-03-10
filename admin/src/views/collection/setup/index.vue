@@ -1,5 +1,21 @@
 <template>
   <div class="dashboard-container">
+    <AccurateSearch
+      :list="list"
+      :formData="queryParams"
+      @queryTable="getList"
+      @handleQuery="handleQuery"
+      :isOneRow="true"
+      >
+      <el-button
+        slot="toolbar"
+        type="primary"
+        icon="el-icon-plus"
+        size="mini"
+        @click="handleAdd"
+      >新增</el-button>
+    </AccurateSearch>
+
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -10,28 +26,68 @@
         >
       </el-table-column>
       <el-table-column
-        prop="imgurl"
-        label="视频封面">
+        prop="interfaceName"
+        label="接口名称">
       </el-table-column>
       <el-table-column
-        prop="videoName"
-        label="视频名称"
+        prop="interfaceUrl"
+        label="接口地址"
         >
       </el-table-column>
+
       <el-table-column
-        prop="videoName"
-        label="分类"
+        prop="interfaceType"
+        label="接口类型"
         >
+        <template scope="scope">
+          <el-tag
+            v-if="scope.row.interfaceType === '1'"
+            effect="dark">
+            视频
+          </el-tag>
+          <el-tag
+            v-else-if="scope.row.interfaceType === '2'"
+            effect="dark">
+            文章
+          </el-tag>
+          <el-tag
+            v-else-if="scope.row.interfaceType === '3'"
+            effect="dark">
+            图片
+          </el-tag>
+        </template>
       </el-table-column>
       <el-table-column
-        prop="videoName"
-        label="浏览"
+        prop="responseType"
+        label="返回类型"
         >
+        <template scope="scope">
+          <el-tag
+            v-if="scope.row.responseType === '1'"
+            effect="dark">
+            json
+          </el-tag>
+          <el-tag
+            v-else-if="scope.row.responseType === '2'"
+            effect="dark">
+            xml
+          </el-tag>
+        </template>
       </el-table-column>
       <el-table-column
-        prop="videoName"
-        label="播放器"
+        prop="cmsType"
+        label="cms类型"
         >
+        <template scope="scope">
+          <template v-for="item in cmsTypeList">
+            <el-tag
+              :key="item.id"
+              v-if="scope.row.cmsType == item.id"
+              effect="dark">
+              {{ item.name }}
+            </el-tag>
+          </template>
+        </template>
       </el-table-column>
       <el-table-column
         prop="videoName"
@@ -50,48 +106,118 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <pagination
+      v-show="total>0"
+      :total="total"
+      :page.sync="queryParams.pageNo"
+      :limit.sync="queryParams.pageSize"
+      @pagination="getList"
+    />
+
+    <Add ref="Add" @getList="getList" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { getLocalVideoList } from '../../../api/ffmpeg'
+import { getInterfaceList } from '../../../api/interface'
+import Add from "./add"
 
 export default {
+  components: {
+    Add,
+  },
   data() {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      cmsTypeList: [
+        {
+          id: 1,
+          name: "鲸云cms",
+        },
+        {
+          id: 2,
+          name: "苹果cms",
+        },
+        {
+          id: 3,
+          name: "海洋cms",
+        },
+        {
+          id: 4,
+          name: "飞飞cms",
+        },
+        {
+          id: 5,
+          name: "wpcms",
+        },
+        {
+          id: 6,
+          name: "帝国cms",
+        },
+      ],
+      total: 0,
+      tableData: [],
+      queryParams: {
+        pageNo: 1,
+        pageSize: 10,
+        keyword: '',
+        // interfaceType: '',
+        // cmsType: '',
+      },
     }
   },
   computed: {
     ...mapGetters([
       'name'
-    ])
+    ]),
+    list() {
+      return [
+        {
+          span: 24,
+          label: "接口名称",
+          prop: "keyword",
+          placeholder: "请输入接口名称",
+          inputType: "input",
+          type: "text",
+        },
+        // {
+        //   span: 8,
+        //   label: "接口名称",
+        //   prop: "keyword",
+        //   placeholder: "请输入接口名称",
+        //   inputType: "input",
+        //   type: "text",
+        // },
+        // {
+        //   span: 8,
+        //   label: "接口名称",
+        //   prop: "keyword",
+        //   placeholder: "请输入接口名称",
+        //   inputType: "input",
+        //   type: "text",
+        // },
+      ];
+    }
   },
   methods: {
     getList() {
-      this.getLocalVideoList()
+      this.getInterfaceList()
     },
-    async getLocalVideoList(params = {}) {
-      const res = await getLocalVideoList(params)
+    handleQuery() {
+      this.queryParams.pageNo = 1
+      this.getList()
+    },
+    async getInterfaceList(params = {}) {
+      const res = await getInterfaceList(params)
 
-      console.log(res)
+      if(res.code === 200) {
+        this.tableData = res.data.list
+        this.total = res.data.total || 0
+      }
+    },
+    handleAdd() {
+      this.$refs.Add.isShow(true);
     },
     handleEdit() {
 

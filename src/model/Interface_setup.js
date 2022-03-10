@@ -29,7 +29,7 @@ const InterfaceSetup = sequelize.define(
       allowNull: false,
       comment: "cms类型 1 鲸云cms 2 苹果cms 3 海洋cms 4 飞飞cms 5 wpcms 6 帝国cms",
     },
-    'isDelete': {
+    'is_delete': {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: '0',

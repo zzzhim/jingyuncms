@@ -1,28 +1,52 @@
 import Router from "koa-router"
-import { add } from "../../controllers/interface"
+import { add, list } from "../../controllers/interface"
 
 const router = new Router({
   prefix: '/interface'
 })
 
-router.get('/add', async (ctx, next) => {
-  const { videoName = "", pageNo = 1, pageSize = 10 } = ctx.query
+router.get('/list', async (ctx) => {
+  const {
+    interfaceName,
+    interfaceType,
+    cmsType,
+  } = ctx.query
 
-  const res = await videoFileList({
-    videoName,
-    pageNo,
-    pageSize,
+  const res = await list({
+    interfaceName,
+    interfaceType,
+    cmsType,
   })
 
   ctx.body = res
 })
 
-router.get('/edit', async (ctx, next) => {
+router.post('/add', async (ctx) => {
+  const {
+    interfaceName,
+    interfaceUrl,
+    interfaceType,
+    responseType,
+    cmsType,
+  } = ctx.request.body
+
+  const res = await add({
+    interfaceName,
+    interfaceUrl,
+    interfaceType,
+    responseType,
+    cmsType,
+  })
+
+  ctx.body = res
+})
+
+router.post('/edit', async (ctx) => {
 
 })
 
-router.get('/del', async (ctx, next) => {
+router.post('/del', async (ctx) => {
 
 })
 
-export const ffmpegRouter = router
+export const interfaceRouter = router

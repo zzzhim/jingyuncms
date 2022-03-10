@@ -15,9 +15,6 @@ import logger from "./src/utils/logger"
 const app = new Koa()
 
 require("./src/model/sequelize")
-// require("./src/model/vod")
-// require("./src/model/recommend_config")
-// require("./src/model/recommend_list")
 
 // const list = fs.readdirSync(process.cwd() + '/cache_0/2022/2/9')
 // logger.info(list)

@@ -29,7 +29,7 @@
 
 <script>
 import { getToken } from "@/utils/auth";
-import { upload } from "@/api/file";
+// import { upload } from "@/api/file";
 
 export default {
   components: {},
@@ -82,7 +82,7 @@ export default {
     uploadFile({ file }) {
       const formData = new FormData()
       formData.append('file', file)
-      return upload(formData)
+      // return upload(formData)
     },
     updateFileList(fileList) {
       fileList = fileList.map(item => {
