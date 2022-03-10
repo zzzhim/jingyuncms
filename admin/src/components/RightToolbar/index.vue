@@ -1,7 +1,7 @@
 <!-- @author Shiyn/   huangmx 20200807优化-->
 <template>
   <div class="top-right-btn">
-    <el-row>
+    <el-row type="flex" justify="end">
       <slot />
       <el-tooltip class="item" effect="dark" :content="showSearch ? '隐藏搜索' : '显示搜索'" placement="top">
         <el-button size="mini" circle icon="el-icon-search" @click="toggleSearch()" />

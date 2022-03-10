@@ -39,6 +39,7 @@
     "log4js": "^6.4.2",
     "md5": "^2.3.0",
     "mysql2": "^2.3.3",
+    "node-schedule": "^2.1.0",
     "nodemon": "^2.0.15",
     "puppeteer": "^13.5.0",
     "request": "^2.88.2",

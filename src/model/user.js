@@ -1,11 +1,12 @@
-const { DataTypes } = require('sequelize')
-const jwt = require('jsonwebtoken')
-const { sequelize } = require('./sequelize')
-const { SECRET_KEY } = require('../config')
-const md5 = require('md5')
+import { DataTypes } from "sequelize"
+import jwt from "jsonwebtoken"
+import { sequelize } from "./sequelize"
+import { SECRET_KEY } from "../config"
+import md5 from "md5"
 
-const MacAdminUser = sequelize.define(
-  'admin_user',
+// 用户表
+const User = sequelize.define(
+  'user',
   {
     username: {
       type: DataTypes.STRING,
@@ -34,16 +35,9 @@ const MacAdminUser = sequelize.define(
   }
 )
 
-// MacAdminUser.sync({
-//   // force: true,
-//   alter: true,
-// })
+export const UserModel = User
 
-module.exports = {
-  MacAdminUserModel: MacAdminUser
-}
-
-MacAdminUser.findOrCreate({
+User.findOrCreate({
   where: {
     username: "admin",
     password: md5("admin123")

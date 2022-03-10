@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="添加"
+    title="编辑"
     :visible.sync="dialogVisible"
     width="50%"
     v-loading="loading"
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { interfaceAdd } from "@/api/interface"
+import { interfaceEdit } from "@/api/interface"
 
 export default {
   components: {
@@ -163,7 +163,7 @@ export default {
   methods: {
     isShow(bool, params) {
       this.dialogVisible = bool
-      this.queryPar = {}
+      this.queryPar = { ...params }
     },
     handleSubmit() {
       if(this.loading) {
@@ -173,10 +173,10 @@ export default {
 
       this.$refs.AdvancedForm.$refs['accurateSearch'].validate(async (valid) => {
         if (valid) {
-          const res = await interfaceAdd({ ...this.queryPar })
+          const res = await interfaceEdit({ ...this.queryPar })
 
           if(res.code === 200) {
-            this.$message.success("添加成功")
+            this.$message.success("编辑成功")
             this.dialogVisible = false
             this.$emit("getList")
             this.$emit("close")

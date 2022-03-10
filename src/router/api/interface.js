@@ -1,5 +1,5 @@
 import Router from "koa-router"
-import { add, list } from "../../controllers/interface"
+import { add, list, edit, del } from "../../controllers/interface"
 
 const router = new Router({
   prefix: '/interface'
@@ -42,11 +42,33 @@ router.post('/add', async (ctx) => {
 })
 
 router.post('/edit', async (ctx) => {
+  const {
+    id,
+    interfaceName,
+    interfaceUrl,
+    interfaceType,
+    responseType,
+    cmsType,
+  } = ctx.request.body
 
+  const res = await edit({
+    id,
+    interfaceName,
+    interfaceUrl,
+    interfaceType,
+    responseType,
+    cmsType,
+  })
+
+  ctx.body = res
 })
 
 router.post('/del', async (ctx) => {
+  const { id } = ctx.request.body
 
+  const res = await del({ id })
+
+  ctx.body = res
 })
 
 export const interfaceRouter = router

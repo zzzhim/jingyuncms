@@ -7,3 +7,27 @@ export function getInterfaceList(params) {
     params
   })
 }
+
+export function interfaceAdd(params) {
+  return request({
+    url: '/interface/add',
+    method: 'post',
+    data: params
+  })
+}
+
+export function interfaceEdit(params) {
+  return request({
+    url: '/interface/edit',
+    method: 'post',
+    data: params
+  })
+}
+
+export function interfaceDel(params) {
+  return request({
+    url: '/interface/del',
+    method: 'post',
+    data: params
+  })
+}

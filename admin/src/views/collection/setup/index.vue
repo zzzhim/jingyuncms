@@ -23,6 +23,7 @@
       <el-table-column
         type="index"
         label="序号"
+        width="150"
         >
       </el-table-column>
       <el-table-column
@@ -32,12 +33,14 @@
       <el-table-column
         prop="interfaceUrl"
         label="接口地址"
+        width="400"
         >
       </el-table-column>
 
       <el-table-column
         prop="interfaceType"
         label="接口类型"
+        width="100"
         >
         <template scope="scope">
           <el-tag
@@ -60,6 +63,7 @@
       <el-table-column
         prop="responseType"
         label="返回类型"
+        width="100"
         >
         <template scope="scope">
           <el-tag
@@ -77,6 +81,7 @@
       <el-table-column
         prop="cmsType"
         label="cms类型"
+        width="150"
         >
         <template scope="scope">
           <template v-for="item in cmsTypeList">
@@ -90,7 +95,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="videoName"
+        prop="updatedAt"
         label="更新时间"
         >
       </el-table-column>
@@ -116,17 +121,20 @@
     />
 
     <Add ref="Add" @getList="getList" />
+    <Edit ref="Edit" @getList="getList" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { getInterfaceList } from '../../../api/interface'
+import { getInterfaceList, interfaceDel } from '@/api/interface'
 import Add from "./add"
+import Edit from "./edit"
 
 export default {
   components: {
     Add,
+    Edit,
   },
   data() {
     return {
@@ -219,11 +227,27 @@ export default {
     handleAdd() {
       this.$refs.Add.isShow(true);
     },
-    handleEdit() {
-
+    handleEdit(index, row) {
+      this.$refs.Edit.isShow(true, { ...row });
     },
-    handleDelete() {
+    handleDelete(index, row) {
+      this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        const res = await interfaceDel({ id: row.id })
 
+        if(res.code === 200) {
+          this.$message.success("删除成功")
+          this.getList()
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     }
   },
   created() {

@@ -1,4 +1,4 @@
-const { MacAdminUserModel } = require("../model/user")
+const { UserModel } = require("../model/user")
 const response = require("../utils/response")
 const md5 = require('md5')
 
@@ -9,7 +9,7 @@ class Login {
    * @param {string} password
    */
   async login({ username, password }) {
-    const data = await MacAdminUserModel.findOne({
+    const data = await UserModel.findOne({
       attributes: [ 'username', 'password', 'id' ],
       where: {
         username,
