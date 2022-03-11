@@ -130,7 +130,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getInterfaceList, interfaceDel } from '@/api/interface'
+import { categoryVideoTree } from '@/api/category'
 import Add from "./add"
 import Edit from "./edit"
 
@@ -213,14 +213,14 @@ export default {
   },
   methods: {
     getList() {
-      this.getInterfaceList()
+      this.categoryVideoTree()
     },
     handleQuery() {
       this.queryParams.pageNo = 1
       this.getList()
     },
-    async getInterfaceList(params = {}) {
-      const res = await getInterfaceList(params)
+    async categoryVideoTree(params = {}) {
+      const res = await categoryVideoTree(params)
 
       if(res.code === 200) {
         this.tableData = res.data.list

@@ -6,6 +6,8 @@ import { recommendConfigRouter } from "./recommendConfig"
 import { ffmpegRouter } from "./ffmpeg"
 import { doubanRouter } from "./douban"
 import { interfaceRouter } from "./interface"
+import { proxyRouter } from "./proxy"
+import { categoryRouter } from "./category"
 
 const router = new Router({
   prefix: '/api'
@@ -20,5 +22,7 @@ router
   .use(ffmpegRouter.routes(), ffmpegRouter.allowedMethods())
   .use(doubanRouter.routes(), doubanRouter.allowedMethods())
   .use(interfaceRouter.routes(), interfaceRouter.allowedMethods())
+  .use(proxyRouter.routes(), proxyRouter.allowedMethods())
+  .use(categoryRouter.routes(), categoryRouter.allowedMethods())
 
 export const apiRouter = router

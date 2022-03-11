@@ -1,5 +1,6 @@
-const { DataTypes } = require('sequelize')
-const { sequelize } = require('./sequelize')
+import { DataTypes } from "sequelize"
+import { BindCategoryModel } from "./bind_category"
+import { sequelize } from "./sequelize"
 
 const InterfaceSetup = sequelize.define(
   'interface_setup',
@@ -34,6 +35,11 @@ const InterfaceSetup = sequelize.define(
       comment: "cms类型 1 鲸云cms 2 苹果cms 3 海洋cms 4 飞飞cms 5 wpcms 6 帝国cms",
       field: 'cms_type'
     },
+    // bindType: {
+    //   type: DataTypes.JSON,
+    //   comment: "接口分类绑定到本地分类",
+    //   field: 'bind_type'
+    // },
     isDelete: {
       type: DataTypes.STRING(1),
       allowNull: false,
@@ -43,6 +49,9 @@ const InterfaceSetup = sequelize.define(
   },
 )
 
-module.exports = {
-  InterfaceSetupModel: InterfaceSetup
-}
+InterfaceSetup.hasMany(BindCategoryModel, {
+  foreignKey: "interfaceId",
+  onDelete: "CASCADE",
+})
+
+export const InterfaceSetupModel = InterfaceSetup

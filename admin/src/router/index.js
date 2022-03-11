@@ -48,6 +48,27 @@ export const constantRoutes = [
   },
 
   {
+    path: '/category',
+    component: Layout,
+    name: 'category',
+    redirect: '/category/video',
+    meta: { title: '分类', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'video',
+        name: 'video',
+        component: () => import('@/views/category/video/index'),
+        meta: { title: '视频分类', icon: 'dashboard' }
+      },
+      {
+        path: 'article',
+        name: 'article',
+        component: () => import('@/views/category/article/index'),
+        meta: { title: '文章分类', icon: 'dashboard' }
+      }
+    ]
+  },
+  {
     path: '/collection',
     component: Layout,
     name: 'collection',
@@ -55,11 +76,18 @@ export const constantRoutes = [
     meta: { title: '采集', icon: 'el-icon-s-help' },
     children: [
       {
+        path: 'maccms',
+        name: 'maccms',
+        hidden: true,
+        component: () => import('@/views/collection/maccms/index'),
+        meta: { title: 'maccms接口配置', icon: 'dashboard' }
+      },
+      {
         path: 'setup',
         name: 'setup',
         component: () => import('@/views/collection/setup/index'),
         meta: { title: '自定义接口', icon: 'dashboard' }
-      }
+      },
     ]
   },
 
