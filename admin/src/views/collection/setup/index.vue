@@ -232,7 +232,7 @@ export default {
     },
     handleCollectionSetUp(index, row) {
       if(row.cmsType == "2") {
-        this.$router.push({ path: '/collection/maccms', query: { url: row.interfaceUrl } })
+        this.$router.push({ path: '/collection/maccms', query: { id: row.id, url: row.interfaceUrl } })
       }
     },
     handleEdit(index, row) {

@@ -1,10 +1,18 @@
 import log4js from "log4js"
 
-log4js.configure({
-  appenders: { 'out': { type: 'stdout', layout: { type: 'basic' } } },
-  categories: { default: { appenders: ['out'], level: 'info' } }
-})
+log4js.level = "all"
 
-export const logger = log4js.getLogger('log')
+log4js.configure({
+  appenders: {
+    info: {
+      type: "file", filename: "./log/info.log",
+    },
+  },
+  categories: {
+    default: { appenders: ["info"], level: "all" },
+  }
+});
+
+export const logger = log4js.getLogger('日志')
 
 export default logger

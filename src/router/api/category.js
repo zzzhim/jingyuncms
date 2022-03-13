@@ -76,7 +76,10 @@ router.post('/video/add', async (ctx) => {
   ctx.body = data
 })
 
-
+/**
+ * 
+ * @description 删除视频分类
+ */
 router.post('/video/del', async (ctx) => {
   const { id } = ctx.request.body
 
