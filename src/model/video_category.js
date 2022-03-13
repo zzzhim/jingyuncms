@@ -8,13 +8,14 @@ const videoCategory = sequelize.define(
   {
     sort: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       defaultValue: 0,
       comment: "排序",
     },
     parentId: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      defaultValue: 0,
       field: "parent_id",
       comment: "父级分类ID"
     },
@@ -26,7 +27,7 @@ const videoCategory = sequelize.define(
     },
     status: {
       type: DataTypes.ENUM("0", "1"),
-      allowNull: false,
+      allowNull: true,
       defaultValue: "0",
       comment: "是否启用 0-禁止 1-启用"
     }

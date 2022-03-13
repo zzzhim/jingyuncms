@@ -8,10 +8,25 @@ export function categoryVideoTree(params) {
   })
 }
 
-
 export function categoryVideoAdd(params) {
   return request({
     url: '/category/video/add',
+    method: 'post',
+    data: params
+  })
+}
+
+export function categoryVideoEdit(params) {
+  return request({
+    url: '/category/video/edit',
+    method: 'post',
+    data: params
+  })
+}
+
+export function categoryVideoDel(params) {
+  return request({
+    url: '/category/video/del',
     method: 'post',
     data: params
   })

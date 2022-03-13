@@ -28,10 +28,12 @@ export default {
       loading: false,
       dialogVisible: false,
       queryPar: {},
+      categoryList: []
     }
   },
   computed: {
     list() {
+      const that = this
       return [
         {
           list: [
@@ -45,16 +47,26 @@ export default {
             },
             {
               span: 18,
-              label: "父级分类ID",
-              prop: "parent_id",
-              placeholder: "请输入父级分类ID",
-              inputType: "input",
-              type: "text",
+              label: "父级分类",
+              prop: "parentId",
+              placeholder: "请选择父级分类",
+              inputType: "select",
+              get list() {
+                return [
+                  {
+                    id: 0,
+                    categoryName: "顶级分类",
+                  },
+                  ...that.categoryList
+                ]
+              },
+              selectLabel: "categoryName",
+              selectValue: "id",
             },
             {
               span: 18,
               label: "分类名称",
-              prop: "category_name",
+              prop: "categoryName",
               placeholder: "请输入分类名称",
               inputType: "input",
               type: "text",
@@ -86,7 +98,7 @@ export default {
     },
     rules() {
       return {
-        category_name: [
+        categoryName: [
           { required: true, message: '请输入分类名称', trigger: 'blur' },
         ],
       }
@@ -96,6 +108,7 @@ export default {
     isShow(bool, params) {
       this.dialogVisible = bool
       this.queryPar = {}
+      this.categoryList = params.list
     },
     handleSubmit() {
       if(this.loading) {
