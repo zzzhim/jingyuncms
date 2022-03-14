@@ -4,334 +4,397 @@ import { sequelize } from "./sequelize"
 const MacVod = sequelize.define(
   'vod',
   {
-    'vod_id': {
+    vodId: {
       type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+      field: 'vod_id',
       comment: "视频id"
     },
-    'type_id': {
+    typeId: {
       type: DataTypes.SMALLINT({ length: 6 }),
       allowNull: false,
       defaultValue: 0,
+      field: 'type_id',
       comment: "分类id",
     },
-    // 'type_id_1': {
+    // 'type_id_1: {
     //   type: DataTypes.SMALLINT({ length: 6 }),
     //   allowNull: false,
     //   defaultValue: 0,
     //   comment: "一级分类id",
     // },
-    // 'group_id': {
+    // 'group_id: {
     //   type: DataTypes.SMALLINT({ length: 6 }),
     //   allowNull: false,
     //   defaultValue: 0,
     //   comment: "用户组id",
     // },
-    'vod_name': {
+    vodName: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_name',
       comment: "视频名称"
     },
-    'vod_sub': {
+    vodSub: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_sub',
       comment: "副标题",
     },
-    'vod_en': {
+    vodEn: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_en',
       comment: "别名",
     },
-    'vod_status': {
+    vodStatus: {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      field: 'vod_status',
       comment: "状态 0-未审 1-已审",
     },
-    'vod_letter': {
+    vodLetter: {
       type: DataTypes.CHAR(1),
       allowNull: false,
+      field: 'vod_letter',
       comment: "首字母",
     },
-    'vod_color': {
+    vodColor: {
       type: DataTypes.STRING(6),
       allowNull: false,
+      field: 'vod_color',
       comment: "颜色",
     },
-    'vod_tag': {
+    vodTag: {
       type: DataTypes.STRING(100),
       allowNull: false,
+      field: 'vod_tag',
       comment: "标签",
     },
-    'vod_class': {
+    vodClass: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_class',
       comment: "扩展分类",
     },
-    'vod_pic': {
+    vodPic: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_pic',
       comment: "图片",
     },
-    'vod_pic_thumb': {
+    vodPicThumb: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_pic_thumb',
       comment: "缩略图",
     },
-    'vod_pic_slide': {
+    vodPicSlide: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_pic_slide',
       comment: "幻灯图",
     },
-    'vod_actor': {
+    vodActor: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_actor',
       comment: "主演",
     },
-    'vod_director': {
+    vodDirector: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_director',
       comment: "导演",
     },
-    'vod_writer': {
+    vodWriter: {
       type: DataTypes.STRING(100),
       allowNull: false,
+      field: 'vod_writer',
       comment: "编剧",
     },
-    'vod_behind': {
+    vodBehind: {
       type: DataTypes.STRING(100),
       allowNull: false,
+      field: 'vod_behind',
       comment: "幕后",
     },
-    'vod_blurb': {
+    vodBlurb: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_blurb',
       comment: "简介",
     },
-    'vod_remarks': {
+    vodRemarks: {
       type: DataTypes.STRING(100),
       allowNull: false,
+      field: 'vod_remarks',
       comment: "备注",
     },
-    'vod_pubdate': {
+    vodPubdate: {
       type: DataTypes.STRING(100),
       allowNull: false,
+      field: 'vod_pubdate',
       comment: "上映日期",
     },
-    'vod_total': {
+    vodTotal: {
       type: DataTypes.MEDIUMINT({ length: 8, unsigned: true }),
       allowNull: false,
+      field: 'vod_total',
       comment: "总集数",
     },
-    'vod_serial': {
+    vodSerial: {
       type: DataTypes.STRING(20),
       allowNull: false,
+      field: 'vod_serial',
       comment: "连载数",
     },
-    'vod_tv': {
+    vodTv: {
       type: DataTypes.STRING(30),
       allowNull: false,
+      field: 'vod_tv',
       comment: "上映电视台",
     },
-    'vod_weekday': {
+    vodWeekday: {
       type: DataTypes.STRING(30),
       allowNull: false,
+      field: 'vod_weekday',
       comment: "节目周期",
     },
-    'vod_area': {
+    vodArea: {
       type: DataTypes.STRING(20),
       allowNull: false,
+      field: 'vod_area',
       comment: "地区",
     },
-    'vod_lang': {
+    vodLang: {
       type: DataTypes.STRING(10),
       allowNull: false,
+      field: 'vod_lang',
       comment: "语言",
     },
-    'vod_year': {
+    vodYear: {
       type: DataTypes.STRING(10),
       allowNull: false,
+      field: 'vod_year',
       comment: "年份",
     },
-    'vod_version': {
+    vodVersion: {
       type: DataTypes.STRING(30),
       allowNull: false,
+      field: 'vod_version',
       comment: "版本-dvd,hd,720p",
     },
-    'vod_state': {
+    vodState: {
       type: DataTypes.STRING(30),
       allowNull: false,
+      field: 'vod_state',
       comment: "资源类别-正片,预告片,花絮",
     },
-    'vod_author': {
+    vodAuthor: {
       type: DataTypes.STRING(60),
       allowNull: false,
+      field: 'vod_author',
       comment: "编辑人员",
     },
-    'vod_isend': {
+    vodIsend: {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      field: 'vod_isend',
       comment: "是否完结",
     },
-    'vod_lock': {
+    vodLock: {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      field: 'vod_lock',
       comment: "是否锁定视频",
     },
-    'vod_level': {
+    vodLevel: {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      field: 'vod_level',
       comment: "推荐级别",
     },
-    'vod_copyright': {
+    vodCopyright: {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      field: 'vod_copyright',
       comment: "是否开启版权提示",
     },
-    'vod_points': {
+    vodPoints: {
       type: DataTypes.SMALLINT({ length: 6 }),
       allowNull: false,
+      field: 'vod_points',
       comment: "访问视频需要积分",
     },
-    'vod_hits': {
+    vodHits: {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      field: 'vod_hits',
       comment: "总点击量",
     },
-    'vod_hits_day': {
+    vodHitsDay: {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      field: 'vod_hits_day',
       comment: "日点击量",
     },
-    'vod_hits_week': {
+    vodHitsWeek: {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      field: 'vod_hits_week',
       comment: "周点击量",
     },
-    'vod_hits_month': {
+    vodHitsMonth: {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      field: 'vod_hits_month',
       comment: "月点击量",
     },
-    'vod_duration': {
+    vodDuration: {
       type: DataTypes.STRING(10),
       allowNull: false,
+      field: 'vod_duration',
       comment: "时长",
     },
-    'vod_up': {
+    vodUp: {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      field: 'vod_up',
       comment: "顶数",
     },
-    'vod_down': {
+    vodDown: {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      field: 'vod_down',
       comment: "踩数",
     },
-    'vod_score': {
+    vodScore: {
       type: DataTypes.DECIMAL(3, 1),
       allowNull: false,
+      field: 'vod_score',
       comment: "平均分",
     },
-    'vod_score_all': {
+    vodScoreAll: {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      field: 'vod_score_all',
       comment: "总评分"
     },
-    'vod_score_num': {
+    vodScoreNum: {
       type: DataTypes.MEDIUMINT({ length: 8 }),
       allowNull: false,
+      field: 'vod_score_num',
       comment: "评分次数"
     },
-    'vod_time': {
+    vodTime: {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
+      field: 'vod_time',
       comment: "更新时间",
     },
-    'vod_time_add': {
+    vodTimeAdd: {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
+      field: 'vod_time_add',
       comment: "添加时间",
     },
-    'vod_time_hits': {
+    vodTimeHits: {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
+      field: 'vod_time_hits',
       comment: "点击时间",
     },
-    'vod_time_make': {
+    vodTimeMake: {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
+      field: 'vod_time_make',
       comment: "生成时间",
     },
-    'vod_trysee': {
+    vodTrysee: {
       type: DataTypes.SMALLINT({ length: 6 }),
       allowNull: false,
+      field: 'vod_trysee',
       comment: "试看时长分",
     },
-    'vod_douban_id': {
+    vodDoubanId: {
       type: DataTypes.INTEGER({ length: 10, unsigned: true }),
       allowNull: false,
+      field: 'vod_douban_id',
       comment: "豆瓣ID",
     },
-    'vod_douban_score': {
+    vodDoubanScore: {
       type: DataTypes.DECIMAL(3, 1),
       allowNull: false,
+      field: 'vod_douban_score',
       comment: "豆瓣评分",
     },
-    'vod_reurl': {
+    vodReurl: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_reurl',
       comment: "来源地址",
     },
-    'vod_rel_vod': {
+    vodRelVod: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_rel_vod',
       comment: "关联视频ids",
     },
-    'vod_rel_art': {
+    vodRelArt: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_rel_art',
       comment: "关联文章ids",
     },
-    'vod_content': {
+    vodContent: {
       type: DataTypes.TEXT,
       allowNull: false,
+      field: 'vod_content',
       comment: "详细介绍",
     },
-    'vod_play_from': {
+    vodPlayFrom: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_play_from',
       comment: "播放组",
     },
-    'vod_play_note': {
+    vodPlayNote: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'vod_play_note',
       comment: "播放备注",
     },
-    'vod_play_url': {
+    vodPlayUrl: {
       type: DataTypes.TEXT({ length: "medium" }),
       allowNull: false,
+      field: 'vod_play_url',
       comment: "播放地址",
     },
-    'vod_plot': {
+    vodPlot: {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
+      field: 'vod_plot',
       comment: "是否包含分集剧情",
     },
-    'vod_plot_name': {
+    vodPlotName: {
       type: DataTypes.TEXT({ length: "medium" }),
       allowNull: false,
+      field: 'vod_plot_name',
       comment: "分集剧情名称",
     },
-    'vod_plot_detail': {
+    vodPlotDetail: {
       type: DataTypes.TEXT({ length: "medium" }),
       allowNull: false,
+      field: 'vod_plot_detail',
       comment: "分集剧情详情",
     },
-    'is_delete': {
+    isDelete: {
       type: DataTypes.ENUM("0", "1"),
       allowNull: false,
+      field: 'is_delete',
       defaultValue: "0",
     },
   },

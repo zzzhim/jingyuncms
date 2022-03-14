@@ -81,7 +81,7 @@ export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
     return response.success(
       200,
       {
-        count: count,
+        total: count,
         list: rows,
       }
     )
@@ -97,7 +97,9 @@ export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
  */
 export const videoAdd = async (params) => {
   try {
-    
+    await MacVodModel.create({ ...params })
+
+    return response.success(200, {})
   } catch (error) {
     logger.error(error)
     return response.error(500)
