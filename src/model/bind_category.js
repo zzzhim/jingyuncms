@@ -22,12 +22,6 @@ const bindCategory = sequelize.define(
       field: "interface_category_name",
       comment: "接口分类名称"
     },
-    videoCategoryId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      field: "video_category_id",
-      comment: "视频分类ID"
-    },
     bindVideoCategoryId: {
       type: DataTypes.INTEGER,
       allowNull: true,

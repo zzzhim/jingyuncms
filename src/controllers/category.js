@@ -1,4 +1,5 @@
 
+import { BindCategoryModel } from "../model/bind_category"
 import { VideoCategoryModel } from "../model/video_category"
 import logger from "../utils/logger"
 import response from "../utils/response"
@@ -37,7 +38,7 @@ export const addVideoCategory = async (params) => {
  * 
  * @description 编辑视频分类
  */
- export const editVideoCategory = async (params) => {
+export const editVideoCategory = async (params) => {
   try {
     if(params.parentId && params.parentId != 0) {
       const data = await VideoCategoryModel.findOne({
@@ -72,7 +73,7 @@ export const addVideoCategory = async (params) => {
  * 
  * @description 删除视频分类
  */
- export const delVideoCategory = async (params) => {
+export const delVideoCategory = async (params) => {
   try {
     await VideoCategoryModel.destroy({
       where: {
@@ -86,3 +87,38 @@ export const addVideoCategory = async (params) => {
     return response.error(500, error, '服务器异常')
   }
 }
+
+/**
+ * 
+ * @description 指定接口分类绑定列表
+ */
+export const bindInterfaceList = async (params) => {
+  try {
+    const data = await BindCategoryModel.findAndCountAll({
+      where: {
+        interfaceId: params.id
+      }
+    })
+
+    return response.success(200, { total: data.count, list: data.rows })
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, error, '服务器异常')
+  }
+}
+
+/**
+ * 
+ * @description 指定接口分类绑定列表
+ */
+export const bindInterfaceAdd = async (params) => {
+  try {
+    await BindCategoryModel.create({ ...params })
+
+    return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, error, '服务器异常')
+  }
+}
+

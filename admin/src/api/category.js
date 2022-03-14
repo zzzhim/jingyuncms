@@ -31,3 +31,19 @@ export function categoryVideoDel(params) {
     data: params
   })
 }
+
+export function bindInterfaceList(params) {
+  return request({
+    url: '/category/bind/interface/list',
+    method: 'get',
+    params
+  })
+}
+
+export function bindInterfaceAdd(params) {
+  return request({
+    url: '/category/bind/interface/add',
+    method: 'post',
+    data: params
+  })
+}

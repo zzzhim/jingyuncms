@@ -6,6 +6,7 @@
         v-for="item in classList"
         :key="item.type_id"
         type="danger"
+        @click="handleBindVideo(item)"
       >{{ item.type_name }}(未绑定)</el-tag>
       <!-- <el-tag
         class="tag"
@@ -71,14 +72,18 @@
       @pagination="getList"
     />
 
+    <BindCategory ref="BindCategory" @getList="bindInterfaceList" />
   </div>
 </template>
 
 <script>
 import { maccmsProxy } from "@/api/proxy"
+import { bindInterfaceList, categoryVideoTree } from "@/api/category"
+import BindCategory from "./bindCategory.vue"
 
 export default {
   components: {
+    BindCategory
   },
   data() {
     return {
@@ -91,11 +96,20 @@ export default {
         pg: 1,
         pageSize: 10,
       },
+      category: []
     }
   },
   computed: {},
   methods: {
     async getList() {
+      this.maccmsProxy()
+    },
+    async bindInterfaceList() {
+      const res = await bindInterfaceList({ id: this.$route.query.id })
+
+      console.log(res)
+    },
+    async maccmsProxy() {
       try {
         if(this.loading) {
           return 
@@ -119,9 +133,29 @@ export default {
         this.loading = false
       }
     },
+    async categoryVideoTree(params = {}) {
+      const res = await categoryVideoTree(params)
+
+      if(res.code === 200) {
+        this.category = res.data.list
+      }
+    },
+    handleBindVideo(item) {
+      this.$refs.BindCategory.isShow(
+        true,
+        {
+          id: this.$route.query.id,
+          typeId: item.type_id,
+          typeName: item.type_name,
+          list: [ ...this.category]
+        }
+      )
+    },
   },
   created() {
+    this.categoryVideoTree()
     this.getList()
+    this.bindInterfaceList()
   }
 }
 </script>

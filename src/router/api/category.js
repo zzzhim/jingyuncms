@@ -1,5 +1,12 @@
 import Router from 'koa-router'
-import { videoCategoryTree, addVideoCategory, editVideoCategory, delVideoCategory } from '../../controllers/category'
+import {
+  videoCategoryTree,
+  addVideoCategory,
+  editVideoCategory,
+  delVideoCategory,
+  bindInterfaceList,
+  bindInterfaceAdd
+} from '../../controllers/category'
 
 const router = new Router({
   prefix: '/category'
@@ -49,7 +56,7 @@ router.post('/video/add', async (ctx) => {
  * 
  * @description 编辑视频分类
  */
- router.post('/video/edit', async (ctx) => {
+router.post('/video/edit', async (ctx) => {
   const {
     id,
     sort = 0,
@@ -86,6 +93,43 @@ router.post('/video/del', async (ctx) => {
   const res = await delVideoCategory({ id })
 
   ctx.body = res
+})
+
+/**
+ * 
+ * @description 指定接口分类绑定列表
+ */
+router.get('/bind/interface/list', async (ctx) => {
+  const { id } = ctx.query
+
+  const res = await bindInterfaceList({ id })
+
+  ctx.body = res
+})
+
+
+/**
+ * 
+ * @description 绑定指定接口分类
+ */
+router.post('/bind/interface/add', async (ctx) => {
+  const {
+    interfaceId,
+    interfaceCategoryId,
+    interfaceCategoryName,
+    bindVideoCategoryId,
+    bindVideoCategoryName,
+  } = ctx.request.body
+
+  const data = await bindInterfaceAdd({
+    interfaceId,
+    interfaceCategoryId,
+    interfaceCategoryName,
+    bindVideoCategoryId,
+    bindVideoCategoryName
+  })
+
+  ctx.body = data
 })
 
 export const categoryRouter = router
