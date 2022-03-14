@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize')
-const { sequelize } = require('./sequelize')
+import { DataTypes } from "sequelize"
+import { sequelize } from "./sequelize"
 
 const MacRecommendList = sequelize.define(
   'recommend_list',
@@ -121,6 +121,4 @@ const MacRecommendList = sequelize.define(
   }
 )
 
-module.exports = {
-  MacRecommendListModel: MacRecommendList
-}
+export const MacRecommendListModel = MacRecommendList

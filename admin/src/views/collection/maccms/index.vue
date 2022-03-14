@@ -5,22 +5,25 @@
         class="tag"
         v-for="item in classList"
         :key="item.type_id"
-        type="danger"
+        :type=" bindCategory(item) === '未绑定' ? 'danger' : 'success'"
         @click="handleBindVideo(item)"
-      >{{ item.type_name }}(未绑定)</el-tag>
-      <!-- <el-tag
-        class="tag"
-        v-for="item in classList"
-        :key="item.type_id"
-        type="success"
-      >{{ item.type_name }}(未绑定)</el-tag> -->
+      >{{ item.type_name }}({{ bindCategory(item) }})</el-tag>
     </div>
+
+    <el-button type="primary" @click="handleClickAll">采集全部</el-button>
 
     <el-table
       :data="tableData"
       style="width: 100%"
       v-loading="loading"
+      @selection-change="handleSelectionChange"
+      @select-all="handleSelectionChange"
     >
+      <el-table-column
+        type="selection"
+        width="55">
+      </el-table-column>
+
       <el-table-column
         type="index"
         label="序号"
@@ -61,6 +64,14 @@
         label="最近更新时间"
         >
       </el-table-column>
+
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            @click="handleClick(scope.row)">采集</el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <pagination
@@ -77,7 +88,7 @@
 </template>
 
 <script>
-import { maccmsProxy } from "@/api/proxy"
+import { maccmsProxy, maccmsDetailProxy } from "@/api/proxy"
 import { bindInterfaceList, categoryVideoTree } from "@/api/category"
 import BindCategory from "./bindCategory.vue"
 
@@ -96,7 +107,10 @@ export default {
         pg: 1,
         pageSize: 10,
       },
-      category: []
+      category: [],
+      bindCategoryList: [],
+      multipleSelection: [],
+      url: '',
     }
   },
   computed: {},
@@ -107,7 +121,9 @@ export default {
     async bindInterfaceList() {
       const res = await bindInterfaceList({ id: this.$route.query.id })
 
-      console.log(res)
+      if(res.code === 200) {
+        this.bindCategoryList = res.data.list
+      }
     },
     async maccmsProxy() {
       try {
@@ -117,7 +133,7 @@ export default {
 
         this.loading = true
 
-        const res = await maccmsProxy({ url: this.$route.query.url + `&pg=${this.queryParams.pg}`, method: 'get' })
+        const res = await maccmsProxy({ url: this.$route.query.url + `&ac=list&pg=${this.queryParams.pg}`, method: 'get' })
 
         if(res.code === 200 && res.data.code === 1) {
           const limit = parseInt(res.data.limit)
@@ -126,6 +142,25 @@ export default {
           this.pageSizes = [ limit ]
           this.queryParams.pageSize = limit
           this.classList = res.data.class
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loading = false
+      }
+    },
+    async maccmsDetailProxy(ids) {
+      try {
+        if(this.loading) {
+          return 
+        }
+
+        this.loading = true
+
+        const res = await maccmsDetailProxy({ url: this.$route.query.url + `&ac=detail&ids=${ids}`, method: 'get' })
+
+        if(res.code === 200 && res.data.code === 1) {
+          this.$message.success('采集成功')
         }
       } catch (error) {
         console.log(error)
@@ -151,8 +186,36 @@ export default {
         }
       )
     },
+    bindCategory(item) {
+      const find = this.bindCategoryList.find(ele => ele.interfaceCategoryId === item.type_id)
+
+      return find ? find.bindVideoCategoryName : '未绑定'
+    },
+    handleClick(row) {
+      this.maccmsDetailProxy(row.vod_id)
+    },
+    handleClickAll() {
+      const str = this.multipleSelection.map(item => item.vod_id).join(',')
+
+      if(str.length === 0) {
+        return this.$message.warning('请选择采集数据')
+      }
+
+      this.maccmsDetailProxy(str)
+    },
+    // 选择按钮
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    }
   },
   created() {
+    let url = this.$route.query.url
+
+    if(url.includes('?')) {
+      url = url.split('?')
+      this.url = url[0]
+    }
+
     this.categoryVideoTree()
     this.getList()
     this.bindInterfaceList()

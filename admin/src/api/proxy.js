@@ -7,3 +7,11 @@ export function maccmsProxy(params) {
     data: params
   })
 }
+
+export function maccmsDetailProxy(params) {
+  return request({
+    url: '/proxy/maccms/detail',
+    method: 'post',
+    data: params
+  })
+}

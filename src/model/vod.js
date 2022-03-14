@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize')
-const { sequelize } = require('./sequelize')
+import { DataTypes } from "sequelize"
+import { sequelize } from "./sequelize"
 
 const MacVod = sequelize.define(
   'vod',
@@ -17,18 +17,18 @@ const MacVod = sequelize.define(
       defaultValue: 0,
       comment: "分类id",
     },
-    'type_id_1': {
-      type: DataTypes.SMALLINT({ length: 6 }),
-      allowNull: false,
-      defaultValue: 0,
-      comment: "一级分类id",
-    },
-    'group_id': {
-      type: DataTypes.SMALLINT({ length: 6 }),
-      allowNull: false,
-      defaultValue: 0,
-      comment: "用户组id",
-    },
+    // 'type_id_1': {
+    //   type: DataTypes.SMALLINT({ length: 6 }),
+    //   allowNull: false,
+    //   defaultValue: 0,
+    //   comment: "一级分类id",
+    // },
+    // 'group_id': {
+    //   type: DataTypes.SMALLINT({ length: 6 }),
+    //   allowNull: false,
+    //   defaultValue: 0,
+    //   comment: "用户组id",
+    // },
     'vod_name': {
       type: DataTypes.STRING,
       allowNull: false,
@@ -47,7 +47,7 @@ const MacVod = sequelize.define(
     'vod_status': {
       type: DataTypes.TINYINT({ length: 1 }),
       allowNull: false,
-      comment: "状态0未审1已审",
+      comment: "状态 0-未审 1-已审",
     },
     'vod_letter': {
       type: DataTypes.CHAR(1),
@@ -304,11 +304,6 @@ const MacVod = sequelize.define(
       allowNull: false,
       comment: "播放组",
     },
-    'vod_play_server': {
-      type: DataTypes.STRING,
-      allowNull: false,
-      comment: "播放服务器组",
-    },
     'vod_play_note': {
       type: DataTypes.STRING,
       allowNull: false,
@@ -346,9 +341,7 @@ const MacVod = sequelize.define(
   }
 )
 
-module.exports = {
-  MacVodModel: MacVod
-}
+export const MacVodModel = MacVod
 
 // 参数
 // order 排列顺序desc倒序，asc正序
