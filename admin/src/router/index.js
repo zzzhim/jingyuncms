@@ -90,6 +90,28 @@ export const constantRoutes = [
       },
     ]
   },
+  
+  {
+    path: '/schedule',
+    component: Layout,
+    name: 'schedule',
+    redirect: '/schedule/list',
+    meta: { title: '定时任务', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/schedule/list/index'),
+        meta: { title: '定时任务列表', icon: 'dashboard' }
+      },
+      {
+        path: 'log',
+        name: 'log',
+        component: () => import('@/views/schedule/log/index'),
+        meta: { title: '定时任务日志', icon: 'dashboard' }
+      },
+    ]
+  },
 
   {
     path: '/ffmpeg',

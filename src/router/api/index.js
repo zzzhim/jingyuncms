@@ -8,6 +8,7 @@ import { doubanRouter } from "./douban"
 import { interfaceRouter } from "./interface"
 import { proxyRouter } from "./proxy"
 import { categoryRouter } from "./category"
+import { scheduleRouter } from "./schedule"
 
 const router = new Router({
   prefix: '/api'
@@ -24,5 +25,6 @@ router
   .use(interfaceRouter.routes(), interfaceRouter.allowedMethods())
   .use(proxyRouter.routes(), proxyRouter.allowedMethods())
   .use(categoryRouter.routes(), categoryRouter.allowedMethods())
+  .use(scheduleRouter.routes(), scheduleRouter.allowedMethods())
 
 export const apiRouter = router
