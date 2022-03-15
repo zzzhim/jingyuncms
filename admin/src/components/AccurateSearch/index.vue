@@ -199,8 +199,8 @@ export default {
      * 重置按钮操作
      */
     resetQuery() {
-      this.resetForm("accurateSearch");
-      this.$emit("queryTable");
+      this.$refs["accurateSearch"].resetFields()
+      this.$emit("queryTable")
     },
     prevent() {
 

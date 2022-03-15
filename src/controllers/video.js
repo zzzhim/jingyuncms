@@ -3,6 +3,7 @@ import response from '../utils/response'
 import { LetterNumtoLine } from '../utils/toLine'
 import { Op } from 'sequelize'
 import { logger } from '../utils/logger'
+import { BindCategoryModel } from '../model/bind_category'
 
 /**
  *
@@ -97,7 +98,38 @@ export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
  */
 export const videoAdd = async (params) => {
   try {
-    await MacVodModel.create({ ...params })
+    const category = await BindCategoryModel.findAll({
+      where: {
+        interfaceId: params.interfaceId,
+      }
+    })
+
+    let list = params.list.map(item => {
+      const find = category.find(ele => ele.getDataValue('interfaceCategoryId') == item.typeId)
+
+      if(find) {
+        return {
+          ...item,
+          categoryId: find.getDataValue('bindVideoCategoryId'),
+        }
+      }else {
+        return false
+      }
+    })
+
+    list = list.filter(item => item != false)
+
+    // 批量添加视频数据
+    // await MacVodModel.bulkCreate(list)
+
+    list.forEach(async element => {
+      await MacVodModel.findOrCreate({
+        where: {
+          vodName: element.vodName
+        },
+        defaults: element,
+      })
+    })
 
     return response.success(200, {})
   } catch (error) {

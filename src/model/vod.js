@@ -7,16 +7,16 @@ const MacVod = sequelize.define(
     vodId: {
       type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
       allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
+      // primaryKey: true,
+      // autoIncrement: true,
       field: 'vod_id',
       comment: "视频id"
     },
-    typeId: {
+    categoryId: {
       type: DataTypes.SMALLINT({ length: 6 }),
       allowNull: false,
       defaultValue: 0,
-      field: 'type_id',
+      field: 'category_id',
       comment: "分类id",
     },
     // 'type_id_1: {
@@ -290,25 +290,25 @@ const MacVod = sequelize.define(
       comment: "评分次数"
     },
     vodTime: {
-      type: DataTypes.INTEGER({ length: 10 }),
+      type: DataTypes.STRING,
       allowNull: false,
       field: 'vod_time',
       comment: "更新时间",
     },
     vodTimeAdd: {
-      type: DataTypes.INTEGER({ length: 10 }),
+      type: DataTypes.STRING,
       allowNull: false,
       field: 'vod_time_add',
       comment: "添加时间",
     },
     vodTimeHits: {
-      type: DataTypes.INTEGER({ length: 10 }),
+      type: DataTypes.STRING,
       allowNull: false,
       field: 'vod_time_hits',
       comment: "点击时间",
     },
     vodTimeMake: {
-      type: DataTypes.INTEGER({ length: 10 }),
+      type: DataTypes.STRING,
       allowNull: false,
       field: 'vod_time_make',
       comment: "生成时间",

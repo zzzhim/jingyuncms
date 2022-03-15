@@ -10,7 +10,15 @@
       >{{ item.type_name }}({{ bindCategory(item) }})</el-tag>
     </div>
 
-    <el-button type="primary" @click="handleClickAll">采集全部</el-button>
+    <AccurateSearch
+      :list="list"
+      :formData="queryParams"
+      @queryTable="getList"
+      @handleQuery="handleQuery"
+      :isOneRow="true"
+      >
+      <el-button slot="toolbar" type="primary" @click="handleClickAll">采集全部</el-button>
+    </AccurateSearch>
 
     <el-table
       :data="tableData"
@@ -89,6 +97,8 @@
 
 <script>
 import { maccmsProxy, maccmsDetailProxy } from "@/api/proxy"
+import { videoAdd } from "@/api/video"
+import { underlineToHump } from "@/utils/underlineToHump"
 import { bindInterfaceList, categoryVideoTree } from "@/api/category"
 import BindCategory from "./bindCategory.vue"
 
@@ -104,6 +114,8 @@ export default {
       tableData: [],
       pageSizes: [ 20 ],
       queryParams: {
+        keyword: '',
+        type_id: '',
         pg: 1,
         pageSize: 10,
       },
@@ -113,9 +125,41 @@ export default {
       url: '',
     }
   },
-  computed: {},
+  computed: {
+    list() {
+      const that = this
+      return [
+        {
+          span: 12,
+          label: "视频名称",
+          prop: "keyword",
+          placeholder: "请输入视频名称",
+          inputType: "input",
+          type: "text",
+        },
+        {
+          span: 12,
+          label: "分类列表",
+          prop: "type_id",
+          placeholder: "请选择分类",
+          inputType: "select",
+          get list() {
+            return [
+              ...that.classList
+            ]
+          },
+          selectLabel: "type_name",
+          selectValue: "type_id",
+        },
+      ]
+    },
+  },
   methods: {
     async getList() {
+      this.maccmsProxy()
+    },
+    handleQuery() {
+      this.queryParams.pg = 1
       this.maccmsProxy()
     },
     async bindInterfaceList() {
@@ -133,7 +177,16 @@ export default {
 
         this.loading = true
 
-        const res = await maccmsProxy({ url: this.$route.query.url + `&ac=list&pg=${this.queryParams.pg}`, method: 'get' })
+        let params = '&ac=list'
+        if(this.queryParams.keyword) {
+          params = params + `&wd=${encodeURIComponent(this.queryParams.keyword)}`
+        }
+
+        if(this.queryParams.type_id) {
+          params = params + `&t=${this.queryParams.type_id}`
+        }
+
+        const res = await maccmsProxy({ url: this.$route.query.url + `&ac=list&pg=${this.queryParams.pg}${params}`, method: 'get' })
 
         if(res.code === 200 && res.data.code === 1) {
           const limit = parseInt(res.data.limit)
@@ -160,12 +213,12 @@ export default {
         const res = await maccmsDetailProxy({ url: this.$route.query.url + `&ac=detail&ids=${ids}`, method: 'get' })
 
         if(res.code === 200 && res.data.code === 1) {
-          this.$message.success('采集成功')
+          this.$message.success('采集成功，开始添加视频数据')
+
+          this.videoAdd(res.data.list)
         }
       } catch (error) {
         console.log(error)
-      } finally {
-        this.loading = false
       }
     },
     async categoryVideoTree(params = {}) {
@@ -206,6 +259,33 @@ export default {
     // 选择按钮
     handleSelectionChange(val) {
       this.multipleSelection = val;
+    },
+    async videoAdd(list) {
+      try {
+        list = list.map(item => {
+          const obj = {}
+          for(let key in item) {
+            obj[underlineToHump(key)] = item[key]
+          }
+
+          return obj
+        })
+
+        const res = await videoAdd({
+          interfaceId: this.$route.query.id,
+          list
+        })
+
+        if(res.code === 200) {
+          this.$message.success('添加视频成功')
+        }
+
+      } catch (error) {
+        
+      } finally {
+        this.loading = false
+      }
+      
     }
   },
   created() {
