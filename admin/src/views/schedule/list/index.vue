@@ -1,24 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div>
-      <el-tag
-        class="tag"
-        v-for="item in classList"
-        :key="item.type_id"
-        :type=" bindCategory(item) === '未绑定' ? 'danger' : 'success'"
-        @click="handleBindVideo(item)"
-      >{{ item.type_name }}({{ bindCategory(item) }})</el-tag>
-    </div>
-
-    <AccurateSearch
-      :list="list"
-      :formData="queryParams"
-      @queryTable="getList"
-      @handleQuery="handleQuery"
-      :isOneRow="true"
-      >
-      <el-button slot="toolbar" type="primary" @click="handleClickAll">添加定时任务</el-button>
-    </AccurateSearch>
+    <el-button slot="toolbar" type="primary" @click="handleClickAll">添加定时任务</el-button>
 
     <el-table
       :data="tableData"
@@ -28,48 +10,73 @@
       @select-all="handleSelectionChange"
     >
       <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
-
-      <el-table-column
-        type="index"
-        label="序号"
-        width="150"
+        prop="jobName"
+        label="任务名称"
         >
       </el-table-column>
       <el-table-column
-        prop="vod_name"
-        label="视频名称"
-        >
-      </el-table-column>
-      <el-table-column
-        prop="vod_en"
-        label="拼音"
+        prop="cron"
+        label="cron表达式"
         >
       </el-table-column>
 
       <el-table-column
-        prop="vod_remarks"
-        label="备注"
+        prop="jobParams"
+        label="参数"
         >
       </el-table-column>
 
       <el-table-column
-        prop="type_name"
-        label="分类"
+        prop="jobHandler"
+        label="任务处理方法"
         >
       </el-table-column>
 
       <el-table-column
-        prop="vod_play_from"
-        label="播放器"
+        prop="jobHandlerTime"
+        label="任务处理时间"
+        >
+      </el-table-column>
+      <!-- 
+      <el-table-column
+        prop="jobLog"
+        label="任务日志"
         >
       </el-table-column>
       
       <el-table-column
-        prop="vod_time"
-        label="最近更新时间"
+        prop="jobErrorLog"
+        label="任务异常日志"
+        >
+      </el-table-column> -->
+
+      <el-table-column
+        prop="description"
+        label="详情"
+        >
+      </el-table-column>
+
+      <el-table-column
+        prop="jobStatus"
+        label="任务状态"
+        >
+      </el-table-column>
+
+      <el-table-column
+        prop="triggerType"
+        label="触发类型"
+        >
+      </el-table-column>
+
+      <el-table-column
+        prop="executionStatus"
+        label="任务执行状态"
+        >
+      </el-table-column>
+
+      <el-table-column
+        prop="updatedAt"
+        label="更新时间"
         >
       </el-table-column>
 
