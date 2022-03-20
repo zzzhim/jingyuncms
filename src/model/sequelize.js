@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize'
 import { logger } from '../utils/logger'
+import io from "socket.io"
 
 const sequelize = new Sequelize('jingyuncms', 'jingyuncms', '3Z6Ry36dfAwk4TJS', {
   host: '101.35.189.229',

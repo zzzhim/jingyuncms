@@ -103,6 +103,9 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
+            @click="handleCollectionStart(scope.$index, scope.row)">开始采集</el-button>
+          <el-button
+            size="mini"
             @click="handleCollectionSetUp(scope.$index, scope.row)">采集配置</el-button>
           <el-button
             size="mini"
@@ -229,6 +232,9 @@ export default {
     },
     handleAdd() {
       this.$refs.Add.isShow(true);
+    },
+    handleCollectionStart(index, row) {
+      
     },
     handleCollectionSetUp(index, row) {
       if(row.cmsType == "2") {

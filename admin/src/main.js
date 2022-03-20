@@ -10,6 +10,7 @@ import Pagination from "@/components/Pagination";
 import RightToolbar from "@/components/RightToolbar"
 import AccurateSearch from "@/components/AccurateSearch"
 import AdvancedForm from "@/components/AdvancedForm"
+// import VueSocketIO from 'vue-socket.io'
 
 import '@/styles/index.scss' // global css
 
@@ -42,6 +43,12 @@ Vue.component('AdvancedForm', AdvancedForm)
 Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
+// Vue.use(new VueSocketIO({
+//   debug: true,
+//   connection: 'localhost:4000',
+//   vuex: {},
+//   options: {} //Optional options
+// }))
 
 Vue.config.productionTip = false
 
