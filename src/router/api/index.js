@@ -9,6 +9,7 @@ import { interfaceRouter } from "./interface"
 import { proxyRouter } from "./proxy"
 import { categoryRouter } from "./category"
 import { scheduleRouter } from "./schedule"
+import { collectionRouter } from "./collection"
 
 const router = new Router({
   prefix: '/api'
@@ -26,5 +27,6 @@ router
   .use(proxyRouter.routes(), proxyRouter.allowedMethods())
   .use(categoryRouter.routes(), categoryRouter.allowedMethods())
   .use(scheduleRouter.routes(), scheduleRouter.allowedMethods())
+  .use(collectionRouter.routes(), collectionRouter.allowedMethods())
 
 export const apiRouter = router

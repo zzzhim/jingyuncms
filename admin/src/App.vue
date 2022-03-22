@@ -1,6 +1,23 @@
 <template>
   <div id="app">
     <router-view />
+
+    <transition name="fade-transform">
+      <div class="log" v-show="bool">
+        <div class="title">日志</div>
+        <div class="scroll">
+          <div class="box">
+            <template v-for="(item, index) in list">
+              <div class="row" :key="index">{{ item.log }}</div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <div class="btn" @click="bool=!bool">
+      <i class="el-icon-reading"></i>
+    </div>
   </div>
 </template>
 
@@ -9,6 +26,12 @@ import { io } from "socket.io-client"
 
 export default {
   name: 'App',
+  data() {
+    return {
+      bool: false,
+      list: []
+    }
+  },
   mounted() {
     const socket = io("localhost:4001/socket")
 
@@ -22,13 +45,81 @@ export default {
       console.log(socket.id) // undefined
     })
 
-    socket.on('relogin', (data) => {
-      console.log(data)
+    socket.on('logs', (data) => {
+      if(data.type === "collection" && data.taskType === "maccms") {
+        this.list = [
+          {
+            log: `${data.message} 总条数: ${data.data.total} 当前采集页: ${data.data.pageNo}`,
+          },
+          ...data.data.list.map(item => ({
+            log: `视频详情 -> type_name: ${item.type_name} vod_name: ${item.vod_name}`
+          })),
+          {
+            log: `${data.message} 总条数: ${data.data.total} 当前采集页: ${data.data.pageNo}`,
+          },
+          ...this.list,
+        ]
+      }
     })
-
-    // setTimeout(() => {
-    //   socket.disconnect()
-    // }, 3000)
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .log {
+    width: 80vw;
+    height: 80vh;
+    background-color: rgba($color: #000000, $alpha: .5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100000;
+
+    .title {
+      box-sizing: border-box;
+      width: 100%;
+      height: 50px;
+      padding: 0px 20px;
+      line-height: 50px;
+      font-size: 24px;
+      color: #333333;
+      background-color: #FFFFFF;
+    }
+
+    .scroll {
+      width: 100%;
+      height: calc(100% - 50px);
+      overflow-y: auto;
+    }
+
+    .box {
+      padding: 20px 80px;
+    }
+
+    .row {
+      font-size: 14px;
+      color: #FFFFFF;
+      line-height: 2;
+    }
+  }
+
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #409eff;
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+    cursor: pointer;
+
+    .el-icon-reading {
+      color: #FFFFFF;
+      font-size: 20px;
+    }
+  }
+</style>

@@ -103,7 +103,13 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleCollectionStart(scope.$index, scope.row)">开始采集</el-button>
+            @click="handleCollectionStart(scope.row, 24)">采集当天</el-button>
+          <el-button
+            size="mini"
+            @click="handleCollectionStart(scope.row, 24 * 7)">采集本周</el-button>
+          <el-button
+          size="mini"
+          @click="handleCollectionStart(scope.row, '')">采集全部</el-button>
           <el-button
             size="mini"
             @click="handleCollectionSetUp(scope.$index, scope.row)">采集配置</el-button>
@@ -134,6 +140,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getInterfaceList, interfaceDel } from '@/api/interface'
+import { collectionMaccmsVideo } from '@/api/collection'
 import Add from "./add"
 import Edit from "./edit"
 
@@ -233,8 +240,12 @@ export default {
     handleAdd() {
       this.$refs.Add.isShow(true);
     },
-    handleCollectionStart(index, row) {
-      
+    async handleCollectionStart(row, h) {
+      const res = await collectionMaccmsVideo({ id: row.id, h })
+
+      if(res.code === 200) {
+        this.$message.success("操作成功")
+      }
     },
     handleCollectionSetUp(index, row) {
       if(row.cmsType == "2") {

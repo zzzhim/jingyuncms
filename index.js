@@ -9,6 +9,7 @@ import path from "path"
 import { SECRET_KEY, SESSION_KEY } from "./src/config"
 import { router } from "./src/router"
 import logger from "./src/utils/logger"
+import './src/socket'
 // import fs from "fs"
 // import { base64_img } from "./src/config"
 
