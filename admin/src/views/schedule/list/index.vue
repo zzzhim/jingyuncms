@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <el-button slot="toolbar" type="primary" @click="handleClickAll">添加定时任务</el-button>
+    <el-button slot="toolbar" type="primary" @click="handleAdd">添加定时任务</el-button>
 
     <el-table
       :data="tableData"
@@ -98,7 +98,7 @@
       @pagination="getList"
     />
 
-    <BindCategory ref="BindCategory" @getList="bindInterfaceList" />
+    <Add ref="Add" @getList="bindInterfaceList" />
   </div>
 </template>
 
@@ -107,11 +107,11 @@ import { maccmsProxy, maccmsDetailProxy } from "@/api/proxy"
 import { videoAdd } from "@/api/video"
 import { underlineToHump } from "@/utils/underlineToHump"
 import { bindInterfaceList, categoryVideoTree } from "@/api/category"
-import BindCategory from "./bindCategory.vue"
+import Add from "./add.vue"
 
 export default {
   components: {
-    BindCategory
+    Add
   },
   data() {
     return {
@@ -254,14 +254,8 @@ export default {
     handleClick(row) {
       this.maccmsDetailProxy(row.vod_id)
     },
-    handleClickAll() {
-      const str = this.multipleSelection.map(item => item.vod_id).join(',')
-
-      if(str.length === 0) {
-        return this.$message.warning('请选择采集数据')
-      }
-
-      this.maccmsDetailProxy(str)
+    handleAdd() {
+      this.$refs.Add.isShow(true)
     },
     // 选择按钮
     handleSelectionChange(val) {

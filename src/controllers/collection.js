@@ -37,51 +37,51 @@ const maccmsVideo = async ({ id, url, h }) => {
       const {total, pagecount} = data.data
 
       for (let index = 0; index < pagecount; index++) {
-        // 拿去列表，通过列表拿取id
-        const res = await maccmsApiProxy({ url: `${url}?&ac=list&h=${h}&pg=${index + 1}`, method: 'get' })
+        try {
+          // 拿去列表，通过列表拿取id
+          const res = await maccmsApiProxy({ url: `${url}?&ac=list&h=${h}&pg=${index + 1}`, method: 'get' })
 
-        socketIo.emit('logs', {
-          type: 'collection',
-          taskType: 'maccms',
-          message: '开始采集',
-          data: {
-            total: total,
-            pagecount: pagecount,
-            pageNo: index + 1,
-            list: res.data.list.map(item => ({
-              type_name: item.type_name,
-              vod_name: item.vod_name,
-            }))
+          socketIo.emit('logs', {
+            type: 'collection',
+            taskType: 'maccms',
+            message: '开始采集视频',
+            data: {
+              log: `开始采集视频 -> 总条数: ${total} 总页数:${pagecount} 当前页:${index + 1}`
+            }
+          })
+
+          if(res.code === 200 && res.data.code === 1) {
+            const list = res.data.list.map(item => item.vod_id)
+            // 拿视频详情
+            const response = await maccmsApiProxy({ url: `${url}?&ac=detail&ids=${list.join(',')}`, method: 'get' })
+
+            if(response.code === 200 && response.data.code === 1) {
+              await videoAdd({ list: response.data.list, interfaceId: id })
+            }
           }
-        })
-
-        if(res.code === 200 && res.data.code === 1) {
-          const list = res.data.list.map(item => item.vod_id)
-          // 拿视频详情
-          const response = await maccmsApiProxy({ url: `${url}?&ac=detail&ids=${list.join(',')}`, method: 'get' })
-
-          if(response.code === 200 && response.data.code === 1) {
-            await videoAdd({ list: response.data.list, interfaceId: id })
-          }
+        } catch (error) {
+          socketIo.emit('logs', {
+            type: 'collection',
+            taskType: 'maccms',
+            message: '采集视频失败',
+            data: {
+              log: `采集视频失败 -> 未知错误请查看日志`
+            }
+          })
+          logger.error(error)
+        } finally {
+          await sleep(3000)
         }
-
-        socketIo.emit('logs', {
-          type: 'collection',
-          taskType: 'maccms',
-          message: '采集完毕',
-          data: {
-            total: total,
-            pagecount: pagecount,
-            pageNo: index + 1,
-            list: res.data.list.map(item => ({
-              type_name: item.type_name,
-              vod_name: item.vod_name,
-            }))
-          }
-        })
-
-        await sleep(3000)
       }
+
+      socketIo.emit('logs', {
+        type: 'collection',
+        taskType: 'maccms',
+        message: '开始采集视频',
+        data: {
+          log: `采集视频完毕 -> 接口id: ${id} 接口地址: ${url}`
+        }
+      })
     }
   } catch (error) {
     logger.error(error)

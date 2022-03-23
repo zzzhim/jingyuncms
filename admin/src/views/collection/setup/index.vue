@@ -21,8 +21,8 @@
       style="width: 100%"
     >
       <el-table-column
-        type="index"
-        label="序号"
+        prop="id"
+        label="接口ID"
         width="150"
         >
       </el-table-column>

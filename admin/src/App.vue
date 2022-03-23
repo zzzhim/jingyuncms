@@ -8,7 +8,7 @@
         <div class="scroll">
           <div class="box">
             <template v-for="(item, index) in list">
-              <div class="row" :key="index">{{ item.log }}</div>
+              <div class="row" :key="index" v-html="item.log"></div>
             </template>
           </div>
         </div>
@@ -49,13 +49,7 @@ export default {
       if(data.type === "collection" && data.taskType === "maccms") {
         this.list = [
           {
-            log: `${data.message} 总条数: ${data.data.total} 当前采集页: ${data.data.pageNo}`,
-          },
-          ...data.data.list.map(item => ({
-            log: `视频详情 -> type_name: ${item.type_name} vod_name: ${item.vod_name}`
-          })),
-          {
-            log: `${data.message} 总条数: ${data.data.total} 当前采集页: ${data.data.pageNo}`,
+            log: data.data.log,
           },
           ...this.list,
         ]

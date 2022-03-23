@@ -117,7 +117,7 @@ export const constantRoutes = [
     path: '/ffmpeg',
     component: Layout,
     name: 'ffmpeg',
-    meta: { title: 'ffmpeg', icon: 'el-icon-s-help' },
+    meta: { title: '切片系统', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'localVideo',
