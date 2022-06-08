@@ -2,6 +2,8 @@ import Router from 'koa-router'
 import {
   videoList,
   videoAdd,
+  videoWarehousing,
+  uploadM3u8,
 } from '../../controllers/video'
 import { commomIdValidate } from '../../validate/common'
 
@@ -113,6 +115,32 @@ router.post('/add', async (ctx, next) => {
   const { list, interfaceId } = ctx.request.body
 
   const data = await videoAdd({ list, interfaceId })
+
+  ctx.body = data
+})
+
+/**
+ *
+ * @description 视频入库
+ */
+router.post('/warehousing', async (ctx, next) => {
+  const { params } = ctx.request.body
+
+  const data = await videoWarehousing({ ...params })
+
+  ctx.body = data
+})
+
+
+/**
+ *
+ * @description 添加视频
+ */
+router.post('/upload/m3u8', async (ctx, next) => {
+  const { list, interfaceId } = ctx.request.body
+
+  console.log(ctx)
+  const data = await uploadM3u8({ list, interfaceId })
 
   ctx.body = data
 })

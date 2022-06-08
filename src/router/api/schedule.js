@@ -9,7 +9,7 @@ const router = new Router({
  * 
  * @description 定时任务日志列表
  */
- router.get('/log/list', async (ctx) => {
+router.get('/log/list', async (ctx) => {
   const { id } = ctx.query
 
   const res = await logList({ id })

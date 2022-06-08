@@ -43,6 +43,12 @@ export const constantRoutes = [
         name: 'videoList',
         component: () => import('@/views/video/list/index'),
         meta: { title: '视频列表', icon: 'dashboard' }
+      },
+      {
+        path: 'warehousing',
+        name: 'warehousing',
+        component: () => import('@/views/video/warehousing/index'),
+        meta: { title: '视频入库', icon: 'dashboard' }
       }
     ]
   },

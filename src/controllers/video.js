@@ -7,6 +7,7 @@ import { BindCategoryModel } from '../model/bind_category'
 import { socketIo } from '../socket'
 import { underlineToHump } from '../utils/underlineToHump'
 
+
 /**
  *
  * @param {number} typeId 分类id
@@ -173,4 +174,31 @@ export const videoAdd = async (params) => {
     logger.error(error)
     return response.error(500)
   }
+}
+
+/**
+ *
+ * @description 视频入库
+ */
+export const videoWarehousing = async (params) => {
+  try {
+    try {
+      await MacVodModel.create({ ...params })
+    } catch (error) {
+      logger.error(error)
+    }
+
+    return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500)
+  }
+}
+
+/**
+ *
+ * @description 上传m3u8
+ */
+export const uploadM3u8 = async (params) => {
+
 }
