@@ -1,4 +1,4 @@
-const { ArticleUpdateSchema, ArticleAddSchema, ArticleListSchema } = require("../joi/article")
+const { ArticleUpdateSchema, ArticleAddSchema, ArticleListSchema } = require("../yup/article")
 const response = require("../utils/response")
 
 /**
@@ -10,7 +10,7 @@ async function articleListValidate(ctx, next) {
   try {
     const { pageSize, pageNo } = ctx.query
 
-    const value = await ArticleListSchema.validateAsync({ pageSize, pageNo })
+    const value = await ArticleListSchema.validateSync({ pageSize, pageNo })
 
     return next()
   } catch (error) {
@@ -27,7 +27,7 @@ async function articleUpdateValidate(ctx, next) {
   try {
     const { id, title, tags, content } = ctx.request.body
 
-    const value = await ArticleUpdateSchema.validateAsync({ id, title, tags, content })
+    const value = await ArticleUpdateSchema.validateSync({ id, title, tags, content })
 
     return next()
   } catch (error) {
@@ -44,7 +44,7 @@ async function articleAddValidate(ctx, next) {
   try {
     const { title, tags, content } = ctx.request.body
 
-    const value = await ArticleAddSchema.validateAsync({ title, tags, content })
+    const value = await ArticleAddSchema.validateSync({ title, tags, content })
 
     return next()
   } catch (error) {

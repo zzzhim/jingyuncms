@@ -7,7 +7,6 @@ import { BindCategoryModel } from '../model/bind_category'
 import { socketIo } from '../socket'
 import { underlineToHump } from '../utils/underlineToHump'
 
-
 /**
  *
  * @param {number} typeId 分类id
@@ -193,12 +192,4 @@ export const videoWarehousing = async (params) => {
     logger.error(error)
     return response.error(500)
   }
-}
-
-/**
- *
- * @description 上传m3u8
- */
-export const uploadM3u8 = async (params) => {
-
 }

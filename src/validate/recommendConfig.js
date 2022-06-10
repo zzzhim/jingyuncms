@@ -1,5 +1,5 @@
-const { recommendAddConfigSchema, recommendEditConfigSchema, addBindConfigSchema } = require("../joi/recommendConfig")
-const { CommonIdSchema } = require("../joi/common")
+const { recommendAddConfigSchema, recommendEditConfigSchema, addBindConfigSchema } = require("../yup/recommendConfig")
+const { CommonIdSchema } = require("../yup/common")
 const response = require("../utils/response")
 
 async function addConfigValidate(ctx, next) {
@@ -11,7 +11,7 @@ async function addConfigValidate(ctx, next) {
       recommendName,
     } = ctx.request.body
 
-    const value = await recommendAddConfigSchema.validateAsync({ sort, configType, styleType, recommendName })
+    const value = await recommendAddConfigSchema.validateSync({ sort, configType, styleType, recommendName })
 
     return next()
   } catch (error) {
@@ -31,7 +31,7 @@ async function editConfigValidate(ctx, next) {
       recommendName,
     } = ctx.request.body
 
-    const value = await recommendEditConfigSchema.validateAsync({ sort, id, configType, styleType, recommendName })
+    const value = await recommendEditConfigSchema.validateSync({ sort, id, configType, styleType, recommendName })
 
     return next()
   } catch (error) {
@@ -45,7 +45,7 @@ async function delConfigValidate(ctx, next) {
   try {
     const { id } = ctx.request.body
 
-    const value = await CommonIdSchema.validateAsync({ id })
+    const value = await CommonIdSchema.validateSync({ id })
 
     return next()
   } catch (error) {
@@ -70,7 +70,7 @@ async function addBindValidate(ctx, next) {
       vodSerial,
     } = ctx.request.body
 
-    const value = await addBindConfigSchema.validateAsync({
+    const value = await addBindConfigSchema.validateSync({
       sort,
       configId,
       configType,

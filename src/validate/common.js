@@ -1,4 +1,4 @@
-const { CommonIdSchema } = require("../joi/common")
+const { CommonIdSchema } = require("../yup/common")
 const response = require("../utils/response")
 
 /**
@@ -10,7 +10,7 @@ async function commomIdValidate(ctx, next) {
   try {
     const id = ctx.query.id || ctx.request.body.id
 
-    const value = await CommonIdSchema.validateAsync({ id })
+    const value = await CommonIdSchema.validateSync({ id })
 
     return next()
   } catch (error) {

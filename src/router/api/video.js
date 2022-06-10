@@ -6,6 +6,7 @@ import {
   uploadM3u8,
 } from '../../controllers/video'
 import { commomIdValidate } from '../../validate/common'
+import { fileValidate } from '../../validate/file'
 
 const router = new Router({
   prefix: "/video"
@@ -131,20 +132,4 @@ router.post('/warehousing', async (ctx, next) => {
   ctx.body = data
 })
 
-
-/**
- *
- * @description 添加视频
- */
-router.post('/upload/m3u8', async (ctx, next) => {
-  const { list, interfaceId } = ctx.request.body
-
-  console.log(ctx)
-  const data = await uploadM3u8({ list, interfaceId })
-
-  ctx.body = data
-})
-
-module.exports = {
-  videoRouter: router
-}
+export const videoRouter = router
