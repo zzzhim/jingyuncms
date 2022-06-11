@@ -73,18 +73,6 @@ const MacVod = sequelize.define(
       field: 'vod_pic',
       comment: "图片",
     },
-    vodPicThumb: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'vod_pic_thumb',
-      comment: "缩略图",
-    },
-    vodPicSlide: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      field: 'vod_pic_slide',
-      comment: "幻灯图",
-    },
     vodActor: {
       type: DataTypes.STRING,
       allowNull: true,

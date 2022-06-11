@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <el-table
-      :data="tableData"
+      :data="list"
       style="width: 100%"
     >
       <el-table-column
@@ -10,43 +10,50 @@
         >
       </el-table-column>
       <el-table-column
-        prop="imgurl"
-        label="视频封面">
+        prop="vod_pic"
+        label="视频封面"
+      >
+        <template slot-scope="scope">
+          <el-image
+            :scr="scope.row.vod_pic"
+            :preview-src-list="[ scope.row.vod_pic ]"
+          />
+        </template>
       </el-table-column>
       <el-table-column
-        prop="videoName"
+        prop="vod_name"
         label="视频名称"
         >
       </el-table-column>
       <el-table-column
-        prop="videoName"
+        prop="vod_class"
         label="分类"
         >
       </el-table-column>
       <el-table-column
-        prop="videoName"
-        label="浏览"
-        >
-      </el-table-column>
-      <el-table-column
-        prop="videoName"
+        prop="vod_play_from"
         label="播放器"
-        >
+      >
+        <template slot-scope="scope">
+          {{ scope.row.vod_play_from.split("$$$").join(',') }}
+        </template>
       </el-table-column>
       <el-table-column
-        prop="videoName"
+        prop="vod_time"
         label="更新时间"
-        >
+      >
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -55,28 +62,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getLocalVideoList } from '../../../api/ffmpeg'
+import { videoList } from '../../../api/video'
 
 export default {
   data() {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      list: [],
+      total: 0,
     }
   },
   computed: {
@@ -86,12 +78,15 @@ export default {
   },
   methods: {
     getList() {
-      this.getLocalVideoList()
+      this.videoList()
     },
-    async getLocalVideoList(params = {}) {
-      const res = await getLocalVideoList(params)
+    async videoList(params = {}) {
+      const res = await videoList(params)
 
       console.log(res)
+      if(res.code === 200) {
+        this.list = res.data.list
+      }
     },
     handleEdit() {
 

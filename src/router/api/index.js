@@ -3,7 +3,6 @@ import { commonRouter } from "./common"
 import { loginRouter } from "./login"
 import { videoRouter } from "./video"
 import { recommendConfigRouter } from "./recommendConfig"
-import { ffmpegRouter } from "./ffmpeg"
 import { doubanRouter } from "./douban"
 import { interfaceRouter } from "./interface"
 import { proxyRouter } from "./proxy"
@@ -23,7 +22,6 @@ router
   .use(fileRouter.routes(), fileRouter.allowedMethods())
   .use(videoRouter.routes(), videoRouter.allowedMethods())
   .use(recommendConfigRouter.routes(), recommendConfigRouter.allowedMethods())
-  .use(ffmpegRouter.routes(), ffmpegRouter.allowedMethods())
   .use(doubanRouter.routes(), doubanRouter.allowedMethods())
   .use(interfaceRouter.routes(), interfaceRouter.allowedMethods())
   .use(proxyRouter.routes(), proxyRouter.allowedMethods())

@@ -119,32 +119,32 @@ export const constantRoutes = [
     ]
   },
 
-  {
-    path: '/ffmpeg',
-    component: Layout,
-    name: 'ffmpeg',
-    meta: { title: '切片系统', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'localVideo',
-        name: 'localVideo',
-        component: () => import('@/views/ffmpeg/localVideo/index'),
-        meta: { title: 'Mp4视频列表', icon: 'dashboard' }
-      },
-      {
-        path: 'localM3u8',
-        name: 'localM3u8',
-        component: () => import('@/views/ffmpeg/localM3u8/index'),
-        meta: { title: 'M3u8视频列表', icon: 'dashboard' }
-      },
-      {
-        path: 'downM3u8',
-        name: 'downM3u8',
-        component: () => import('@/views/ffmpeg/downM3u8/index'),
-        meta: { title: '下载m3u8视频', icon: 'dashboard' }
-      }
-    ]
-  },
+  // {
+  //   path: '/ffmpeg',
+  //   component: Layout,
+  //   name: 'ffmpeg',
+  //   meta: { title: '切片系统', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: 'localVideo',
+  //       name: 'localVideo',
+  //       component: () => import('@/views/ffmpeg/localVideo/index'),
+  //       meta: { title: 'Mp4视频列表', icon: 'dashboard' }
+  //     },
+  //     {
+  //       path: 'localM3u8',
+  //       name: 'localM3u8',
+  //       component: () => import('@/views/ffmpeg/localM3u8/index'),
+  //       meta: { title: 'M3u8视频列表', icon: 'dashboard' }
+  //     },
+  //     {
+  //       path: 'downM3u8',
+  //       name: 'downM3u8',
+  //       component: () => import('@/views/ffmpeg/downM3u8/index'),
+  //       meta: { title: '下载m3u8视频', icon: 'dashboard' }
+  //     }
+  //   ]
+  // },
 
   // {
   //   path: '/example',

@@ -38,40 +38,11 @@ export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
       attributes: [
         'vod_id',
         'vod_name',
-        'type_id',
-        'vod_sub',
-        'vod_tag',
+        'category_id',
         'vod_class',
         'vod_pic',
-        'vod_pic_thumb',
-        'vod_pic_slide',
-        'vod_pic_screenshot',
-        'vod_actor',
-        'vod_director',
-        'vod_writer',
-        'vod_behind',
-        'vod_blurb',
-        'vod_pubdate',
-        'vod_total',
-        'vod_serial',
-        'vod_lang',
-        'vod_year',
-        'vod_version',
-        'vod_isend',
-        'vod_hits',
-        'vod_hits_day',
-        'vod_hits_week',
-        'vod_hits_month',
-        'vod_up',
-        'vod_down',
-        'vod_douban_score',
-        'vod_time',
-        'vod_content',
         'vod_play_from',
-        'vod_play_server',
-        'vod_plot',
-        'vod_plot_name',
-        'vod_plot_detail',
+        'vod_time',
       ],
       where: {
         ...params,
@@ -89,6 +60,7 @@ export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
       }
     )
   } catch (error) {
+    console.log(error)
     logger.error(error)
     return response.error(500)
   }

@@ -1,7 +1,6 @@
 import cors from "@koa/cors"
 import Koa from "koa"
 import koaBody from "koa-body"
-import render from "koa-ejs"
 import loggerRouter from "koa-logger"
 import session from "koa-session"
 import koaStatic from 'koa-static'
@@ -16,14 +15,6 @@ const app = new Koa()
 // require("./src/model/sequelize")
 
 app.keys = [ SECRET_KEY ]
-
-render(app, {
-  root: path.join(__dirname, 'src/views'),
-  layout: false,
-  viewExt: 'ejs',
-  cache: false,
-  debug: process.env.APP_NODE_ENV === "dev"
-})
 
 app
   .use(loggerRouter())
