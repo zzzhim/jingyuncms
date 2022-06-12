@@ -75,8 +75,8 @@ export const addConfig = async (params) => {
       recommend_icon: params.recommend_icon,
       create_author_id: params.create_author_id,
       create_author_name: params.create_author_name,
-      update_author_id: params.update_author_id,
-      update_author_name: params.update_author_name,
+      update_author_id: params.create_author_id,
+      update_author_name: params.create_author_name,
     })
 
     return response.success(200)

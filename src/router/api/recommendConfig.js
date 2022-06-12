@@ -39,6 +39,7 @@ router.get('/config/list', async (ctx, next) => {
 router.post('/config/add', addConfigValidate, async (ctx, next) => {
   const params = ctx.request.body
 
+  console.log(ctx.state.user)
   const { id, username } = ctx.state.user
 
   const data = await addConfig({
@@ -64,11 +65,11 @@ router.post('/config/add', addConfigValidate, async (ctx, next) => {
 router.post('/config/edit', editConfigValidate, async (ctx, next) => {
   const params = ctx.request.body
 
-  const { id: userId, username } = ctx.state.user
+  const { id, username } = ctx.state.user
 
   const data = await editConfig({
     ...params,
-    update_author_id: userId,
+    update_author_id: id,
     update_author_name: username,
   })
 

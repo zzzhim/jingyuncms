@@ -1,35 +1,31 @@
-const { UserModel } = require("../model/user")
-const response = require("../utils/response")
-const md5 = require('md5')
+import { UserModel } from "../model/user"
+import response from "../utils/response"
+import md5 from "md5"
 
-class Login {
-  /**
-   * 
-   * @param {string} username
-   * @param {string} password
-   */
-  async login({ username, password }) {
-    const data = await UserModel.findOne({
-      attributes: [ 'username', 'password', 'id' ],
-      where: {
-        username,
-        password: md5(password),
-      }
-    })
-
-    if(data && data.dataValues) {
-      return response.success(
-        200,
-        {
-          id: data.dataValues.id,
-          username: data.dataValues.username,
-          token: data.token,
-        }
-      )
+/**
+ * 
+ * @param {string} username
+ * @param {string} password
+ */
+export const login = async ({ username, password }) => {
+  const data = await UserModel.findOne({
+    attributes: ['username', 'password', 'id'],
+    where: {
+      username,
+      password: md5(password),
     }
+  })
 
-    return response.info(500, {}, '账户或密码错误')
+  if (data && data.dataValues) {
+    return response.success(
+      200,
+      {
+        id: data.dataValues.id,
+        username: data.dataValues.username,
+        token: data.token,
+      }
+    )
   }
-}
 
-module.exports = new Login()
+  return response.info(500, {}, '账户或密码错误')
+}

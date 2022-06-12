@@ -48,6 +48,7 @@
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/register": "^7.17.0",
+    "@types/md5": "^2.3.2",
     "clean-webpack-plugin": "^4.0.0",
     "concurrently": "^7.0.0",
     "copy-webpack-plugin": "^10.2.4",
