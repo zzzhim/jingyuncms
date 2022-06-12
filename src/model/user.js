@@ -37,9 +37,9 @@ const User = sequelize.define(
 
 export const UserModel = User
 
-// User.findOrCreate({
-//   where: {
-//     username: "admin",
-//     password: md5("admin123")
-//   }
-// })
+User.findOrCreate({
+  where: {
+    username: "admin",
+    password: md5("admin123")
+  }
+})

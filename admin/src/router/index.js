@@ -48,6 +48,7 @@ export const constantRoutes = [
       {
         path: 'bind',
         name: 'bindVideo',
+        hidden: true,
         component: () => import('@/views/recommend/pc/bind/index'),
         meta: { title: '绑定视频', icon: 'dashboard' }
       },

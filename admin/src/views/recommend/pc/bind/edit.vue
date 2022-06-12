@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import { recommendConfigBindAdd } from "@/api/recommend"
+import { recommendConfigBindEdit } from "@/api/recommend"
 import { videoList } from "@/api/video"
 
 export default {
@@ -233,7 +233,7 @@ export default {
   methods: {
     isShow(bool, params) {
       this.dialogVisible = bool
-      this.queryPar = { sort: 0 }
+      this.queryPar = { ...params }
     },
     async videoList() { 
       const res = await videoList({ ...this.params })
@@ -245,7 +245,8 @@ export default {
     },
     handleBind(row) {
       this.dialogVisibleBody = false
-      this.queryPar = { ...this.queryPar, ...row, imgUrl: row.vodPic }
+
+      this.queryPar = { ...this.queryPar, ...row, imgUrl: row.vodPic, id: this.queryPar.id }
     },
     handleSubmit() {
       if(this.loading) {
@@ -255,7 +256,7 @@ export default {
 
       this.$refs.AdvancedForm.$refs['accurateSearch'].validate(async (valid) => {
         if (valid) {
-          const res = await recommendConfigBindAdd({
+          const res = await recommendConfigBindEdit({
             ...this.queryPar,
             sort: parseInt(this.queryPar.sort),
             configId: parseInt(this.$route.query.id),

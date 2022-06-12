@@ -61,27 +61,31 @@ export async function addBindValidate(ctx, next) {
     const {
       sort,
       configId,
-      configType,
-      styleType,
+      categoryId,
       vodId,
       vodName,
-      vodImg,
-      vodIsend,
+      imgUrl,
+      vodActor,
+      vodArea,
+      vodContent,
+      vodRemarks,
       vodTotal,
-      vodSerial,
-    } = ctx.request.body
+      vodYear,
+    }= ctx.request.body
 
     const value = await addBindConfigSchema.validateSync({
       sort,
       configId,
-      configType,
-      styleType,
+      categoryId,
       vodId,
       vodName,
-      vodImg,
-      vodIsend,
+      imgUrl,
+      vodActor,
+      vodArea,
+      vodContent,
+      vodRemarks,
       vodTotal,
-      vodSerial,
+      vodYear,
     })
 
     return next()

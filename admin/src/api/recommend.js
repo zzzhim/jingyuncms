@@ -39,3 +39,28 @@ export function recommendConfigBindList(params) {
     params,
   })
 }
+
+export function recommendConfigBindAdd(params) {
+  return request({
+    url: '/recommend/config/bind/add',
+    method: 'post',
+    data: params,
+  })
+}
+
+export function recommendConfigBindEdit(params) {
+  return request({
+    url: '/recommend/config/bind/edit',
+    method: 'post',
+    data: params,
+  })
+}
+
+
+export function recommendConfigBindDel(params) {
+  return request({
+    url: '/recommend/config/bind/del',
+    method: 'post',
+    data: params,
+  })
+}

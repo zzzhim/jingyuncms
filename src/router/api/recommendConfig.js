@@ -117,47 +117,45 @@ router.get('/config/bind/list', async (ctx, next) => {
  * @param {number} sort 排序
  * @param {number} vodId 视频ID
  * @param {string} vodName 视频名称
- * @param {string} vodImg 视频封面
+ * @param {string} imgUrl 视频封面
  * @param {number} vodIsend 是否完结
  * @param {number} vodTotal 总集数
  * @param {string} vodSerial 连载数
  * @description 视频关联配置添加
  */
-router.post('/recommend/bind/add', addBindValidate, async (ctx, next) => {
+router.post('/config/bind/add', addBindValidate, async (ctx, next) => {
   const {
+    sort,
     configId,
     vodId,
     vodName,
-    vodCategoryId,
-    vodImg,
+    categoryId,
+    imgUrl,
     vodArea,
     vodYear,
     vodTotal,
     vodContent,
     vodActor,
-    updateAuthorId,
-    updateAuthorName,
     vodRemarks,
-    updateTime,
   } = ctx.request.body
 
   const { id: userId, username } = ctx.state.user
 
   const data = await addBindConfig({
+    sort,
     configId,
     vodId,
     vodName,
-    vodCategoryId,
-    vodImg,
+    categoryId,
+    imgUrl,
     vodArea,
     vodYear,
     vodTotal,
     vodContent,
     vodActor,
-    updateAuthorId,
-    updateAuthorName,
+    updateAuthorId: userId,
+    updateAuthorName: username,
     vodRemarks,
-    updateTime,
   })
 
   ctx.body = data
@@ -171,43 +169,47 @@ router.post('/recommend/bind/add', addBindValidate, async (ctx, next) => {
  * @param {string} styleType "0 默认推荐 | 1 PC推荐 | 2 APP推荐"
  * @param {number} vodId 视频ID
  * @param {string} vodName 视频名称
- * @param {string} vodImg 视频封面
+ * @param {string} imgUrl 视频封面
  * @param {number} vodIsend 是否完结
  * @param {number} vodTotal 总集数
  * @param {string} vodSerial 连载数
  * @description 视频关联配置编辑
  */
-router.post('/recommend/bind/edit', commomIdValidate, addBindValidate, async (ctx, next) => {
+router.post('/config/bind/edit', commomIdValidate, addBindValidate, async (ctx, next) => {
   const {
     id,
-    sort = 0,
+    sort,
     configId,
-    configType,
-    styleType,
     vodId,
     vodName,
-    vodImg,
-    vodIsend,
+    categoryId,
+    imgUrl,
+    vodArea,
+    vodYear,
     vodTotal,
-    vodSerial,
+    vodContent,
+    vodActor,
+    vodRemarks,
   } = ctx.request.body
 
   const { id: userId, username } = ctx.state.user
 
   const data = await editBindConfig({
     id,
-    userId,
-    username,
     sort,
     configId,
-    configType,
-    styleType,
     vodId,
     vodName,
-    vodImg,
-    vodIsend,
+    categoryId,
+    imgUrl,
+    vodArea,
+    vodYear,
     vodTotal,
-    vodSerial,
+    vodContent,
+    vodActor,
+    vodRemarks,
+    updateAuthorId: userId,
+    updateAuthorName: username,
   })
 
   ctx.body = data
@@ -217,7 +219,7 @@ router.post('/recommend/bind/edit', commomIdValidate, addBindValidate, async (ct
  * @param {number} id id
  * @description 删除视频关联配置
  */
-router.post('/recommend/bind/del', commomIdValidate, async (ctx, next) => {
+router.post('/config/bind/del', commomIdValidate, async (ctx, next) => {
   const { id } = ctx.request.body
 
   const data = await delBind({ id })

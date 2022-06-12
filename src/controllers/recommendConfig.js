@@ -158,23 +158,6 @@ export const bindConfiglist = async ({
 }) => {
   try {
     const { count = 0, rows = [] } = await RecommendListModel.findAndCountAll({
-      attributes: [
-        'id',
-        'configId',
-        'vodId',
-        'vodName',
-        'vodCategoryId',
-        'vodImg',
-        'vodArea',
-        'vodYear',
-        'vodTotal',
-        'vodContent',
-        'vodActor',
-        'vodRemarks',
-        'updateAuthorId',
-        'updateAuthorName',
-        'updateTime',
-      ],
       where: {
         configId: configId,
       },
@@ -205,15 +188,44 @@ export const bindConfiglist = async ({
  * @param {string} styleType "0 默认推荐 | 1 PC推荐 | 2 APP推荐"
  * @param {number} vodId 视频ID
  * @param {string} vodName 视频名称
- * @param {string} vodImg 视频封面
- * @param {number} vodIsend 是否完结
+ * @param {string} imgUrl 视频封面
  * @param {number} vodTotal 总集数
  * @param {string} vodSerial 连载数
  * @description 推荐配置绑定视频
  */
 export const addBindConfig = async (params) => {
   try {
-    const data = await RecommendListModel.create({ ...params })
+    const {
+      configId,
+      vodId,
+      vodName,
+      categoryId,
+      imgUrl,
+      vodArea,
+      vodYear,
+      vodTotal,
+      vodContent,
+      vodActor,
+      updateAuthorId,
+      updateAuthorName,
+      vodRemarks
+    } = params
+
+    const data = await RecommendListModel.create({
+      configId,
+      vodId,
+      vodName,
+      categoryId,
+      imgUrl,
+      vodArea,
+      vodYear,
+      vodTotal,
+      vodContent,
+      vodActor,
+      vodRemarks,
+      updateAuthorId,
+      updateAuthorName,
+    })
 
     return response.success(200)
   } catch (error) {
@@ -233,47 +245,47 @@ export const addBindConfig = async (params) => {
  * @param {string} styleType "0 默认推荐 | 1 PC推荐 | 2 APP推荐"
  * @param {number} vodId 视频ID
  * @param {string} vodName 视频名称
- * @param {string} vodImg 视频封面
- * @param {number} vodIsend 是否完结
+ * @param {string} imgUrl 视频封面
  * @param {number} vodTotal 总集数
  * @param {string} vodSerial 连载数
  * @description 编辑推荐配置绑定视频
  */
 export const editBindConfig = async ({
   id,
-  userId,
-  username,
   sort,
-  configId,
-  configType,
-  styleType,
   vodId,
   vodName,
-  vodImg,
-  vodIsend,
+  categoryId,
+  imgUrl,
+  vodArea,
+  vodYear,
   vodTotal,
-  vodSerial,
+  vodContent,
+  vodActor,
+  vodRemarks,
+  updateAuthorId,
+  updateAuthorName,
 }) => {
   try {
     const data = await RecommendListModel.update(
       {
         sort,
-        configId,
-        configType,
-        styleType,
         vodId,
         vodName,
-        vodImg,
-        vodIsend,
+        categoryId,
+        imgUrl,
+        vodArea,
+        vodYear,
         vodTotal,
-        vodSerial,
-        updateAuthorId: userId,
-        updateAuthorName: username,
+        vodContent,
+        vodActor,
+        vodRemarks,
+        updateAuthorId,
+        updateAuthorName,
       },
       {
         where: {
           id,
-          is_delete: "0",
         }
       }
     )
@@ -296,7 +308,6 @@ export const delBind = async ({ id }) => {
       {
         where: {
           id,
-          is_delete: '0',
         }
       }
     )

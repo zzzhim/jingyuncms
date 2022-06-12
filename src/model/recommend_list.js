@@ -23,10 +23,9 @@ const RecommendList = sequelize.define(
       // field: "vodId",
       comment: "视频id"
     },
-    vodCategoryId: {
+    categoryId: {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
-      // field: "vodCategoryId",
       comment: "视频分类id"
     },
     vodName: {
@@ -35,10 +34,10 @@ const RecommendList = sequelize.define(
       // field: "vodName",
       comment: "视频名称"
     },
-    vodImg: {
+    imgUrl: {
       type: DataTypes.STRING,
       allowNull: false,
-      // field: "vodImg",
+      // field: "imgUrl",
       comment: "视频封面 | 幻灯片封面"
     },
     vodArea: {
@@ -88,18 +87,6 @@ const RecommendList = sequelize.define(
       allowNull: false,
       // field: "updateAuthorName",
       comment: "更新视频用户名称"
-    },
-    createTime: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      // field: "createTime",
-      defaultValue: DataTypes.NOW,
-    },
-    updateTime: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      // field: "updateTime",
-      defaultValue: DataTypes.NOW,
     },
   },
   {

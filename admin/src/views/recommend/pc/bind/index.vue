@@ -21,39 +21,34 @@
       style="width: 100%"
     >
       <el-table-column
-        prop="sort"
-        label="排序"
-      />
-
-      <el-table-column
-        prop="recommend_icon"
-        label="icon"
+        prop="imgUrl"
+        label="封面"
       >
         <template slot-scope="scope">
           <el-image
-            :scr="scope.row.recommend_icon"
-            :preview-src-list="[ scope.row.recommend_icon ]"
+            :scr="scope.row.imgUrl"
+            :preview-src-list="[ scope.row.imgUrl ]"
           />
         </template>
       </el-table-column>
 
       <el-table-column
-        prop="config_name"
-        label="配置名称"
+        prop="vodName"
+        label="视频名称"
       />
 
       <el-table-column
-        prop="recommend_name"
-        label="推荐名称"
+        prop="vodRemarks"
+        label="备注"
       />
 
       <el-table-column
-        prop="style_name"
-        label="推荐样式"
+        prop="vodArea"
+        label="地区"
       />
 
       <el-table-column
-        prop="update_time"
+        prop="updatedAt"
         label="更新时间"
       />
 
@@ -73,19 +68,19 @@
     </el-table>
 
     <Add ref="Add" @getList="getList" />
-    <!-- <Edit ref="Edit" @getList="getList" /> -->
+    <Edit ref="Edit" @getList="getList" />
   </div>
 </template>
 
 <script>
-import { recommendConfigBindList, recommendConfigDel } from '../../../../api/recommend'
+import { recommendConfigBindList, recommendConfigBindDel } from '../../../../api/recommend'
 import Add from "./add"
-// import Edit from "./edit"
+import Edit from "./edit"
 
 export default {
   components: {
     Add,
-    // Edit,
+    Edit,
   },
   data() {
     return {
@@ -120,7 +115,7 @@ export default {
       this.$refs.Add.isShow(true)
     },
     handleEdit(row) {
-      this.$refs.Edit.isShow(true, { row })
+      this.$refs.Edit.isShow(true, { ...row })
     },
     async handleDelete(row) {
       this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
@@ -128,7 +123,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
-        const res = await recommendConfigDel({ id: row.id })
+        const res = await recommendConfigBindDel({ id: row.id })
 
         if(res.code === 200) {
           this.$message.success("删除成功")

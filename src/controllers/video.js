@@ -24,12 +24,8 @@ export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
 
     for (const key in obj) {
       if (obj[key] !== null && obj[key] !== undefined) {
-        if(typeof obj[key] === "string") {
-          params[LetterNumtoLine(key)] = {
-            [ Op.like ]: `%${obj[key]}%`
-          }
-        }else {
-          params[LetterNumtoLine(key)] = obj[key]
+        params[key] = {
+          [ Op.like ]: `%${obj[key]}%`
         }
       }
     }
