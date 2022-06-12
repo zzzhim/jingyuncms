@@ -1,17 +1,22 @@
-const { recommendAddConfigSchema, recommendEditConfigSchema, addBindConfigSchema } = require("../yup/recommendConfig")
-const { CommonIdSchema } = require("../yup/common")
-const response = require("../utils/response")
+import { recommendAddConfigSchema, recommendEditConfigSchema, addBindConfigSchema } from "../yup/recommendConfig"
+import { CommonIdSchema } from "../yup/common"
+import response from "../utils/response"
+import { default as logger } from "../utils/logger"
 
-async function addConfigValidate(ctx, next) {
+export async function addConfigValidate(ctx, next) {
   try {
     const {
+      // sort,
+      // configType,
+      // styleType,
+      // recommendName,
       sort,
-      configType,
-      styleType,
-      recommendName,
+      config_type,
+      style_type,
+      recommend_name,
     } = ctx.request.body
 
-    const value = await recommendAddConfigSchema.validateSync({ sort, configType, styleType, recommendName })
+    const value = await recommendAddConfigSchema.validateSync({ sort, config_type, style_type, recommend_name })
 
     return next()
   } catch (error) {
@@ -21,17 +26,17 @@ async function addConfigValidate(ctx, next) {
   }
 }
 
-async function editConfigValidate(ctx, next) {
+export async function editConfigValidate(ctx, next) {
   try {
     const {
       id,
       sort,
-      configType,
-      styleType,
-      recommendName,
+      config_type,
+      style_type,
+      recommend_name,
     } = ctx.request.body
 
-    const value = await recommendEditConfigSchema.validateSync({ sort, id, configType, styleType, recommendName })
+    const value = await recommendEditConfigSchema.validateSync({ sort, id, config_type, style_type, recommend_name })
 
     return next()
   } catch (error) {
@@ -41,7 +46,7 @@ async function editConfigValidate(ctx, next) {
   }
 }
 
-async function delConfigValidate(ctx, next) {
+export async function delConfigValidate(ctx, next) {
   try {
     const { id } = ctx.request.body
 
@@ -55,7 +60,7 @@ async function delConfigValidate(ctx, next) {
   }
 }
 
-async function addBindValidate(ctx, next) {
+export async function addBindValidate(ctx, next) {
   try {
     const {
       sort,
@@ -89,11 +94,4 @@ async function addBindValidate(ctx, next) {
 
     ctx.body = response.warning(500, {}, error)
   }
-}
-
-module.exports = {
-  addConfigValidate,
-  editConfigValidate,
-  delConfigValidate,
-  addBindValidate,
 }

@@ -25,11 +25,11 @@
         label="视频名称"
         >
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="vod_class"
         label="分类"
         >
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         prop="vod_play_from"
         label="播放器"

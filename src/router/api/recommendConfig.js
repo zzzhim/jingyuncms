@@ -1,24 +1,10 @@
-const Router = require('koa-router')
-const {
-  addConfig,
-  configList,
-  editConfig,
-  delConfig,
-  bindConfiglist,
-  addBindConfig,
-  editBindConfig,
-  delBind,
-} = require("../../controllers/recommendConfig")
-const { commomIdValidate } = require('../../validate/common')
-const {
-  addConfigValidate,
-  editConfigValidate,
-  delConfigValidate,
-  addBindValidate,
-} = require('../../validate/recommendConfig')
+import Router from 'koa-router'
+import { addConfig, configList, editConfig, delConfig, bindConfiglist, addBindConfig, editBindConfig, delBind } from "../../controllers/recommendConfig"
+import { commomIdValidate } from '../../validate/common'
+import { addConfigValidate, editConfigValidate, delConfigValidate, addBindValidate } from '../../validate/recommendConfig'
 
 const router = new Router({
-  prefix: "/config"
+  prefix: "/recommend"
 })
 
 /**
@@ -27,7 +13,7 @@ const router = new Router({
  * @param {number} pageSize 页数
  * @description 推荐配置列表
  */
-router.get('/recommend/list', async (ctx, next) => {
+router.get('/config/list', async (ctx, next) => {
   const {
     keyword = '',
     pageNo = 1,
@@ -50,25 +36,15 @@ router.get('/recommend/list', async (ctx, next) => {
  * @param {string} recommendIcon 推荐icon
  * @description 推荐配置添加
  */
-router.post('/recommend/add', addConfigValidate, async (ctx, next) => {
-  const {
-    sort = 0,
-    configType = 0,
-    styleType,
-    recommendName,
-    recommendIcon,
-  } = ctx.request.body
+router.post('/config/add', addConfigValidate, async (ctx, next) => {
+  const params = ctx.request.body
 
   const { id, username } = ctx.state.user
 
   const data = await addConfig({
-    sort,
-    configType,
-    styleType,
-    recommendName,
-    recommendIcon,
-    createAuthorId: id,
-    createAuthorName: username,
+    ...params,
+    create_author_id: id,
+    create_author_name: username,
   })
 
   ctx.body = data
@@ -85,27 +61,15 @@ router.post('/recommend/add', addConfigValidate, async (ctx, next) => {
  * @param {string} updateAuthorName 更新配置项用户名称
  * @description 编辑推荐配置
  */
-router.post('/recommend/edit', editConfigValidate, async (ctx, next) => {
-  const {
-    id,
-    sort = 0,
-    configType,
-    styleType,
-    recommendName,
-    recommendIcon,
-  } = ctx.request.body
+router.post('/config/edit', editConfigValidate, async (ctx, next) => {
+  const params = ctx.request.body
 
   const { id: userId, username } = ctx.state.user
 
   const data = await editConfig({
-    id,
-    sort,
-    configType,
-    styleType,
-    recommendName,
-    recommendIcon,
-    updateAuthorId: userId,
-    updateAuthorName: username,
+    ...params,
+    update_author_id: userId,
+    update_author_name: username,
   })
 
   ctx.body = data
@@ -116,7 +80,7 @@ router.post('/recommend/edit', editConfigValidate, async (ctx, next) => {
  * @param {number} id 配置id
  * @description 删除推荐配置
  */
-router.post('/recommend/del', delConfigValidate, async (ctx, next) => {
+router.post('/config/del', delConfigValidate, async (ctx, next) => {
   const { id } = ctx.request.body
 
   const data = await delConfig({ id })
@@ -255,6 +219,4 @@ router.post('/recommend/bind/del', commomIdValidate, async (ctx, next) => {
   ctx.body = data
 })
 
-module.exports = {
-  recommendConfigRouter: router
-}
+export const recommendConfigRouter = router

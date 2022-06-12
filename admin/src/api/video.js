@@ -5,7 +5,7 @@ export function videoList(params) {
   return request({
     url: '/video/list',
     method: 'get',
-    data: params
+    params
   })
 }
 
