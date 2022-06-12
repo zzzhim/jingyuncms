@@ -30,16 +30,16 @@ const User = sequelize.define(
     }
   },
   {
+    underscored: true,
     freezeTableName: true,
-    hooks: {}
   }
 )
 
 export const UserModel = User
 
-User.findOrCreate({
-  where: {
-    username: "admin",
-    password: md5("admin123")
-  }
-})
+// User.findOrCreate({
+//   where: {
+//     username: "admin",
+//     password: md5("admin123")
+//   }
+// })

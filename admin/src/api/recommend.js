@@ -31,3 +31,11 @@ export function recommendConfigDel(params) {
     data: params,
   })
 }
+
+export function recommendConfigBindList(params) {
+  return request({
+    url: '/recommend/config/bind/list',
+    method: 'get',
+    params,
+  })
+}

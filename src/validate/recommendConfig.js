@@ -6,17 +6,13 @@ import { default as logger } from "../utils/logger"
 export async function addConfigValidate(ctx, next) {
   try {
     const {
-      // sort,
-      // configType,
-      // styleType,
-      // recommendName,
       sort,
-      config_type,
-      style_type,
-      recommend_name,
+      configType,
+      styleType,
+      recommendName,
     } = ctx.request.body
 
-    const value = await recommendAddConfigSchema.validateSync({ sort, config_type, style_type, recommend_name })
+    const value = await recommendAddConfigSchema.validateSync({ sort, configType, styleType, recommendName })
 
     return next()
   } catch (error) {
@@ -31,12 +27,12 @@ export async function editConfigValidate(ctx, next) {
     const {
       id,
       sort,
-      config_type,
-      style_type,
-      recommend_name,
+      configType,
+      styleType,
+      recommendName,
     } = ctx.request.body
 
-    const value = await recommendEditConfigSchema.validateSync({ sort, id, config_type, style_type, recommend_name })
+    const value = await recommendEditConfigSchema.validateSync({ sort, id, configType, styleType, recommendName })
 
     return next()
   } catch (error) {

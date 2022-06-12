@@ -16,13 +16,13 @@ const videoCategory = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: 0,
-      field: "parent_id",
+      // field: "parent_id",
       comment: "父级分类ID"
     },
     categoryName: {
       type: DataTypes.STRING,
       allowNull: false,
-      field: "category_name",
+      // field: "category_name",
       comment: "分类名称"
     },
     status: {
@@ -33,13 +33,13 @@ const videoCategory = sequelize.define(
     }
   },
   {
+    underscored: true,
     freezeTableName: true,
-    hooks: {}
   }
 )
 
 videoCategory.hasMany(BindCategoryModel, {
-  foreignKey: 'videoCategoryId',
+  foreignKey: 'bindVideoCategoryId',
   onDelete: "CASCADE",
 })
 

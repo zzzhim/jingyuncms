@@ -1,124 +1,112 @@
 import { DataTypes } from "sequelize"
 import { sequelize } from "./sequelize"
 
-const MacRecommendList = sequelize.define(
-  'recommend_list',
+const RecommendList = sequelize.define(
+  "recommend_list",
   {
-    'sort': {
+    sort: {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
       defaultValue: 0,
+      // field: "sort",
       comment: "排序"
     },
-    'config_id': {
-      type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
+    configId: {
+      type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
+      // field: "configId",
       comment: "绑定的推荐id",
     },
-    'config_type': {
-      type: DataTypes.ENUM([ "0", "1", "2" ]),
+    vodId: {
+      type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
-      defaultValue: "0",
-      comment: "0 默认推荐 | 1 PC推荐 | 2 APP推荐",
-    },
-    'config_name': {
-      type: DataTypes.VIRTUAL,
-      get() {
-        const list = [ '默认推荐', 'PC推荐', 'APP推荐' ]
-
-        return list[this.config_type]
-      },
-      set(value) {
-        throw new Error('不要尝试设置 `config_name` 的值!');
-      }
-    },
-    'style_type': {
-      type: DataTypes.ENUM([ "0", "1", "2" ]),
-      allowNull: false,
-      defaultValue: "0",
-      comment: "0 轮播 | 1 正在热播 | 2 推荐",
-    },
-    'style_name': {
-      type: DataTypes.VIRTUAL,
-      get() {
-        const list = [ '轮播', '正在热播', '推荐' ]
-
-        return list[this.style_type]
-      },
-      set(value) {
-        throw new Error('不要尝试设置 `style_name` 的值!');
-      }
-    },
-    'vod_id': {
-      type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
-      allowNull: false,
+      // field: "vodId",
       comment: "视频id"
     },
-    'vod_name': {
+    vodCategoryId: {
+      type: DataTypes.INTEGER({ length: 10 }),
+      allowNull: false,
+      // field: "vodCategoryId",
+      comment: "视频分类id"
+    },
+    vodName: {
       type: DataTypes.STRING,
       allowNull: false,
+      // field: "vodName",
       comment: "视频名称"
     },
-    'vod_img': {
+    vodImg: {
       type: DataTypes.STRING,
       allowNull: false,
+      // field: "vodImg",
       comment: "视频封面 | 幻灯片封面"
     },
-    'vod_isend': {
-      type: DataTypes.TINYINT({ length: 1 }),
-      allowNull: false,
-      comment: "是否完结",
+    vodArea: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+      // field: "vodArea",
+      comment: "地区",
     },
-    'vod_total': {
+    vodYear: {
+      type: DataTypes.STRING(10),
+      allowNull: true,
+      // field: "vodYear",
+      comment: "年份",
+    },
+    vodRemarks: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+      // field: "vodRemarks",
+      comment: "备注",
+    },
+    vodTotal: {
       type: DataTypes.MEDIUMINT({ length: 6 }),
       allowNull: false,
+      // field: "vodTotal",
       comment: "总集数",
     },
-    'vod_serial': {
-      type: DataTypes.STRING(20),
-      allowNull: false,
-      comment: "连载数"
+    vodContent: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      // field: "vodContent",
+      comment: "详细介绍",
     },
-    'create_author_id': {
-      type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
-      allowNull: false,
-      comment: "创建视频用户ID"
-    },
-    'create_author_name': {
+    vodActor: {
       type: DataTypes.STRING,
-      allowNull: false,
-      comment: "创建视频用户名称"
+      allowNull: true,
+      // field: "vodActor",
+      comment: "主演",
     },
-    'update_author_id': {
-      type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
+    updateAuthorId: {
+      type: DataTypes.INTEGER({ length: 10, }),
       allowNull: false,
+      // field: "updateAuthorId",
       comment: "更新视频用户ID"
     },
-    'update_author_name': {
+    updateAuthorName: {
       type: DataTypes.STRING,
       allowNull: false,
+      // field: "updateAuthorName",
       comment: "更新视频用户名称"
     },
-    'create_time': {
+    createTime: {
       type: DataTypes.DATE,
       allowNull: false,
+      // field: "createTime",
       defaultValue: DataTypes.NOW,
     },
-    'update_time': {
+    updateTime: {
       type: DataTypes.DATE,
       allowNull: false,
+      // field: "updateTime",
       defaultValue: DataTypes.NOW,
-    },
-    'is_delete': {
-      type: DataTypes.ENUM("0", "1"),
-      allowNull: false,
-      defaultValue: "0",
     },
   },
   {
+    underscored: true,
     freezeTableName: true,
     indexes: []
   }
 )
 
-export const MacRecommendListModel = MacRecommendList
+export const RecommendListModel = RecommendList

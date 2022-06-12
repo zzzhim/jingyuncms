@@ -46,7 +46,7 @@ export default {
             {
               span: 18,
               label: "推荐类型",
-              prop: "config_type",
+              prop: "configType",
               placeholder: "请选择推荐类型",
               inputType: "select",
               get list() {
@@ -71,7 +71,7 @@ export default {
             {
               span: 18,
               label: "推荐名称",
-              prop: "recommend_name",
+              prop: "recommendName",
               placeholder: "请输入推荐名称",
               inputType: "input",
               type: "text",
@@ -79,7 +79,7 @@ export default {
             {
               span: 18,
               label: "推荐icon",
-              prop: "recommend_icon",
+              prop: "recommendIcon",
               placeholder: "推荐icon",
               inputType: "input",
               type: "text",
@@ -87,7 +87,7 @@ export default {
             {
               span: 18,
               label: "推荐样式",
-              prop: "style_type",
+              prop: "styleType",
               placeholder: "请选择推荐样式",
               inputType: "select",
               get list() {

@@ -14,19 +14,19 @@ const ScheduleJobUser = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       comment: "任务名称",
-      field: 'job_name'
+      // field: 'job_name'
     },
     jobHandler: {
       type: DataTypes.STRING,
       allowNull: false,
       comment: "任务处理方法",
-      field: 'job_handler'
+      // field: 'job_handler'
     },
     jobParams: {
       type: DataTypes.STRING,
       allowNull: false,
       comment: "参数",
-      field: 'job_params'
+      // field: 'job_params'
     },
     description: {
       type: DataTypes.STRING,
@@ -38,22 +38,23 @@ const ScheduleJobUser = sequelize.define(
       allowNull: false,
       defaultValue: '0',
       comment: "0停止 1启动",
-      field: 'job_status'
+      // field: 'job_status'
     },
     createBy: {
       type: DataTypes.STRING,
       allowNull: false,
       comment: "创建人",
-      field: 'create_by'
+      // field: 'create_by'
     },
     updateBy: {
       type: DataTypes.STRING,
       allowNull: false,
       comment: "更新人",
-      field: 'create_by'
+      // field: 'create_by'
     },
   },
   {
+    underscored: true,
     freezeTableName: true,
   }
 )

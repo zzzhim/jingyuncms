@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
 import { MacRecommendConfigModel } from "../model/recommend_config"
-import { MacRecommendListModel } from "../model/recommend_list"
+import { RecommendListModel } from "../model/recommend_list"
 import { logger } from "../utils/logger"
 // import { response.success, error as response.error } from "../utils/response"
 import response from "../utils/response"
@@ -22,20 +22,19 @@ export const configList = async ({
       attributes: [
         'id',
         'sort',
-        'config_type',
-        'config_name',
-        'style_type',
-        'style_name',
-        'recommend_name',
-        'recommend_icon',
-        'create_time',
-        'update_time',
+        'configType',
+        'configName',
+        'styleType',
+        'styleName',
+        'recommendName',
+        'recommendIcon',
+        'createTime',
+        'updateTime',
       ],
       where: {
-        recommend_name: {
+        recommendName: {
           [Op.like]: `%${keyword.trim()}%`
         },
-        is_delete: '0',
       },
       limit: parseInt(pageSize),
       offset: parseInt(pageSize * (pageNo - 1)),
@@ -69,14 +68,12 @@ export const addConfig = async (params) => {
     const data = await MacRecommendConfigModel.create({
       id: params.id,
       sort: params.sort,
-      config_type: params.config_type,
-      style_type: params.style_type,
-      recommend_name: params.recommend_name,
-      recommend_icon: params.recommend_icon,
-      create_author_id: params.create_author_id,
-      create_author_name: params.create_author_name,
-      update_author_id: params.create_author_id,
-      update_author_name: params.create_author_name,
+      configType: params.configType,
+      styleType: params.styleType,
+      recommendName: params.recommendName,
+      recommendIcon: params.recommendIcon,
+      updateAuthorId: params.updateAuthorId,
+      updateAuthorName: params.updateAuthorName,
     })
 
     return response.success(200)
@@ -102,12 +99,12 @@ export const editConfig = async ({ id, ...params }) => {
     const data = await MacRecommendConfigModel.update(
       {
         sort: params.sort,
-        config_type: params.config_type,
-        style_type: params.style_type,
-        recommend_name: params.recommend_name,
-        recommend_icon: params.recommend_icon,
-        update_author_id: params.update_author_id,
-        update_author_name: params.update_author_name,
+        configType: params.configType,
+        styleType: params.styleType,
+        recommendName: params.recommendName,
+        recommendIcon: params.recommendIcon,
+        updateAuthorId: params.updateAuthorId,
+        updateAuthorName: params.updateAuthorName,
       },
       {
         where: {
@@ -155,32 +152,31 @@ export const delConfig = async ({ id }) => {
  * @description 视频关联配置列表
  */
 export const bindConfiglist = async ({
-  keyword = '',
+  configId,
   pageNo = 1,
   pageSize = 10,
 }) => {
   try {
-    const { count = 0, rows = [] } = await MacRecommendListModel.findAndCountAll({
+    const { count = 0, rows = [] } = await RecommendListModel.findAndCountAll({
       attributes: [
         'id',
-        'config_type',
-        'config_name',
-        'style_type',
-        'style_name',
-        'vod_id',
-        'vod_name',
-        'vod_img',
-        'vod_isend',
-        'vod_total',
-        'vod_serial',
-        'create_time',
-        'update_time',
+        'configId',
+        'vodId',
+        'vodName',
+        'vodCategoryId',
+        'vodImg',
+        'vodArea',
+        'vodYear',
+        'vodTotal',
+        'vodContent',
+        'vodActor',
+        'vodRemarks',
+        'updateAuthorId',
+        'updateAuthorName',
+        'updateTime',
       ],
       where: {
-        vod_name: {
-          [Op.like]: `%${keyword.trim()}%`
-        },
-        is_delete: '0',
+        configId: configId,
       },
       limit: parseInt(pageSize),
       offset: parseInt(pageSize * (pageNo - 1)),
@@ -215,37 +211,9 @@ export const bindConfiglist = async ({
  * @param {string} vodSerial 连载数
  * @description 推荐配置绑定视频
  */
-export const addBindConfig = async ({
-  userId,
-  username,
-  sort,
-  configId,
-  configType,
-  styleType,
-  vodId,
-  vodName,
-  vodImg,
-  vodIsend,
-  vodTotal,
-  vodSerial,
-}) => {
+export const addBindConfig = async (params) => {
   try {
-    const data = await MacRecommendListModel.create({
-      sort,
-      'config_id': configId,
-      'config_type': configType,
-      'style_type': styleType,
-      'vod_id': vodId,
-      'vod_name': vodName,
-      'vod_img': vodImg,
-      'vod_isend': vodIsend,
-      'vod_total': vodTotal,
-      'vod_serial': vodSerial,
-      'create_author_id': userId,
-      'create_author_name': username,
-      'update_author_id': userId,
-      'update_author_name': username,
-    })
+    const data = await RecommendListModel.create({ ...params })
 
     return response.success(200)
   } catch (error) {
@@ -287,20 +255,20 @@ export const editBindConfig = async ({
   vodSerial,
 }) => {
   try {
-    const data = await MacRecommendListModel.update(
+    const data = await RecommendListModel.update(
       {
         sort,
-        'config_id': configId,
-        'config_type': configType,
-        'style_type': styleType,
-        'vod_id': vodId,
-        'vod_name': vodName,
-        'vod_img': vodImg,
-        'vod_isend': vodIsend,
-        'vod_total': vodTotal,
-        'vod_serial': vodSerial,
-        'update_author_id': userId,
-        'update_author_name': username,
+        configId,
+        configType,
+        styleType,
+        vodId,
+        vodName,
+        vodImg,
+        vodIsend,
+        vodTotal,
+        vodSerial,
+        updateAuthorId: userId,
+        updateAuthorName: username,
       },
       {
         where: {
@@ -324,10 +292,7 @@ export const editBindConfig = async ({
  */
 export const delBind = async ({ id }) => {
   try {
-    const data = await MacRecommendListModel.update(
-      {
-        'is_delete': '1',
-      },
+    const data = await RecommendListModel.destroy(
       {
         where: {
           id,

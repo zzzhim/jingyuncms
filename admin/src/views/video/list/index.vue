@@ -10,18 +10,18 @@
         >
       </el-table-column>
       <el-table-column
-        prop="vod_pic"
+        prop="vodPic"
         label="视频封面"
       >
         <template slot-scope="scope">
           <el-image
-            :scr="scope.row.vod_pic"
-            :preview-src-list="[ scope.row.vod_pic ]"
+            :scr="scope.row.vodPic"
+            :preview-src-list="[ scope.row.vodPic ]"
           />
         </template>
       </el-table-column>
       <el-table-column
-        prop="vod_name"
+        prop="vodName"
         label="视频名称"
         >
       </el-table-column>
@@ -31,15 +31,15 @@
         >
       </el-table-column> -->
       <el-table-column
-        prop="vod_play_from"
+        prop="vodPlayFrom"
         label="播放器"
       >
         <template slot-scope="scope">
-          {{ scope.row.vod_play_from.split("$$$").join(',') }}
+          {{ scope.row.vodPlayFrom.split("$$$").join(',') }}
         </template>
       </el-table-column>
       <el-table-column
-        prop="vod_time"
+        prop="vodTime"
         label="更新时间"
       >
       </el-table-column>
@@ -83,7 +83,6 @@ export default {
     async videoList(params = {}) {
       const res = await videoList(params)
 
-      console.log(res)
       if(res.code === 200) {
         this.list = res.data.list
       }

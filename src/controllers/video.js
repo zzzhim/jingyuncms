@@ -36,17 +36,25 @@ export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
 
     const { count = 0, rows = [] } = await MacVodModel.findAndCountAll({
       attributes: [
-        'vod_id',
-        'vod_name',
-        'category_id',
-        'vod_class',
-        'vod_pic',
-        'vod_play_from',
-        'vod_time',
+        'id',
+        'vodId',
+        'vodName',
+        'categoryId',
+        'vodClass',
+        'vodPic',
+        'vodPlayFrom',
+        'vodTime',
+        'vodArea',
+        'vodYear',
+        'vodTotal',
+        'vodContent',
+        'vodActor',
+        'vodRemarks',
       ],
+      
       where: {
         ...params,
-        'is_delete': "0",
+        isDelete: "0",
       },
       limit: parseInt(pageSize),
       offset: parseInt(pageSize * (pageNo - 1)),

@@ -2,9 +2,10 @@ import * as yup from 'yup'
 
 export const recommendAddConfigSchema = yup.object().shape({
   sort: yup.number(),
-  config_type: yup.mixed().oneOf([ '0', '1', '2' ]).required(),
-  style_type: yup.mixed().oneOf([ '0', '1', '2' ]).required(),
-  recommend_name: yup
+  sort: yup.number(),
+  configType: yup.mixed().oneOf([ '0', '1', '2' ]).required(),
+  styleType: yup.mixed().oneOf([ '0', '1', '2' ]).required(),
+  recommendName: yup
     .string('推荐配置格式不正确')
     .required('推荐配置名称不能为空')
     .min(2, '推荐配置名称长度不能少于2')
@@ -14,9 +15,9 @@ export const recommendAddConfigSchema = yup.object().shape({
 export const recommendEditConfigSchema = yup.object({
   id: yup.mixed().required('id不能为空'),
   sort: yup.number(),
-  config_type: yup.mixed().oneOf([ '0', '1', '2' ]).required(),
-  style_type: yup.mixed().oneOf([ '0', '1', '2' ]).required(),
-  recommend_name: yup
+  configType: yup.mixed().oneOf([ '0', '1', '2' ]).required(),
+  styleType: yup.mixed().oneOf([ '0', '1', '2' ]).required(),
+  recommendName: yup
     .string('推荐配置格式不正确')
     .required('推荐配置名称不能为空')
     .min(2, '推荐配置名称长度不能少于2')

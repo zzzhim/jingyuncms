@@ -11,94 +11,95 @@ const MacRecommendConfig = sequelize.define(
     //   autoIncrement: true,
     //   comment: "配置id"
     // },
-    'sort': {
+    sort: {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
       defaultValue: 0,
       comment: "排序"
     },
-    'config_type': {
+    configType: {
       type: DataTypes.ENUM([ "0", "1", "2" ]),
       allowNull: false,
       defaultValue: "0",
       comment: "0 默认推荐 | 1 PC推荐 | 2 APP推荐",
     },
-    'config_name': {
+    configName: {
       type: DataTypes.VIRTUAL,
       get() {
         const list = [ '默认推荐', 'PC推荐', 'APP推荐' ]
 
-        return list[this.config_type]
+        return list[this.configType]
       },
       set(value) {
         throw new Error('不要尝试设置 `config_name` 的值!');
       }
     },
-    'style_type': {
+    styleType: {
       type: DataTypes.ENUM([ "0", "1", "2" ]),
       allowNull: false,
       defaultValue: "0",
       comment: "0 轮播 | 1 正在热播 | 2 推荐",
     },
-    'style_name': {
+    styleName: {
       type: DataTypes.VIRTUAL,
       get() {
         const list = [ '轮播', '正在热播', '推荐' ]
 
-        return list[this.style_type]
+        return list[this.styleType]
       },
       set(value) {
         throw new Error('不要尝试设置 `style_name` 的值!');
       }
     },
-    'recommend_name': {
+    recommendName: {
       type: DataTypes.STRING,
       allowNull: false,
       comment: "推荐名称"
     },
-    'recommend_icon': {
+    recommendIcon: {
       type: DataTypes.STRING,
       allowNull: true,
       defaultValue: "",
       comment: "推荐icon"
     },
-    'create_author_id': {
-      type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
-      allowNull: false,
-      comment: "创建配置项用户ID"
-    },
-    'create_author_name': {
-      type: DataTypes.STRING,
-      allowNull: false,
-      comment: "创建配置项用户名称"
-    },
-    'update_author_id': {
+    // createAuthorId: {
+    //   type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
+    //   allowNull: false,
+    //   comment: "创建配置项用户ID"
+    // },
+    // createAuthorName: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    //   comment: "创建配置项用户名称"
+    // },
+    updateAuthorId: {
       type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
       allowNull: false,
       comment: "更新配置项用户ID"
     },
-    'update_author_name': {
+    updateAuthorName: {
       type: DataTypes.STRING,
       allowNull: false,
       comment: "更新配置项用户名称"
     },
-    'create_time': {
+    createTime: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    'update_time': {
+    updateTime: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    'is_delete': {
+    isDelete: {
       type: DataTypes.ENUM("0", "1"),
       allowNull: false,
       defaultValue: "0",
     },
   },
   {
+    underscored: true,
     freezeTableName: true,
     indexes: []
   }

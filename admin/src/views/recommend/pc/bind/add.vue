@@ -16,22 +16,90 @@
       <el-button @click="dialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="handleSubmit">确 定</el-button>
     </el-row>
+
+    <el-dialog
+      title="绑定视频"
+      :visible.sync="dialogVisibleBody"
+      width="50%"
+      append-to-body
+    >
+      <el-table
+        :data="tableData"
+        style="width: 100%"
+      >
+        <el-table-column
+          type="index"
+          label="序号"
+          >
+        </el-table-column>
+        <el-table-column
+          prop="vodPic"
+          label="视频封面"
+        >
+          <template slot-scope="scope">
+            <el-image
+              :scr="scope.row.vodPic"
+              :preview-src-list="[ scope.row.vodPic ]"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="vodName"
+          label="视频名称"
+          >
+        </el-table-column>
+ 
+        <el-table-column
+          prop="vodPlayFrom"
+          label="播放器"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.vodPlayFrom.split("$$$").join(',') }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="vodTime"
+          label="更新时间"
+        >
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+            >绑定</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <el-row type="flex" justify="end" align="middle" tag="div">
+        <el-button @click="dialogVisibleBody = false">取 消</el-button>
+        <!-- <el-button type="primary" @click="handleSubmit">确 定</el-button> -->
+      </el-row>
+    </el-dialog>
   </el-dialog>
 </template>
 
 <script>
 import { recommendConfigAdd } from "@/api/recommend"
+import { videoList } from "@/api/video"
 
 export default {
   data() {
     return {
       loading: false,
       dialogVisible: false,
+      dialogVisibleBody: false,
       queryPar: {},
+      tableData: [],
+      params: {
+        pageNo: 1,
+        pageSize: 10,
+      }
     }
   },
   computed: {
     list() {
+      const that = this
       return [
         {
           list: [
@@ -45,33 +113,21 @@ export default {
             },
             {
               span: 18,
-              label: "推荐类型",
-              prop: "configType",
-              placeholder: "请选择推荐类型",
-              inputType: "select",
-              get list() {
-                return [
-                  {
-                    id: '0',
-                    label: "默认推荐",
-                  },
-                  {
-                    id: '1',
-                    label: "PC推荐",
-                  },
-                  {
-                    id: '2',
-                    label: "APP推荐",
-                  },
-                ]
-              },
-              selectLabel: "label",
-              selectValue: "id",
+              label: "获取视频",
+              inputType: "button",
+              name: '绑定',
+              onClick() {
+                that.dialogVisibleBody = true
+                that.params.pageNo = 1
+                that.videoList({
+                  ...that.params,
+                })
+              }
             },
             {
               span: 18,
               label: "推荐名称",
-              prop: "recommendName",
+              prop: "recommend_name",
               placeholder: "请输入推荐名称",
               inputType: "input",
               type: "text",
@@ -79,35 +135,10 @@ export default {
             {
               span: 18,
               label: "推荐icon",
-              prop: "recommendIcon",
+              prop: "recommend_icon",
               placeholder: "推荐icon",
               inputType: "input",
               type: "text",
-            },
-            {
-              span: 18,
-              label: "推荐样式",
-              prop: "styleType",
-              placeholder: "请选择推荐样式",
-              inputType: "select",
-              get list() {
-                return [
-                  {
-                    id: '0',
-                    label: "轮播",
-                  },
-                  {
-                    id: '1',
-                    label: "正在热播",
-                  },
-                  {
-                    id: '2',
-                    label: "推荐",
-                  },
-                ]
-              },
-              selectLabel: "label",
-              selectValue: "id",
             },
           ]
         },
@@ -125,6 +156,13 @@ export default {
     isShow(bool, params) {
       this.dialogVisible = bool
       this.queryPar = {}
+    },
+    async videoList(params = {}) {
+      const res = await videoList(params)
+
+      if(res.code === 200) {
+        this.tableData = res.data.list
+      }
     },
     handleSubmit() {
       if(this.loading) {

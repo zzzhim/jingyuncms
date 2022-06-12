@@ -26,43 +26,39 @@
       />
 
       <el-table-column
-        prop="recommendIcon"
+        prop="recommend_icon"
         label="icon"
       >
         <template slot-scope="scope">
           <el-image
-            :scr="scope.row.recommendIcon"
-            :preview-src-list="[ scope.row.recommendIcon ]"
+            :scr="scope.row.recommend_icon"
+            :preview-src-list="[ scope.row.recommend_icon ]"
           />
         </template>
       </el-table-column>
 
       <el-table-column
-        prop="configName"
+        prop="config_name"
         label="配置名称"
       />
 
       <el-table-column
-        prop="recommendName"
+        prop="recommend_name"
         label="推荐名称"
       />
 
       <el-table-column
-        prop="styleName"
+        prop="style_name"
         label="推荐样式"
       />
 
       <el-table-column
-        prop="updateTime"
+        prop="update_time"
         label="更新时间"
       />
 
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            @click="handleView(scope.row)"
-          >查看列表</el-button>
           <el-button
             size="mini"
             @click="handleEdit(scope.row)"
@@ -77,19 +73,19 @@
     </el-table>
 
     <Add ref="Add" @getList="getList" />
-    <Edit ref="Edit" @getList="getList" />
+    <!-- <Edit ref="Edit" @getList="getList" /> -->
   </div>
 </template>
 
 <script>
-import { recommendConfigList, recommendConfigDel } from '../../../../api/recommend'
+import { recommendConfigBindList, recommendConfigDel } from '../../../../api/recommend'
 import Add from "./add"
-import Edit from "./edit"
+// import Edit from "./edit"
 
 export default {
   components: {
     Add,
-    Edit,
+    // Edit,
   },
   data() {
     return {
@@ -105,10 +101,12 @@ export default {
   },
   methods: {
     getList() {
-      this.recommendConfigList()
+      this.recommendConfigBindList()
     },
-    async recommendConfigList(params = {}) {
-      const res = await recommendConfigList(params)
+    async recommendConfigBindList() {
+      const res = await recommendConfigBindList({
+        configId: parseInt(this.$route.query.id)
+      })
 
       if(res.code === 200) {
         this.list = res.data.list
@@ -117,9 +115,6 @@ export default {
     },
     handleQuery() {
 
-    },
-    handleView(row) {
-      this.$router.push('/pcRecommend/bind?id=' + row.id)
     },
     handleAdd() {
       this.$refs.Add.isShow(true)
