@@ -2,11 +2,11 @@ import dayjs from 'dayjs'
 import fs from 'fs'
 import path from 'path'
 import { v4 as uuidV4 } from 'uuid'
-import { localUrl } from '../config'
-import { createPath } from '../utils/createPath'
-import logger from '../utils/logger'
-import response from '../utils/response'
-import { fileUpload } from '../yup/file'
+import { localUrl } from '../../config'
+import { createPath } from '../../utils/createPath'
+import logger from '../../utils/logger'
+import response from '../../utils/response'
+import { fileUpload } from '../../yup/file'
 
 /**
  *

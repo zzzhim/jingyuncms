@@ -13,7 +13,7 @@ import { fileRouter } from "./file"
 import { cmsValidateTokenMiddleware } from "../../middleware/cmsValidateToken"
 
 const router = new Router({
-  prefix: '/api/cms'
+  prefix: '/cms'
 })
 
 // api路由

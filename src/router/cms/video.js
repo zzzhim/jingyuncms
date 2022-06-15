@@ -3,7 +3,7 @@ import {
   videoList,
   videoAdd,
   videoWarehousing,
-} from '../../controllers/video'
+} from '../../controllers/cms/video'
 
 const router = new Router({
   prefix: "/video"

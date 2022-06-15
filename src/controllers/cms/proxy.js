@@ -1,6 +1,6 @@
 import axios from "axios"
-import logger from "../utils/logger"
-import response from "../utils/response"
+import logger from "../../utils/logger"
+import response from "../../utils/response"
 
 /**
  * 

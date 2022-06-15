@@ -1,5 +1,5 @@
-const Router = require('koa-router')
-const { captcha } = require("../../controllers/common")
+import Router from 'koa-router'
+import { captcha } from "../../controllers/cms/common"
 
 const router = new Router({
   prefix: '/common'
@@ -18,6 +18,4 @@ router.get('/captcha', async (ctx, next) => {
   ctx.body = data
 })
 
-module.exports = {
-  commonRouter: router
-}
+export const commonRouter = router

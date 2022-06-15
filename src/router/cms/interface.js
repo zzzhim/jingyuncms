@@ -1,5 +1,5 @@
 import Router from "koa-router"
-import { add, list, edit, del } from "../../controllers/interface"
+import { add, list, edit, del } from "../../controllers/cms/interface"
 
 const router = new Router({
   prefix: '/interface'

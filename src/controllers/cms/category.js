@@ -1,8 +1,8 @@
 
-import { BindCategoryModel } from "../model/bind_category"
-import { VideoCategoryModel } from "../model/video_category"
-import logger from "../utils/logger"
-import response from "../utils/response"
+import { BindCategoryModel } from "../../model/bind_category"
+import { VideoCategoryModel } from "../../model/video_category"
+import logger from "../../utils/logger"
+import response from "../../utils/response"
 
 /**
  * 

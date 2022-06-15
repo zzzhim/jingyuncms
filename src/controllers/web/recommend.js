@@ -1,8 +1,8 @@
 import sequelize from "sequelize"
-import { MacRecommendConfigModel } from "../model/recommend_config"
-import { RecommendListModel } from "../model/recommend_list"
-import logger from "../utils/logger"
-import response from "../utils/response"
+import { MacRecommendConfigModel } from "../../model/recommend_config"
+import { RecommendListModel } from "../../model/recommend_list"
+import logger from "../../utils/logger"
+import response from "../../utils/response"
 
 /**
  * @param {string} keyword 关键字
@@ -10,7 +10,7 @@ import response from "../utils/response"
  * @param {number} pageSize 页数
  * @description 查询pc推荐列表
  */
-export const RecommendList = async () => {
+export const recommendList = async () => {
   try {
     const rows = await MacRecommendConfigModel.findAll({
       where: {

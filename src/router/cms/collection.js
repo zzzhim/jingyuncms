@@ -1,7 +1,7 @@
 import Router from 'koa-router'
 import {
   maccmsCollection,
-} from '../../controllers/collection'
+} from '../../controllers/cms/collection'
 
 const router = new Router({
   prefix: '/collection'

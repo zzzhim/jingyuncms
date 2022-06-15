@@ -1,7 +1,7 @@
 import { Op } from "sequelize"
-import { ScheduleJobUserModel } from "../model/schedule_job_log"
-import logger from "../utils/logger"
-import response from "../utils/response"
+import { ScheduleJobUserModel } from "../../model/schedule_job_log"
+import logger from "../../utils/logger"
+import response from "../../utils/response"
 
 /**
  * 

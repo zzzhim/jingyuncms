@@ -1,5 +1,5 @@
-import { UserModel } from "../model/user"
-import response from "../utils/response"
+import { UserModel } from "../../model/user"
+import response from "../../utils/response"
 import md5 from "md5"
 
 /**

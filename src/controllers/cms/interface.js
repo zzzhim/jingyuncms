@@ -1,8 +1,8 @@
 import axios from "axios"
 import { Op } from "sequelize"
-import { InterfaceSetupModel } from "../model/Interface_setup"
-import logger from "../utils/logger"
-import response from "../utils/response"
+import { InterfaceSetupModel } from "../../model/Interface_setup"
+import logger from "../../utils/logger"
+import response from "../../utils/response"
 
 /**
  * 

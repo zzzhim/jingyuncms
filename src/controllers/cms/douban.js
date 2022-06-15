@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer"
-import logger from "../utils/logger"
-import response from "../utils/response"
+import logger from "../../utils/logger"
+import response from "../../utils/response"
 
 const getDocumentData = () => {
   const _dom = document.querySelector('#content')

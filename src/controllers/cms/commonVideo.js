@@ -1,6 +1,6 @@
-import { MacVodModel } from '../model/vod'
-import response from '../utils/response'
-import { logger } from '../utils/logger'
+import { MacVodModel } from '../../model/vod'
+import response from '../../utils/response'
+import { logger } from '../../utils/logger'
 
 /**
  *

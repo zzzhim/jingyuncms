@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { maccmsApiProxy } from '../../controllers/proxy'
+import { maccmsApiProxy } from '../../controllers/cms/proxy'
 
 const router = new Router({
   prefix: '/proxy'

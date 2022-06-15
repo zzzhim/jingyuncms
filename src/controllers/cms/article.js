@@ -1,6 +1,6 @@
 const { ArticleModel } = require("../model/article")
-const { default: logger } = require("../utils/logger")
-const response = require("../utils/response")
+const { default: logger } = require("../../utils/loggerger")
+const response = require("../../utils/responsense")
 
 class Article {
   /**

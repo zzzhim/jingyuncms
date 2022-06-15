@@ -2,7 +2,9 @@ import Router from "koa-router"
 import { cmsRouter } from "./cms/index"
 import { webRouter } from "./web"
 
-const router = new Router()
+const router = new Router({
+  prefix: '/api'
+})
 
 router
   .use(webRouter.routes(), webRouter.allowedMethods())

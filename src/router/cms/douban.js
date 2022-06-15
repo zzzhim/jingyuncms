@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { getDoubanVideoData } from '../../controllers/douban'
+import { getDoubanVideoData } from '../../controllers/cms/douban'
 
 const router = new Router({
   prefix: '/douban'

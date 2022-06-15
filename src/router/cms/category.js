@@ -6,7 +6,7 @@ import {
   delVideoCategory,
   bindInterfaceList,
   bindInterfaceAdd
-} from '../../controllers/category'
+} from '../../controllers/cms/category'
 
 const router = new Router({
   prefix: '/category'

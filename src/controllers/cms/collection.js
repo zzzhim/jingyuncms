@@ -1,8 +1,8 @@
-import { InterfaceSetupModel } from "../model/Interface_setup"
-import { socketIo } from "../socket"
-import logger from "../utils/logger"
-import response from "../utils/response"
-import { sleep } from "../utils/sleep"
+import { InterfaceSetupModel } from "../../model/Interface_setup"
+import { socketIo } from "../../socket"
+import logger from "../../utils/logger"
+import response from "../../utils/response"
+import { sleep } from "../../utils/sleep"
 import { maccmsApiProxy } from "./proxy"
 import { videoAdd } from "./video"
 

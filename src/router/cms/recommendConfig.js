@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { addConfig, configList, editConfig, delConfig, bindConfiglist, addBindConfig, editBindConfig, delBind } from "../../controllers/recommendConfig"
+import { addConfig, configList, editConfig, delConfig, bindConfiglist, addBindConfig, editBindConfig, delBind } from "../../controllers/cms/recommendConfig"
 import { commomIdValidate } from '../../validate/common'
 import { addConfigValidate, editConfigValidate, delConfigValidate, addBindValidate } from '../../validate/recommendConfig'
 

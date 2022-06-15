@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { uploadM3u8 } from '../../controllers/file'
+import { uploadM3u8 } from '../../controllers/cms/file'
 import { fileValidate } from '../../validate/file'
 import koaBody from "koa-body"
 import path from "path"

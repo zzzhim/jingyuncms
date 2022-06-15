@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { logList } from '../../controllers/schedule'
+import { logList } from '../../controllers/cms/schedule'
 
 const router = new Router({
   prefix: '/schedule'

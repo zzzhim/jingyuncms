@@ -1,11 +1,11 @@
-import { MacVodModel } from '../model/vod'
-import response from '../utils/response'
-import { LetterNumtoLine } from '../utils/toLine'
+import { MacVodModel } from '../../model/vod'
+import response from '../../utils/response'
+import { LetterNumtoLine } from '../../utils/toLine'
 import { Op } from 'sequelize'
-import { logger } from '../utils/logger'
-import { BindCategoryModel } from '../model/bind_category'
-import { socketIo } from '../socket'
-import { underlineToHump } from '../utils/underlineToHump'
+import { logger } from '../../utils/logger'
+import { BindCategoryModel } from '../../model/bind_category'
+import { socketIo } from '../../socket'
+import { underlineToHump } from '../../utils/underlineToHump'
 
 /**
  *

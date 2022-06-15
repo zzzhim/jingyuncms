@@ -1,9 +1,9 @@
 import { Op } from "sequelize"
-import { MacRecommendConfigModel } from "../model/recommend_config"
-import { RecommendListModel } from "../model/recommend_list"
-import { logger } from "../utils/logger"
+import { MacRecommendConfigModel } from "../../model/recommend_config"
+import { RecommendListModel } from "../../model/recommend_list"
+import { logger } from "../../utils/logger"
 // import { response.success, error as response.error } from "../utils/response"
-import response from "../utils/response"
+import response from "../../utils/response"
 
 /**
  * @param {string} keyword 关键字
