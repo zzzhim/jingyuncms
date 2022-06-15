@@ -10,6 +10,7 @@ import { categoryRouter } from "./category"
 import { scheduleRouter } from "./schedule"
 import { collectionRouter } from "./collection"
 import { fileRouter } from "./file"
+import { recommendRouter } from "./recommend"
 
 const router = new Router({
   prefix: '/api'
@@ -28,5 +29,6 @@ router
   .use(categoryRouter.routes(), categoryRouter.allowedMethods())
   .use(scheduleRouter.routes(), scheduleRouter.allowedMethods())
   .use(collectionRouter.routes(), collectionRouter.allowedMethods())
+  .use(recommendRouter.routes(), recommendRouter.allowedMethods())
 
 export const apiRouter = router
