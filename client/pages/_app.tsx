@@ -1,5 +1,9 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { TokenKey } from '../utils/auth'
+import PropTypes from 'prop-types'
+import cookies from 'next-cookies'
+import service from '../utils/request'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -21,6 +25,24 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Component {...pageProps} />
     </>
   )
+}
+
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  pageProps: PropTypes.object.isRequired,
+}
+
+MyApp.getInitialProps = async (ctx: any) => {
+  const Cookie = cookies(ctx?.ctx)
+
+  if(Cookie[TokenKey]) {
+    (service.defaults.headers as any).token = Cookie[TokenKey]
+  }
+
+
+  return {
+    pageProps: {},
+  }
 }
 
 export default MyApp
