@@ -12,7 +12,7 @@ import { collectionRouter } from "./collection"
 import { fileRouter } from "./file"
 
 const router = new Router({
-  prefix: '/api'
+  prefix: '/api/cms'
 })
 
 // api路由
@@ -29,4 +29,4 @@ router
   .use(scheduleRouter.routes(), scheduleRouter.allowedMethods())
   .use(collectionRouter.routes(), collectionRouter.allowedMethods())
 
-export const apiRouter = router
+export const cmsRouter = router
