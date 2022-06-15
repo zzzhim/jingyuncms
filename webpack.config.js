@@ -1,7 +1,7 @@
 const path = require('path')
 const TerserPlugin = require("terser-webpack-plugin")
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
 module.exports = {
   // mode: process.env.NODE_ENV === "prod" ? 'production' : "development",
@@ -19,16 +19,16 @@ module.exports = {
     ],
     extensions: ['.js', '.ejs'],
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: "src/views/*",
-        },
-      ],
-    }),
-  ],
+  // plugins: [
+  //   new CleanWebpackPlugin(),
+  //   new CopyWebpackPlugin({
+  //     patterns: [
+  //       {
+  //         from: "src/views/*",
+  //       },
+  //     ],
+  //   }),
+  // ],
   optimization: {
     // 压缩代码
     minimize: true,

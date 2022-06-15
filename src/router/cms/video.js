@@ -3,10 +3,7 @@ import {
   videoList,
   videoAdd,
   videoWarehousing,
-  uploadM3u8,
 } from '../../controllers/video'
-import { commomIdValidate } from '../../validate/common'
-import { fileValidate } from '../../validate/file'
 
 const router = new Router({
   prefix: "/video"
