@@ -14,22 +14,23 @@ export const RecommendList = async () => {
   try {
     const rows = await MacRecommendConfigModel.findAll({
       where: {
-        id: 1,
+        
       },
       order: [
-        // 升序
-        sequelize.fn('max', sequelize.col('sort')),
-        // 降序
-        // [ sequelize.fn('max', sequelize.col('sort')), 'DESC' ],
+        [ 'sort' ],
+        [ { model: RecommendListModel, as: 'children' }, 'sort' ],
       ],
+      // order: [
+      //   // 升序
+      //   sequelize.fn('max', sequelize.col('sort')),
+      //   // 降序
+      //   // [ sequelize.fn('max', sequelize.col('sort')), 'DESC' ],
+      // ],
       include: {
         model: RecommendListModel,
         as: 'children',
-        order: [
-          // 升序
-          sequelize.fn('max', sequelize.col('sort')),
-        ]
       },
+      // raw: true
     })
 
     return response.success(

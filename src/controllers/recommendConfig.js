@@ -195,6 +195,7 @@ export const bindConfiglist = async ({
 export const addBindConfig = async (params) => {
   try {
     const {
+      sort,
       configId,
       vodId,
       vodName,
@@ -211,6 +212,7 @@ export const addBindConfig = async (params) => {
     } = params
 
     const data = await RecommendListModel.create({
+      sort,
       configId,
       vodId,
       vodName,

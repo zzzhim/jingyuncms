@@ -1,12 +1,12 @@
-const Router = require('koa-router')
-const { login } = require("../../controllers/login")
-const { loginValidate } = require('../../validate/login')
+import Router from "koa-router"
+import { login } from "../../controllers/login"
+import { loginValidate } from "../../validate/login"
 
 const router = new Router({
-  prefix: '/user'
+  prefix: '/login'
 })
 
-router.post('/login', loginValidate, async (ctx, next) => {
+router.post('/', loginValidate, async (ctx, next) => {
   const {
     username,
     password
@@ -20,6 +20,4 @@ router.post('/login', loginValidate, async (ctx, next) => {
   ctx.body = data
 })
 
-module.exports = {
-  loginRouter: router
-}
+export const loginRouter = router
