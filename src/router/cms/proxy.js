@@ -21,7 +21,7 @@ router.post('/maccms', async (ctx) => {
  * 
  * @description 苹果cms详情接口添加视频
  */
- router.post('/maccms/detail', async (ctx) => {
+router.post('/maccms/detail', async (ctx) => {
   const { url, method = 'get', data = {}, params = {}, header } = ctx.request.body
 
   const res = await maccmsApiProxy({

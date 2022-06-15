@@ -10,6 +10,9 @@ import { categoryRouter } from "./category"
 import { scheduleRouter } from "./schedule"
 import { collectionRouter } from "./collection"
 import { fileRouter } from "./file"
+import { recommendRouter } from "./recommend"
+import jwt from "koa-jwt"
+import { SECRET_KEY } from "../../config"
 
 const router = new Router({
   prefix: '/api/cms'
@@ -18,7 +21,17 @@ const router = new Router({
 // api路由
 router
   .use(commonRouter.routes(), commonRouter.allowedMethods())
+  .use(recommendRouter.routes(), recommendRouter.allowedMethods())
   .use(loginRouter.routes(), loginRouter.allowedMethods())
+  .use(jwt({
+    secret: SECRET_KEY,
+  }).unless({
+    path: [
+      /^\/public/,
+      /^\/api\/user\/login/,
+      /^\/api\/common/,
+    ],
+  }))
   .use(fileRouter.routes(), fileRouter.allowedMethods())
   .use(videoRouter.routes(), videoRouter.allowedMethods())
   .use(recommendConfigRouter.routes(), recommendConfigRouter.allowedMethods())

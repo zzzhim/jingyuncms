@@ -331,6 +331,12 @@ const MacVod = sequelize.define(
       // field: 'vodContent',
       comment: "详细介绍",
     },
+    vodNotes: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      // field: 'vodContent',
+      comment: "简介",
+    },
     vodPlayFrom: {
       type: DataTypes.STRING,
       allowNull: true,

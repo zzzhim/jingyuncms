@@ -1,12 +1,12 @@
-const { ArticleUpdateSchema, ArticleAddSchema, ArticleListSchema } = require("../yup/article")
-const response = require("../utils/response")
+import { ArticleUpdateSchema, ArticleAddSchema, ArticleListSchema } from "../yup/article"
+import { warning } from "../utils/response"
 
 /**
  * 
  * @description 校验获取文章列表参数
  * @method GET
  */
-async function articleListValidate(ctx, next) {
+export async function articleListValidate(ctx, next) {
   try {
     const { pageSize, pageNo } = ctx.query
 
@@ -14,7 +14,7 @@ async function articleListValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    ctx.body = response.warning(500, {}, error)
+    ctx.body = warning(500, {}, error)
   }
 }
 
@@ -23,7 +23,7 @@ async function articleListValidate(ctx, next) {
  * @description 校验更新文章参数
  * @method POST
  */
-async function articleUpdateValidate(ctx, next) {
+export async function articleUpdateValidate(ctx, next) {
   try {
     const { id, title, tags, content } = ctx.request.body
 
@@ -31,7 +31,7 @@ async function articleUpdateValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    ctx.body = response.warning(500, {}, error)
+    ctx.body = warning(500, {}, error)
   }
 }
 
@@ -40,7 +40,7 @@ async function articleUpdateValidate(ctx, next) {
  * @description 校验添加文章参数
  * @method POST
  */
-async function articleAddValidate(ctx, next) {
+export async function articleAddValidate(ctx, next) {
   try {
     const { title, tags, content } = ctx.request.body
 
@@ -48,12 +48,7 @@ async function articleAddValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    ctx.body = response.warning(500, {}, error)
+    ctx.body = warning(500, {}, error)
   }
 }
 
-module.exports = {
-  articleListValidate,
-  articleAddValidate,
-  articleUpdateValidate
-}

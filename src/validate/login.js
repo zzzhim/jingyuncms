@@ -1,5 +1,5 @@
-const { loginSchema } = require("../yup/login")
-const response = require("../utils/response")
+import { loginSchema } from "../yup/login"
+import response from "../utils/response"
 
 export async function loginValidate(ctx, next) {
   try {

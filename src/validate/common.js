@@ -1,12 +1,12 @@
-const { CommonIdSchema } = require("../yup/common")
-const response = require("../utils/response")
+import { CommonIdSchema } from "../yup/common"
+import { warning } from "../utils/response"
 
 /**
  * 
  * @description 校验Id格式是否正确
  * @method GET | POST
  */
-async function commomIdValidate(ctx, next) {
+export async function commomIdValidate(ctx, next) {
   try {
     const id = ctx.query.id || ctx.request.body.id
 
@@ -14,10 +14,6 @@ async function commomIdValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    ctx.body = response.warning(500, {}, error)
+    ctx.body = warning(500, {}, error)
   }
-}
-
-module.exports = {
-  commomIdValidate,
 }

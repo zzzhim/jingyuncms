@@ -27,6 +27,12 @@ const User = sequelize.define(
 
         return token
       }
+    },
+    role: {
+      type: DataTypes.ENUM("0", "1", "2",),
+      allowNull: false,
+      defaultValue: "1",
+      comment: "权限 0 超级管理员 1 普通用户 2 管理员"
     }
   },
   {
