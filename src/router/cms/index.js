@@ -11,6 +11,7 @@ import { scheduleRouter } from "./schedule"
 import { collectionRouter } from "./collection"
 import { fileRouter } from "./file"
 import { cmsValidateTokenMiddleware } from "../../middleware/cmsValidateToken"
+import { ipRecordAddMiddleware } from "../../middleware/IpRecord"
 
 const router = new Router({
   prefix: '/cms'
@@ -18,6 +19,7 @@ const router = new Router({
 
 // api路由
 router
+  // .use(ipRecordAddMiddleware('cms'))
   .use(commonRouter.routes(), commonRouter.allowedMethods())
   .use(loginRouter.routes(), loginRouter.allowedMethods())
   .use(cmsValidateTokenMiddleware)

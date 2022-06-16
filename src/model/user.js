@@ -30,7 +30,7 @@ const User = sequelize.define(
     devices: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "",
+      defaultValue: "设备号",
     },
     token: { // 虚拟字段
       type: DataTypes.VIRTUAL,

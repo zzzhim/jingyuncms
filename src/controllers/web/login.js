@@ -9,6 +9,7 @@ import md5 from "md5"
  */
 export const login = async ({ username, password }) => {
   const data = await UserModel.findOne({
+    // attributes: ['username', 'password', 'id'],
     where: {
       username,
       password: md5(password),
@@ -18,7 +19,7 @@ export const login = async ({ username, password }) => {
   if (data && data.dataValues) {
     return response.success(
       200,
-      data
+      data,
     )
   }
 
