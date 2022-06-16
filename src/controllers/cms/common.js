@@ -1,4 +1,4 @@
-import { info, success } from "../../utils/response"
+import response from "../../utils/response"
 import { create } from 'svg-captcha'
 
 /**
@@ -8,7 +8,7 @@ import { create } from 'svg-captcha'
  */
 export async function captcha(ctx, { type }) {
   if(!type) {
-    return info(500, {}, '请传入验证码类型')
+    return response.info(500, {}, '请传入验证码类型')
   }
 
   const res = create({
@@ -20,7 +20,7 @@ export async function captcha(ctx, { type }) {
     ctx.session.captchaCode = res.text
     ctx.session.captchaType = type
 
-    return success(
+    return response.success(
       200,
       {
         svgData: res.data,
@@ -28,6 +28,6 @@ export async function captcha(ctx, { type }) {
     )
   }
 
-  return info(500, {}, '获取验证码失败')
+  return response.info(500, {}, '获取验证码失败')
 }
 
