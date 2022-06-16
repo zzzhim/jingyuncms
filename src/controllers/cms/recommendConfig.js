@@ -1,6 +1,6 @@
 import { Op } from "sequelize"
-import { MacRecommendConfigModel } from "../../model/recommend_config"
-import { RecommendListModel } from "../../model/recommend_list"
+import { RecommendConfigModel } from "../../model/recommendConfig"
+import { RecommendListModel } from "../../model/recommendList"
 import { logger } from "../../utils/logger"
 // import { response.success, error as response.error } from "../utils/response"
 import response from "../../utils/response"
@@ -17,7 +17,7 @@ export const configList = async ({
   pageSize = 10,
 }) => {
   try {
-    const { count = 0, rows = [] } = await MacRecommendConfigModel.findAndCountAll({
+    const { count = 0, rows = [] } = await RecommendConfigModel.findAndCountAll({
       attributes: [
         'id',
         'sort',
@@ -64,7 +64,7 @@ export const configList = async ({
  */
 export const addConfig = async (params) => {
   try {
-    const data = await MacRecommendConfigModel.create({
+    const data = await RecommendConfigModel.create({
       id: params.id,
       sort: params.sort,
       configType: params.configType,
@@ -95,7 +95,7 @@ export const addConfig = async (params) => {
  */
 export const editConfig = async ({ id, ...params }) => {
   try {
-    const data = await MacRecommendConfigModel.update(
+    const data = await RecommendConfigModel.update(
       {
         sort: params.sort,
         configType: params.configType,
@@ -126,7 +126,7 @@ export const editConfig = async ({ id, ...params }) => {
  */
 export const delConfig = async ({ id }) => {
   try {
-    const data = await MacRecommendConfigModel.destroy(
+    const data = await RecommendConfigModel.destroy(
       {
         where: {
           id,

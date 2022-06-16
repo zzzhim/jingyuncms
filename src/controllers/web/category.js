@@ -1,8 +1,7 @@
-import { MacVodModel } from '../../model/vod'
 import response from '../../utils/response'
 import { logger } from '../../utils/logger'
 import { Op } from 'sequelize'
-import { VideoCategoryModel } from '../../model/video_category'
+import { VideoCategoryModel } from '../../model/videoCategory'
 import sequelize from 'sequelize'
 
 /**

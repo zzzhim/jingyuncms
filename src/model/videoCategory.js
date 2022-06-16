@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize"
-import { BindCategoryModel } from "./bind_category"
+import { BindCategoryModel } from "./bindCategory"
 import { sequelize } from "./sequelize"
 
 // 用户表

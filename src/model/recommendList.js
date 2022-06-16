@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize"
-import { MacRecommendConfigModel } from "./recommend_config"
 import { sequelize } from "./sequelize"
 
 const RecommendList = sequelize.define(
@@ -98,5 +97,3 @@ const RecommendList = sequelize.define(
 )
 
 export const RecommendListModel = RecommendList
-
-// RecommendListModel.belongsTo(MacRecommendConfigModel)

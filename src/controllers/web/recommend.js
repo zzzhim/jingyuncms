@@ -1,6 +1,6 @@
 import sequelize from "sequelize"
-import { MacRecommendConfigModel } from "../../model/recommend_config"
-import { RecommendListModel } from "../../model/recommend_list"
+import { RecommendConfigModel } from "../../model/recommendConfig"
+import { RecommendListModel } from "../../model/recommendList"
 import logger from "../../utils/logger"
 import response from "../../utils/response"
 
@@ -12,7 +12,7 @@ import response from "../../utils/response"
  */
 export const recommendList = async () => {
   try {
-    const rows = await MacRecommendConfigModel.findAll({
+    const rows = await RecommendConfigModel.findAll({
       where: {
         
       },

@@ -1,6 +1,6 @@
 
-import { BindCategoryModel } from "../../model/bind_category"
-import { VideoCategoryModel } from "../../model/video_category"
+import { BindCategoryModel } from "../../model/bindCategory"
+import { VideoCategoryModel } from "../../model/videoCategory"
 import logger from "../../utils/logger"
 import response from "../../utils/response"
 

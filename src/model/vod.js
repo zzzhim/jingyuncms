@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize"
 import { sequelize } from "./sequelize"
 
-const MacVod = sequelize.define(
+const Vod = sequelize.define(
   'vod',
   {
     vodId: {
@@ -387,4 +387,4 @@ const MacVod = sequelize.define(
   }
 )
 
-export const MacVodModel = MacVod
+export const VodModel = Vod

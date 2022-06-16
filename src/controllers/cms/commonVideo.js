@@ -1,4 +1,4 @@
-import { MacVodModel } from '../../model/vod'
+import { VodModel } from '../../model/vod'
 import response from '../../utils/response'
 import { logger } from '../../utils/logger'
 
@@ -15,7 +15,7 @@ import { logger } from '../../utils/logger'
  */
 export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
   try {
-    const { count = 0, rows = [] } = await MacVodModel.findAndCountAll({
+    const { count = 0, rows = [] } = await VodModel.findAndCountAll({
       where: {},
       limit: parseInt(pageSize),
       offset: parseInt(pageSize * (pageNo - 1)),

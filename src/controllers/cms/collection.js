@@ -1,4 +1,4 @@
-import { InterfaceSetupModel } from "../../model/Interface_setup"
+import { InterfaceSetupModel } from "../../model/InterfaceSetup"
 import { socketIo } from "../../socket"
 import logger from "../../utils/logger"
 import response from "../../utils/response"

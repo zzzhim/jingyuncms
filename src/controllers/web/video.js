@@ -1,4 +1,4 @@
-import { MacVodModel } from '../../model/vod'
+import { VodModel } from '../../model/vod'
 import response from '../../utils/response'
 import { logger } from '../../utils/logger'
 import { Op } from 'sequelize'
@@ -20,7 +20,7 @@ export const videoList = async (params) => {
       pageSize = 10,
     } = params
 
-    const { count = 0, rows = [] } = await MacVodModel.findAndCountAll({
+    const { count = 0, rows = [] } = await VodModel.findAndCountAll({
       where: {
         vodName: {
           [Op.like]: `%${vodName || ''}%`,
@@ -57,7 +57,7 @@ export const videoList = async (params) => {
   try {
     const { id } = params
 
-    const data = await MacVodModel.findOne({
+    const data = await VodModel.findOne({
       where: {
         id: {
           [Op.eq]: id,

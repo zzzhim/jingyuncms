@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize"
-import { RecommendListModel } from "./recommend_list"
+import { RecommendListModel } from "./recommendList"
 import { sequelize } from "./sequelize"
 
-const MacRecommendConfig = sequelize.define(
+const RecommendConfig = sequelize.define(
   'recommend_config',
   {
     // 'id': {
@@ -106,9 +106,9 @@ const MacRecommendConfig = sequelize.define(
   }
 )
 
-export const MacRecommendConfigModel = MacRecommendConfig
+export const RecommendConfigModel = RecommendConfig
 
-MacRecommendConfigModel.hasMany(RecommendListModel, {
+RecommendConfigModel.hasMany(RecommendListModel, {
   foreignKey: 'configId',
   as: 'children',
 })

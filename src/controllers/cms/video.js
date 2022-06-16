@@ -1,9 +1,7 @@
-import { MacVodModel } from '../../model/vod'
+import { VodModel } from '../../model/vod'
 import response from '../../utils/response'
-import { LetterNumtoLine } from '../../utils/toLine'
-import { Op } from 'sequelize'
 import { logger } from '../../utils/logger'
-import { BindCategoryModel } from '../../model/bind_category'
+import { BindCategoryModel } from '../../model/bindCategory'
 import { socketIo } from '../../socket'
 import { underlineToHump } from '../../utils/underlineToHump'
 
@@ -20,36 +18,8 @@ import { underlineToHump } from '../../utils/underlineToHump'
  */
 export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
   try {
-    const params = {}
-
-    for (const key in obj) {
-      if (obj[key] !== null && obj[key] !== undefined) {
-        params[key] = {
-          [ Op.like ]: `%${obj[key]}%`
-        }
-      }
-    }
-
-    const { count = 0, rows = [] } = await MacVodModel.findAndCountAll({
-      attributes: [
-        'id',
-        'vodId',
-        'vodName',
-        'categoryId',
-        'vodClass',
-        'vodPic',
-        'vodPlayFrom',
-        'vodTime',
-        'vodArea',
-        'vodYear',
-        'vodTotal',
-        'vodContent',
-        'vodActor',
-        'vodRemarks',
-      ],
-      
+    const { count = 0, rows = [] } = await VodModel.findAndCountAll({
       where: {
-        ...params,
         isDelete: "0",
       },
       limit: parseInt(pageSize),
@@ -64,7 +34,6 @@ export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
       }
     )
   } catch (error) {
-    console.log(error)
     logger.error(error)
     return response.error(500)
   }
@@ -104,7 +73,7 @@ export const videoAdd = async (params) => {
     // list = list.filter(item => item != false)
 
     // 批量添加视频数据
-    // await MacVodModel.bulkCreate(list)
+    // await VodModel.bulkCreate(list)
 
     list.forEach(async element => {
       if(element.is_bind_category) {
@@ -114,7 +83,7 @@ export const videoAdd = async (params) => {
         }
 
         try {
-          await MacVodModel.findOrCreate({
+          await VodModel.findOrCreate({
             where: {
               vodName: element.vod_name
             },
@@ -158,7 +127,7 @@ export const videoAdd = async (params) => {
 export const videoWarehousing = async (params) => {
   try {
     try {
-      await MacVodModel.create({ ...params })
+      await VodModel.create({ ...params })
     } catch (error) {
       logger.error(error)
     }
