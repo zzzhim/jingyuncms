@@ -15,11 +15,27 @@
 
 // logger.level = "all"
 
+import fundebug from "fundebug-nodejs"
+
+fundebug.apikey = "638dfe8c4d295c1134e22a8ca9f8d9d57be85e7cefe3d459afbece7767d1ea1f"
+
 const logger = {
-  log: console.log,
-  error: console.log,
-  warning: console.log,
-  info: console.log,
+  log: (...params) => {
+    console.log(...params)
+    fundebug.notify("log", ...params)
+  },
+  error: (...params) => {
+    console.log(...params)
+    fundebug.notify("error", ...params)
+  },
+  warning: (...params) => {
+    console.log(...params)
+    fundebug.notify("warning", ...params)
+  },
+  info: (...params) => {
+    console.log(...params)
+    fundebug.notify("info", ...params)
+  },
 }
 
 export { logger }
