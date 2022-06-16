@@ -5,28 +5,28 @@ import loggerRouter from "koa-logger"
 // import session from "koa-session"
 import koaStatic from 'koa-static'
 import path from "path"
-import { port, SECRET_KEY, SESSION_KEY } from "./src/config"
+import { port, SECRET_KEY } from "./src/config"
 import { router } from "./src/router"
 import logger from "./src/utils/logger"
 import './src/socket'
-import fundebug from "fundebug-nodejs"
-
-fundebug.apikey = "638dfe8c4d295c1134e22a8ca9f8d9d57be85e7cefe3d459afbece7767d1ea1f"
+import { requestHandler, Sentry, tracingMiddleWare } from "./src/utils/sentry"
 
 const app = new Koa({
   proxy: true,
   // proxyIpHeader
 })
 
-logger.info(111213, 'test')
-
 // require("./src/model/sequelize")
-app.on("error", fundebug.KoaErrorHandler)
-
 
 app.keys = [ SECRET_KEY ]
 
 app
+  .use(requestHandler)
+  .use(tracingMiddleWare)
+
+app
+  // .use(requestHandler)
+  // .use(tracingMiddleWare)
   .use(loggerRouter())
   .use(cors())
   // .use(session({
@@ -35,6 +35,16 @@ app
   .use(koaBody())
   .use(router.routes(), router.allowedMethods())
   .use(koaStatic(path.join(__dirname, './src/static')))
+
+  
+app.on("error", (err, ctx) => {
+  Sentry.withScope(function(scope) {
+    scope.addEventProcessor(function(event) {
+      return Sentry.Handlers.parseRequest(event, ctx.request);
+    });
+    Sentry.captureException(err);
+  });
+})
 
 app.listen(port, () => {
   logger.info(process.env.APP_NODE_ENV)

@@ -29,7 +29,6 @@ export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
       }
     )
   } catch (error) {
-    console.log(error)
     logger.error(error)
     return response.error(500)
   }

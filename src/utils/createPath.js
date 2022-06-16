@@ -3,9 +3,7 @@ import path from "path"
 import { isPathExists } from "./isPathExists"
 
 export function createPath(filePath) {
-  console.log(filePath)
   const arr = filePath.split('\\')
-  console.log(arr)
 
   arr.forEach((item, index) => {
     const list = []
