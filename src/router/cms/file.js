@@ -1,9 +1,10 @@
 import Router from 'koa-router'
-import { uploadM3u8 } from '../../controllers/cms/file'
-import { fileValidate } from '../../validate/file'
+import { uploadM3u8, uploadImg } from '../../controllers/cms/file'
 import koaBody from "koa-body"
 import path from "path"
-import { fileUpload } from '../../yup/file'
+import KoaMulter from "@koa/multer"
+
+const koaMulter = new KoaMulter()
 
 const router = new Router({
   prefix: "/file"
@@ -11,7 +12,7 @@ const router = new Router({
 
 /**
  *
- * @description 添加视频
+ * @description 上传m3u8
  */
 router.post('/upload/m3u8', koaBody({
   multipart: true,
@@ -25,6 +26,27 @@ router.post('/upload/m3u8', koaBody({
   const file = ctx.request.files.file
 
   const data = await uploadM3u8({ file })
+
+  ctx.body = data
+})
+
+/**
+ *
+ * @param {file} file 文件
+ * @param {string} type 1 本地 2 oss
+ * @description 上传图片
+ */
+router.post('/upload/img', koaMulter.single('file'), async (ctx, next) => { // 单个上传
+// router.post('/upload/img', koaMulter.fields([ // 批量上传
+//   {
+//     name: 'file',
+//     maxCount: 1
+//   },
+// ]), async (ctx, next) => {
+  const file = ctx.request.file
+  const { type = '1' } = ctx.request.body
+
+  const data = await uploadImg({ type, file })
 
   ctx.body = data
 })
