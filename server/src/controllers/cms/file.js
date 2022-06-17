@@ -23,7 +23,7 @@ export const uploadM3u8 = async ({ file }) => {
     // 要保存到的文件夹目录
     const dir = `/m3u8/${dayjs().format('YYYY_MM_DD')}`
 
-    const dirPath = path.join(process.cwd(), `/src/static/${dir}`)
+    const dirPath = path.join(process.cwd(), `/public/${dir}`)
     if (!fs.existsSync(dirPath)) {
       createPath(dirPath)
     }
@@ -67,7 +67,7 @@ export const uploadImg = async ({ type, file }) => {
       // 要保存到的文件夹目录
       const dir = `/image/${dayjs().format('YYYY_MM_DD')}`
 
-      const dirPath = path.join(process.cwd(), `/src/static/${dir}`)
+      const dirPath = path.join(process.cwd(), `/public/${dir}`)
       if (!fs.existsSync(dirPath)) {
         createPath(dirPath)
       }
@@ -94,7 +94,7 @@ export const uploadImg = async ({ type, file }) => {
     }else if(type === '2') {
       // 要保存到的文件夹目录
       const dir = `/image/${dayjs().format('YYYY_MM_DD')}`
-      const dirPath = path.join(process.cwd(), `/src/static/${dir}`)
+      const dirPath = path.join(process.cwd(), `/public/${dir}`)
       if (!fs.existsSync(dirPath)) {
         createPath(dirPath)
       }
@@ -103,30 +103,15 @@ export const uploadImg = async ({ type, file }) => {
       const fileType = arr.length >= 2 ? `${arr[arr.length - 1]}` : ''
       // 生成文件名称
       const filename = `${dayjs().format('YYYY_MM_DD_HH_mm_ss_')}${uuidV4()}.${fileType}`
-
       // 生成本地图片
       fs.writeFileSync(`${dirPath}/${filename}`, file.buffer.toString('base64'), "base64")
 
       const formData = new FormData()
 
-      // console.log(await fileFromPath(`${dirPath}/${filename}`))
-      // formData.set("file", await fileFromPath(`${dirPath}/${filename}`))
-      // formData.set("file", await fileFromPath(`${dirPath}/${filename}`))
-
       const localFile = fs.createReadStream(`${dirPath}/${filename}`)
-      // const localFile = new File(
-      //   [fs.readFileSync(`${dirPath}/${filename}`)],
-      //   fileName,
-      //   { type: `image/${fileType}` } // what I upload is image.
-      // )
 
-      formData.append('file', file)
-      // formData.set('file', fs.createReadStream(`${dirPath}/${filename}`), {
-      //   name: filename,
-      //   size: Buffer.byteLength(file.buffer)
-      // })
-
-      // console.log(formData.get('file'))
+      console.log(localFile)
+      formData.append('file', localFile)
 
       try {
         const res = await douyinUpload(formData)

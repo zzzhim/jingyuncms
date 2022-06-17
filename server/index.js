@@ -12,7 +12,7 @@ import './src/socket'
 import { requestHandler, Sentry, tracingMiddleWare } from "./src/utils/sentry"
 
 const app = new Koa({
-  proxy: true,
+  // proxy: true,
   // proxyIpHeader
 })
 
@@ -34,16 +34,15 @@ app
   // }, app))
   .use(koaBody())
   .use(router.routes(), router.allowedMethods())
-  .use(koaStatic(path.join(__dirname, './src/static')))
+  .use(koaStatic(path.join(__dirname, './public')))
 
-  
 app.on("error", (err, ctx) => {
   Sentry.withScope(function(scope) {
     scope.addEventProcessor(function(event) {
-      return Sentry.Handlers.parseRequest(event, ctx.request);
-    });
-    Sentry.captureException(err);
-  });
+      return Sentry.Handlers.parseRequest(event, ctx.request)
+    })
+    Sentry.captureException(err)
+  })
 })
 
 app.listen(port, () => {

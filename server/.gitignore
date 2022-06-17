@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+dist/
+log/*
+logs/*
+
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

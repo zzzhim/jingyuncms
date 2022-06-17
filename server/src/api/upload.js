@@ -1,21 +1,36 @@
 import axios from "axios"
+import fetch from 'node-fetch'
 
 export async function douyinUpload(formData) {
-  const res = await axios.post(
+  const res = await fetch(
     'https://music.douyin.com/console/api/v1/upload/cover',
-    formData,
     {
+      method: 'POST',
+      body: formData,
       headers: {
         "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary9HAjFnN1LkxkeCde",
         "cookie": "d_ticket=5a1c3a8593f1981e774d058a443bbac355310; passport_csrf_token=6386b68e9a62e6841dbe47450553c126; passport_csrf_token_default=6386b68e9a62e6841dbe47450553c126; n_mh=cGUM5WBME0ToA1vKSrAWjqYQdBN0__XL0vfAhlmFLDE; MONITOR_WEB_ID=a12a4d60-9269-4648-8496-dea5a687dc6d; Hm_lvt_fad7c1cf4f20c598e0b78b81566cbbc0=1654569887,1655445475; csrf_token=Hqp71EI_Z-I1lUwZGHNYGs11; _gid=GA1.2.326943161.1655445476; s_v_web_id=verify_l4i1htqr_pyKNOeiN_5pib_4h5j_BlF5_ZQyEubs9DVVL; sso_uid_tt=43cfc00e2b53d2a35807cd32202d7b08; sso_uid_tt_ss=43cfc00e2b53d2a35807cd32202d7b08; toutiao_sso_user=8db6a8231178fdc8e3dfa306a5bae77e; toutiao_sso_user_ss=8db6a8231178fdc8e3dfa306a5bae77e; sid_ucp_sso_v1=1.0.0-KGE1MzdhODc4NWFmNGQwN2E4YzI1Mjk4MDIzNjRmZDA3Yzg0MmRjNjQKHQiLyMDP9wIQmbCwlQYYlk4gDDDGjcrZBTgGQPQHGgJsZiIgOGRiNmE4MjMxMTc4ZmRjOGUzZGZhMzA2YTViYWU3N2U; ssid_ucp_sso_v1=1.0.0-KGE1MzdhODc4NWFmNGQwN2E4YzI1Mjk4MDIzNjRmZDA3Yzg0MmRjNjQKHQiLyMDP9wIQmbCwlQYYlk4gDDDGjcrZBTgGQPQHGgJsZiIgOGRiNmE4MjMxMTc4ZmRjOGUzZGZhMzA2YTViYWU3N2U; odin_tt=39dbbe6213490e0ee5a66b4c71202e7ecfd80acb4665e3ad32fd7b5ac72da05af41d0fc16b1d578522d03471afece3b6a9632ffdb9e394ff0b30d74b31845a2d; sid_guard=8db6a8231178fdc8e3dfa306a5bae77e%7C1655445531%7C5184000%7CTue%2C+16-Aug-2022+05%3A58%3A51+GMT; uid_tt=43cfc00e2b53d2a35807cd32202d7b08; uid_tt_ss=43cfc00e2b53d2a35807cd32202d7b08; sid_tt=8db6a8231178fdc8e3dfa306a5bae77e; sessionid=8db6a8231178fdc8e3dfa306a5bae77e; sessionid_ss=8db6a8231178fdc8e3dfa306a5bae77e; sid_ucp_v1=1.0.0-KDM2MmYzNjk1MTAwYzYyYjA2NzUzNWU1NGJjZjczNDg0OWVlYzgzOGIKHQiLyMDP9wIQm7CwlQYYlk4gDDDGjcrZBTgGQPQHGgJscSIgOGRiNmE4MjMxMTc4ZmRjOGUzZGZhMzA2YTViYWU3N2U; ssid_ucp_v1=1.0.0-KDM2MmYzNjk1MTAwYzYyYjA2NzUzNWU1NGJjZjczNDg0OWVlYzgzOGIKHQiLyMDP9wIQm7CwlQYYlk4gDDDGjcrZBTgGQPQHGgJscSIgOGRiNmE4MjMxMTc4ZmRjOGUzZGZhMzA2YTViYWU3N2U; gfsitesid=OGRiNmE4MjMxMXwxNjU1NDQ1NTMyODR8fDEwMDgzMDAyODgxMQsLCwsLCwsLCwsL; gftoken=OGRiNmE4MjMxMXwxNjU1NDQ1NTMyODR8fDAGBgYGBgY; Hm_lpvt_fad7c1cf4f20c598e0b78b81566cbbc0=1655445739; _ga_PZ1MHZSCJ7=GS1.1.1655445475.6.1.1655445739.0; ttwid=1%7CtJ4N_0Vox0QK6nHvuP6F2EwjCFfSjW-0Cm_kkKMnBtA%7C1655445738%7C7d0e1abb48ae88a7f06729404b2edca9958beabf39ec128aeaed680a68c15016; _ga=GA1.2.72976711.1648699181",
         "x-csrf-token": "Hqp71EI_Z-I1lUwZGHNYGs11",
         "x-secsdk-csrf-token": "DOWNGRADE",
-      },
-      timeout: 60 * 1000
+      }
     }
   )
 
-  console.log(res.data)
+  // const res = await axios.post(
+  //   'https://music.douyin.com/console/api/v1/upload/cover',
+  //   formData,
+  //   {
+  //     headers: {
+  //       "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary9HAjFnN1LkxkeCde",
+  //       "cookie": "d_ticket=5a1c3a8593f1981e774d058a443bbac355310; passport_csrf_token=6386b68e9a62e6841dbe47450553c126; passport_csrf_token_default=6386b68e9a62e6841dbe47450553c126; n_mh=cGUM5WBME0ToA1vKSrAWjqYQdBN0__XL0vfAhlmFLDE; MONITOR_WEB_ID=a12a4d60-9269-4648-8496-dea5a687dc6d; Hm_lvt_fad7c1cf4f20c598e0b78b81566cbbc0=1654569887,1655445475; csrf_token=Hqp71EI_Z-I1lUwZGHNYGs11; _gid=GA1.2.326943161.1655445476; s_v_web_id=verify_l4i1htqr_pyKNOeiN_5pib_4h5j_BlF5_ZQyEubs9DVVL; sso_uid_tt=43cfc00e2b53d2a35807cd32202d7b08; sso_uid_tt_ss=43cfc00e2b53d2a35807cd32202d7b08; toutiao_sso_user=8db6a8231178fdc8e3dfa306a5bae77e; toutiao_sso_user_ss=8db6a8231178fdc8e3dfa306a5bae77e; sid_ucp_sso_v1=1.0.0-KGE1MzdhODc4NWFmNGQwN2E4YzI1Mjk4MDIzNjRmZDA3Yzg0MmRjNjQKHQiLyMDP9wIQmbCwlQYYlk4gDDDGjcrZBTgGQPQHGgJsZiIgOGRiNmE4MjMxMTc4ZmRjOGUzZGZhMzA2YTViYWU3N2U; ssid_ucp_sso_v1=1.0.0-KGE1MzdhODc4NWFmNGQwN2E4YzI1Mjk4MDIzNjRmZDA3Yzg0MmRjNjQKHQiLyMDP9wIQmbCwlQYYlk4gDDDGjcrZBTgGQPQHGgJsZiIgOGRiNmE4MjMxMTc4ZmRjOGUzZGZhMzA2YTViYWU3N2U; odin_tt=39dbbe6213490e0ee5a66b4c71202e7ecfd80acb4665e3ad32fd7b5ac72da05af41d0fc16b1d578522d03471afece3b6a9632ffdb9e394ff0b30d74b31845a2d; sid_guard=8db6a8231178fdc8e3dfa306a5bae77e%7C1655445531%7C5184000%7CTue%2C+16-Aug-2022+05%3A58%3A51+GMT; uid_tt=43cfc00e2b53d2a35807cd32202d7b08; uid_tt_ss=43cfc00e2b53d2a35807cd32202d7b08; sid_tt=8db6a8231178fdc8e3dfa306a5bae77e; sessionid=8db6a8231178fdc8e3dfa306a5bae77e; sessionid_ss=8db6a8231178fdc8e3dfa306a5bae77e; sid_ucp_v1=1.0.0-KDM2MmYzNjk1MTAwYzYyYjA2NzUzNWU1NGJjZjczNDg0OWVlYzgzOGIKHQiLyMDP9wIQm7CwlQYYlk4gDDDGjcrZBTgGQPQHGgJscSIgOGRiNmE4MjMxMTc4ZmRjOGUzZGZhMzA2YTViYWU3N2U; ssid_ucp_v1=1.0.0-KDM2MmYzNjk1MTAwYzYyYjA2NzUzNWU1NGJjZjczNDg0OWVlYzgzOGIKHQiLyMDP9wIQm7CwlQYYlk4gDDDGjcrZBTgGQPQHGgJscSIgOGRiNmE4MjMxMTc4ZmRjOGUzZGZhMzA2YTViYWU3N2U; gfsitesid=OGRiNmE4MjMxMXwxNjU1NDQ1NTMyODR8fDEwMDgzMDAyODgxMQsLCwsLCwsLCwsL; gftoken=OGRiNmE4MjMxMXwxNjU1NDQ1NTMyODR8fDAGBgYGBgY; Hm_lpvt_fad7c1cf4f20c598e0b78b81566cbbc0=1655445739; _ga_PZ1MHZSCJ7=GS1.1.1655445475.6.1.1655445739.0; ttwid=1%7CtJ4N_0Vox0QK6nHvuP6F2EwjCFfSjW-0Cm_kkKMnBtA%7C1655445738%7C7d0e1abb48ae88a7f06729404b2edca9958beabf39ec128aeaed680a68c15016; _ga=GA1.2.72976711.1648699181",
+  //       "x-csrf-token": "Hqp71EI_Z-I1lUwZGHNYGs11",
+  //       "x-secsdk-csrf-token": "DOWNGRADE",
+  //     },
+  //     timeout: 60 * 1000
+  //   }
+  // )
+
+  console.log(await res.json())
 
   if(res.data && res.data.statusCode == 0 && res.data.data) {
     if(Array.isArray(res.data.data.urls) && res.data.data.urls.length > 0) {
