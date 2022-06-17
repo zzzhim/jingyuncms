@@ -10,23 +10,16 @@ const IpRecord = sequelize.define(
   'ip_record',
   {
     userId: {
-      type: DataTypes.INET,
+      type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
       allowNull: true,
       comment: "用户Id"
     },
-    // oid: {
-    //   type: DataTypes.VIRTUAL,
-    //   get() {
-    //     return this.id * 15 + 10000
-    //   },
-    //   comment: "oid"
-    // },
     email: {
       type: DataTypes.STRING,
       allowNull: true,
       comment: "用户邮箱"
     },
-    userName: {
+    username: {
       type: DataTypes.STRING,
       allowNull: true,
       comment: "用户昵称"
@@ -34,12 +27,13 @@ const IpRecord = sequelize.define(
     devices: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: "设备号",
+      defaultValue: "",
+      comment: "设备号",
     },
     port: {
       type: DataTypes.ENUM("1", "2"),
       allowNull: false,
-      defaultValue: "输入端口 1 web 2 app",
+      comment: "输入端口 1 web 2 app"
     },
     ip: {
       type: DataTypes.STRING,
@@ -47,7 +41,7 @@ const IpRecord = sequelize.define(
       comment: "ip地址"
     },
     total: {
-      type: DataTypes.INET,
+      type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
       allowNull: false,
       defaultValue: 1,
       comment: "请求总次数"
@@ -70,3 +64,8 @@ const IpRecord = sequelize.define(
 )
 
 export const IpRecordModel = IpRecord
+
+IpRecordModel.sync({
+  force: true,
+  alter: true,
+}).catch(err => console.log(err))

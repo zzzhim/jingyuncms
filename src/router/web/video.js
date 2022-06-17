@@ -24,7 +24,7 @@ router.get('/list', async (ctx, next) => {
  * @param {number} id 视频名称
  * @description 获取视频详情
  */
- router.get('/detail', async (ctx, next) => {
+router.get('/detail', async (ctx, next) => {
   const { id } = ctx.request.query
   const data = await videoDetail({ id })
 

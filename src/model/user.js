@@ -18,6 +18,7 @@ const User = sequelize.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: ""
     },
     username: {
       type: DataTypes.STRING,
@@ -30,7 +31,8 @@ const User = sequelize.define(
     devices: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "设备号",
+      defaultValue: "",
+      comment: "设备号"
     },
     token: { // 虚拟字段
       type: DataTypes.VIRTUAL,
