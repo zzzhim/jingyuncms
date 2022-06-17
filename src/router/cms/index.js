@@ -12,6 +12,7 @@ import { collectionRouter } from "./collection"
 import { fileRouter } from "./file"
 import { cmsValidateTokenMiddleware } from "../../middleware/cmsValidateToken"
 import { ipRecordAddMiddleware } from "../../middleware/IpRecord"
+import { userRouter } from "./user"
 
 const router = new Router({
   prefix: '/cms'
@@ -23,6 +24,7 @@ router
   .use(commonRouter.routes(), commonRouter.allowedMethods())
   .use(loginRouter.routes(), loginRouter.allowedMethods())
   .use(cmsValidateTokenMiddleware)
+  .use(userRouter.routes(), userRouter.allowedMethods())
   .use(fileRouter.routes(), fileRouter.allowedMethods())
   .use(videoRouter.routes(), videoRouter.allowedMethods())
   .use(recommendConfigRouter.routes(), recommendConfigRouter.allowedMethods())

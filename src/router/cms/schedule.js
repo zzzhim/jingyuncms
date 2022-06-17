@@ -7,12 +7,17 @@ const router = new Router({
 
 /**
  * 
+ * @param {number} pageNo 页码
+ * @param {number} pageSize 页数
  * @description 定时任务日志列表
  */
 router.get('/log/list', async (ctx) => {
-  const { id } = ctx.query
+  const {
+    pageNo = 1,
+    pageSize = 10,
+  } = ctx.query
 
-  const res = await logList({ id })
+  const res = await logList({ pageNo, pageSize })
 
   ctx.body = res
 })

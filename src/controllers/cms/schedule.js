@@ -19,7 +19,7 @@ export const logList = async ({
     const { count = 0, rows = [] } = await ScheduleJobUserModel.findAndCountAll({
       where: {
         jobName: {
-          [ Op.like ]: `%${keyword.trim()}%`
+          [ Op.like ]: `%${keyword.trim() || ''}%`
         },
       },
       limit: parseInt(pageSize),
