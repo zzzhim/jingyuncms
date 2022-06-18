@@ -26,7 +26,6 @@ router.post('/upload/m3u8', koaMulter.single('file'), m3u8FileValidate, async (c
 /**
  *
  * @param {file} file 文件
- * @param {string} type 1 本地 2 oss
  * @description 上传图片
  */
 router.post('/upload/img', koaMulter.single('file'), imgFileValidate, async (ctx, next) => {

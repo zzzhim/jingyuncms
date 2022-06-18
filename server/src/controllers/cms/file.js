@@ -29,7 +29,7 @@ export const uploadM3u8 = async ({ file, username_dir, prefixHost }) => {
     // 生成本地文件
     fs.writeFileSync(`${dirPath}/${filename}`, file.buffer.toString('base64'), "base64")
 
-    return response.success(200, { imgUrl: prefixHost + `${dir}/${filename}` }, '保存文件成功')
+    return response.success(200, { m3u8Url: prefixHost + `${dir}/${filename}` }, '保存文件成功')
   } catch (error) { // 没有通过校验or未知错误
     logger.error(error)
     return response.error(500, {}, error)
