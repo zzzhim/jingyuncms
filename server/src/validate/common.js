@@ -14,6 +14,6 @@ export async function commomIdValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    ctx.body = response.warning(500, {}, error)
+    ctx.body = response.warning(500, {}, error.message || error)
   }
 }

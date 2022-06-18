@@ -13,20 +13,13 @@ import { requestHandler, Sentry, tracingMiddleWare } from "./src/utils/sentry"
 
 const app = new Koa({
   proxy: true,
-  // proxyIpHeader
 })
-
-// require("./src/model/sequelize")
 
 app.keys = [ SECRET_KEY ]
 
 app
   .use(requestHandler)
   .use(tracingMiddleWare)
-
-app
-  // .use(requestHandler)
-  // .use(tracingMiddleWare)
   .use(loggerRouter())
   .use(cors())
   // .use(session({
@@ -34,16 +27,15 @@ app
   // }, app))
   .use(koaBody())
   .use(router.routes(), router.allowedMethods())
-  .use(koaStatic(path.join(__dirname, './src/static')))
+  .use(koaStatic(path.join(__dirname, './public')))
 
-  
 app.on("error", (err, ctx) => {
   Sentry.withScope(function(scope) {
     scope.addEventProcessor(function(event) {
-      return Sentry.Handlers.parseRequest(event, ctx.request);
-    });
-    Sentry.captureException(err);
-  });
+      return Sentry.Handlers.parseRequest(event, ctx.request)
+    })
+    Sentry.captureException(err)
+  })
 })
 
 app.listen(port, () => {
