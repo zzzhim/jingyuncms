@@ -1,4 +1,3 @@
-
 import response from '../../utils/response'
 import { logger } from '../../utils/logger'
 import { UserModel } from '../../model/user'
@@ -10,7 +9,7 @@ import md5 from 'md5'
  * @param {number} pageSize 页数
  * @description 查询用户
  */
-export const userList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
+export const userList = async ({ pageNo = 1, pageSize = 10 }) => {
   try {
     const { count = 0, rows = [] } = await UserModel.findAndCountAll({
       attributes: [
@@ -52,6 +51,16 @@ export const userList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
  */
  export const userEditAccountAndPass = async ({ userId, username, oldPassword, newPassword }) => {
   try {
+    const result = await UserModel.findOne({
+      where: {
+        username,
+      }
+    })
+
+    if(result) {
+      return response.warning(500, {}, "当前用户昵称已存在")
+    }
+
     const data = await UserModel.findOne({
       where: {
         id: userId,

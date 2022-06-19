@@ -13,9 +13,10 @@ import { fileRouter } from "./file"
 import { cmsValidateTokenMiddleware } from "../../middleware/cmsValidateToken"
 import { ipRecordAddMiddleware } from "../../middleware/IpRecord"
 import { userRouter } from "./user"
+import { m3u8Router } from "./m3u8"
 
 const router = new Router({
-  prefix: '/cms'
+  prefix: '/cms',
 })
 
 // api路由
@@ -34,5 +35,6 @@ router
   .use(categoryRouter.routes(), categoryRouter.allowedMethods())
   .use(scheduleRouter.routes(), scheduleRouter.allowedMethods())
   .use(collectionRouter.routes(), collectionRouter.allowedMethods())
+  .use(m3u8Router.routes(), m3u8Router.allowedMethods())
 
 export const cmsRouter = router
