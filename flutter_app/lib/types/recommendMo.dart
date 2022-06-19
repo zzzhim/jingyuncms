@@ -1,11 +1,11 @@
-class RecommendListMo {
+class RecommendListResponseMo {
   int? code;
   String? message;
   Data? data;
 
-  RecommendListMo({this.code, this.message, this.data});
+  RecommendListResponseMo({this.code, this.message, this.data});
 
-  RecommendListMo.fromJson(Map<String, dynamic> json) {
+  RecommendListResponseMo.fromJson(Map<String, dynamic> json) {
     this.code = json["code"];
     this.message = json["message"];
     this.data = json["data"] == null ? null : Data.fromJson(json["data"]);
@@ -21,14 +21,16 @@ class RecommendListMo {
 }
 
 class Data {
-  List<Lists>? list;
+  List<RecommendListMo>? list;
 
   Data({this.list});
 
   Data.fromJson(Map<String, dynamic> json) {
     this.list = json["list"] == null
         ? null
-        : (json["list"] as List).map((e) => Lists.fromJson(e)).toList();
+        : (json["list"] as List)
+            .map((e) => RecommendListMo.fromJson(e))
+            .toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -39,7 +41,7 @@ class Data {
   }
 }
 
-class Lists {
+class RecommendListMo {
   String? configName;
   String? styleName;
   int? id;
@@ -55,27 +57,28 @@ class Lists {
   String? isDelete;
   String? createdAt;
   String? updatedAt;
-  List<Children>? children;
+  List<VideoCardMo>? children;
 
-  Lists(
-      {this.configName,
-      this.styleName,
-      this.id,
-      this.sort,
-      this.configType,
-      this.styleType,
-      this.recommendName,
-      this.recommendIcon,
-      this.updateAuthorId,
-      this.updateAuthorName,
-      this.createTime,
-      this.updateTime,
-      this.isDelete,
-      this.createdAt,
-      this.updatedAt,
-      this.children});
+  RecommendListMo({
+    this.configName,
+    this.styleName,
+    this.id,
+    this.sort,
+    this.configType,
+    this.styleType,
+    this.recommendName,
+    this.recommendIcon,
+    this.updateAuthorId,
+    this.updateAuthorName,
+    this.createTime,
+    this.updateTime,
+    this.isDelete,
+    this.createdAt,
+    this.updatedAt,
+    this.children,
+  });
 
-  Lists.fromJson(Map<String, dynamic> json) {
+  RecommendListMo.fromJson(Map<String, dynamic> json) {
     this.configName = json["configName"];
     this.styleName = json["styleName"];
     this.id = json["id"];
@@ -93,7 +96,9 @@ class Lists {
     this.updatedAt = json["updatedAt"];
     this.children = json["children"] == null
         ? null
-        : (json["children"] as List).map((e) => Children.fromJson(e)).toList();
+        : (json["children"] as List)
+            .map((e) => VideoCardMo.fromJson(e))
+            .toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -119,7 +124,7 @@ class Lists {
   }
 }
 
-class Children {
+class VideoCardMo {
   int? id;
   int? sort;
   int? configId;
@@ -138,26 +143,27 @@ class Children {
   String? createdAt;
   String? updatedAt;
 
-  Children(
-      {this.id,
-      this.sort,
-      this.configId,
-      this.vodId,
-      this.categoryId,
-      this.vodName,
-      this.imgUrl,
-      this.vodArea,
-      this.vodYear,
-      this.vodRemarks,
-      this.vodTotal,
-      this.vodContent,
-      this.vodActor,
-      this.updateAuthorId,
-      this.updateAuthorName,
-      this.createdAt,
-      this.updatedAt});
+  VideoCardMo({
+    this.id,
+    this.sort,
+    this.configId,
+    this.vodId,
+    this.categoryId,
+    this.vodName,
+    this.imgUrl,
+    this.vodArea,
+    this.vodYear,
+    this.vodRemarks,
+    this.vodTotal,
+    this.vodContent,
+    this.vodActor,
+    this.updateAuthorId,
+    this.updateAuthorName,
+    this.createdAt,
+    this.updatedAt,
+  });
 
-  Children.fromJson(Map<String, dynamic> json) {
+  VideoCardMo.fromJson(Map<String, dynamic> json) {
     this.id = json["id"];
     this.sort = json["sort"];
     this.configId = json["configId"];

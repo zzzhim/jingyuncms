@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/recommend.dart';
-import 'package:flutter_app/request/index.dart';
+import 'package:flutter_app/pages/home/tabContent.dart';
+import 'package:flutter_app/types/recommendMo.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,6 +22,8 @@ class _HomePageState extends State<HomePage>
     Tab(text: '热播'),
   ];
 
+  List<RecommendListMo> list = [];
+
   late TabController _tabController;
 
   @override
@@ -29,19 +31,13 @@ class _HomePageState extends State<HomePage>
     super.initState();
     _tabController = TabController(vsync: this, length: Tabs.length);
 
-    asyncgetList();
+    getRecommendListApi();
   }
 
-  void asyncgetList() async {
-    try {
-      var response = await getRecommendList({});
-      print(response.code);
-      print(jsonEncode(response.data!.list));
-      print(response.message);
-    } catch (e) {
-      print(e);
-      print(111);
-    }
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,57 +48,58 @@ class _HomePageState extends State<HomePage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
+                color: Colors.white,
                 alignment: Alignment.centerLeft,
-                child: TabBar(
-                  controller: _tabController,
-                  tabs: Tabs,
-                  labelColor: Colors.red,
-                  unselectedLabelColor: Colors.black,
-                  isScrollable: true,
-                  indicator: UnderlineTabIndicator(
-                    borderSide: BorderSide(color: Colors.red, width: 2),
-                  ),
-                ),
+                child: _appBar(),
               ),
               Flexible(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: Tabs.map((e) => const Text('1')).toList(),
-                ),
+                flex: 1,
+                child: _tabBarView(),
               )
             ],
           ),
         ),
       );
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  void getRecommendListApi() async {
+    try {
+      var res = await getRecommendList({});
+      print(jsonEncode(res));
+
+      if (res.code == 200) {
+        setState(() {
+          list = res.data!.list!;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  _appBar() {
+    return TabBar(
+      controller: _tabController,
+      tabs: Tabs,
+      labelColor: Colors.red,
+      unselectedLabelColor: Colors.black,
+      isScrollable: true,
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(color: Colors.red, width: 2),
+      ),
+    );
+  }
+
+  _tabBarView() {
+    return TabBarView(
+      controller: _tabController,
+      children: Tabs.map((e) => _tabBarViewContent()).toList(),
+    );
+  }
+
+  Widget _tabBarViewContent() {
+    return TabContentWidget(
+      recommendListMo: list,
+    );
+    // return Text('111');
   }
 }
-
-// /// The screen of the first page.
-// class HomePage extends StatelessWidget {
-//   /// Creates a [HomePage].
-//   const HomePage({Key? key}) : super(key: key);
-
-//   late TabController _tabController;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _tabController = TabController(vsync: this, length: myTabs.length);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) => Scaffold(
-//         appBar: AppBar(title: const Text('首页')),
-//         body: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[],
-//           ),
-//         ),
-//       );
-// }
