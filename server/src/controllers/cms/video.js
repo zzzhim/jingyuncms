@@ -4,22 +4,31 @@ import { logger } from '../../utils/logger'
 import { BindCategoryModel } from '../../model/bindCategory'
 import { socketIo } from '../../socket'
 import { underlineToHump } from '../../utils/underlineToHump'
+import { Op } from 'sequelize'
 
 /**
  *
- * @param {number} typeId 分类id
- * @param {number} typeId1 一级分类id
- * @param {string} typeName 分类名
  * @param {string} vodName 视频名
- * @param {string} vodName 视频名
- * @param {number} vodYear 年代
+ * @param {number} categoryId 分类Id
+ * @param {number} pageNo 页码
  * @param {number} pageSize 页数
  * @description 查询视频
  */
-export const videoList = async ({ pageNo = 1, pageSize = 10, ...obj }) => {
+export const videoList = async ({
+  vodName,
+  categoryId,
+  pageNo = 1,
+  pageSize = 10,
+}) => {
   try {
     const { count = 0, rows = [] } = await VodModel.findAndCountAll({
       where: {
+        vodName: {
+          [Op.like]: `%${vodName || ''}%`,
+        },
+        categoryId: {
+          [Op.like]: `%${categoryId || ''}%`,
+        },
         isDelete: "0",
       },
       limit: parseInt(pageSize),
@@ -56,13 +65,13 @@ export const videoAdd = async (params) => {
         return ele.getDataValue('interfaceCategoryId') == item.type_id
       })
 
-      if(find) {
+      if (find) {
         return {
           ...item,
           categoryId: find.getDataValue('bindVideoCategoryId'),
           is_bind_category: true
         }
-      }else {
+      } else {
         return {
           ...item,
           is_bind_category: false
@@ -76,7 +85,7 @@ export const videoAdd = async (params) => {
     // await VodModel.bulkCreate(list)
 
     list.forEach(async element => {
-      if(element.is_bind_category) {
+      if (element.is_bind_category) {
         const obj = {}
         for (const key in element) {
           obj[underlineToHump(key)] = element[key]
@@ -101,7 +110,7 @@ export const videoAdd = async (params) => {
             log: `<span style="color: #67C23A;">采集视频成功</span> -> 分类ID: ${element.type_id} 分类名称: ${element.type_name} 视频名称:${element.vod_name} `
           }
         })
-      }else {
+      } else {
         socketIo.emit('logs', {
           type: 'collection',
           taskType: 'maccms',
@@ -112,6 +121,93 @@ export const videoAdd = async (params) => {
         })
       }
     })
+
+    return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500)
+  }
+}
+
+
+/**
+ *
+ * @description 编辑视频
+ */
+export const videoEdit = async ({
+  id,
+  vodName,
+  categoryId,
+  vodSub,
+  vodStatus,
+  vodTag,
+  vodPic,
+  vodBlurb,
+  vodRemarks,
+  vodTotal,
+  vodYear,
+  vodState,
+  vodIsend,
+  vodCopyright,
+  vodHits,
+  vodHitsDay,
+  vodHitsWeek,
+  vodHitsMonth,
+  vodDuration,
+  vodUp,
+  vodDown,
+  vodScore,
+  vodScoreAll,
+  vodScoreNum,
+  vodTrysee,
+  vodDoubanId,
+  vodDoubanScore,
+  vodContent,
+  vodNotes,
+  vodPlayFrom,
+  vodPlayNote,
+  vodPlayUrl,
+}) => {
+  try {
+    await BindCategoryModel.update(
+      {
+        vodName,
+        categoryId,
+        vodSub,
+        vodStatus,
+        vodTag,
+        vodPic,
+        vodBlurb,
+        vodRemarks,
+        vodTotal,
+        vodYear,
+        vodState,
+        vodIsend,
+        vodCopyright,
+        vodHits,
+        vodHitsDay,
+        vodHitsWeek,
+        vodHitsMonth,
+        vodDuration,
+        vodUp,
+        vodDown,
+        vodScore,
+        vodScoreAll,
+        vodScoreNum,
+        vodTrysee,
+        vodDoubanId,
+        vodDoubanScore,
+        vodContent,
+        vodNotes,
+        vodPlayFrom,
+        vodPlayNote,
+        vodPlayUrl,
+      },
+      {
+        where: {
+          id: id,
+        }
+      })
 
     return response.success(200, {})
   } catch (error) {

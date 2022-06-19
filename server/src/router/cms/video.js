@@ -10,33 +10,23 @@ const router = new Router({
 })
 
 /**
- * @param {number} typeId 分类id
- * @param {number} typeId1 一级分类id
- * @param {string} typeName 分类名
  * @param {string} vodName 视频名
- * @param {string} vodName 视频名
- * @param {number} vodYear 年代
+ * @param {number} categoryId 分类Id
  * @param {number} pageNo 页码
  * @param {number} pageSize 页数
  * @description 视频列表
  */
 router.get('/list', async (ctx, next) => {
   const {
-    typeId,
-    typeId1,
-    typeName,
     vodName,
-    vodYear,
+    categoryId,
     pageNo = 1,
     pageSize = 10,
   } = ctx.query
 
   const data = await videoList({
-    typeId,
-    typeId1,
-    typeName,
     vodName,
-    vodYear,
+    categoryId,
     pageNo,
     pageSize
   })
@@ -55,6 +45,84 @@ router.post('/add', async (ctx, next) => {
 
   ctx.body = data
 })
+
+
+/**
+ *
+ * @description 编辑视频
+ */
+router.post('/edit', async (ctx, next) => {
+  const {
+    vodName,
+    categoryId,
+    vodSub,
+    vodStatus,
+    vodTag,
+    vodPic,
+    vodBlurb,
+    vodRemarks,
+    vodTotal,
+    vodYear,
+    vodState,
+    vodIsend,
+    vodCopyright,
+    vodHits,
+    vodHitsDay,
+    vodHitsWeek,
+    vodHitsMonth,
+    vodDuration,
+    vodUp,
+    vodDown,
+    vodScore,
+    vodScoreAll,
+    vodScoreNum,
+    vodTrysee,
+    vodDoubanId,
+    vodDoubanScore,
+    vodContent,
+    vodNotes,
+    vodPlayFrom,
+    vodPlayNote,
+    vodPlayUrl, } = ctx.request.body
+
+  const data = await videoAdd({
+    vodName,
+    categoryId,
+    vodSub,
+    vodStatus,
+    vodTag,
+    vodPic,
+    vodBlurb,
+    vodRemarks,
+    vodTotal,
+    vodYear,
+    vodState,
+    vodIsend,
+    vodCopyright,
+    vodHits,
+    vodHitsDay,
+    vodHitsWeek,
+    vodHitsMonth,
+    vodDuration,
+    vodUp,
+    vodDown,
+    vodScore,
+    vodScoreAll,
+    vodScoreNum,
+    vodTrysee,
+    vodDoubanId,
+    vodDoubanScore,
+    vodContent,
+    vodNotes,
+    vodPlayFrom,
+    vodPlayNote,
+    vodPlayUrl,
+  })
+
+  ctx.body = data
+})
+
+
 
 /**
  *
