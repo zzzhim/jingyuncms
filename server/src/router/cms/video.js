@@ -3,7 +3,9 @@ import {
   videoList,
   videoAdd,
   videoWarehousing,
+  videoDel,
 } from '../../controllers/cms/video'
+import { commomIdValidate } from '../../validate/common'
 
 const router = new Router({
   prefix: "/video"
@@ -45,7 +47,6 @@ router.post('/add', async (ctx, next) => {
 
   ctx.body = data
 })
-
 
 /**
  *
@@ -122,7 +123,18 @@ router.post('/edit', async (ctx, next) => {
   ctx.body = data
 })
 
+/**
+ *
+ * @param {nubmer} id 视频Id
+ * @description 删除视频
+ */
+router.post('/del', commomIdValidate, async (ctx, next) => {
+  const { id } = ctx.request.body
 
+  const data = await videoDel({ id })
+
+  ctx.body = data
+})
 
 /**
  *

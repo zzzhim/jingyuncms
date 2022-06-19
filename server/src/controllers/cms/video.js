@@ -168,7 +168,7 @@ export const videoEdit = async ({
   vodPlayUrl,
 }) => {
   try {
-    await BindCategoryModel.update(
+    await VodModel.update(
       {
         vodName,
         categoryId,
@@ -207,6 +207,26 @@ export const videoEdit = async ({
           id: id,
         }
       })
+
+    return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500)
+  }
+}
+
+/**
+ *
+ * @param {number} id 视频Id
+ * @description 删除视频
+ */
+ export const videoDel = async ({ id }) => {
+  try {
+    await VodModel.destroy({
+      where: {
+        id
+      }
+    })
 
     return response.success(200, {})
   } catch (error) {
