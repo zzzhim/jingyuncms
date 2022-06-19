@@ -4,6 +4,7 @@ import {
   videoAdd,
   videoWarehousing,
   videoDel,
+  videoEdit,
 } from '../../controllers/cms/video'
 import { commomIdValidate } from '../../validate/common'
 
@@ -54,6 +55,7 @@ router.post('/add', async (ctx, next) => {
  */
 router.post('/edit', async (ctx, next) => {
   const {
+    id,
     vodName,
     categoryId,
     vodSub,
@@ -84,9 +86,11 @@ router.post('/edit', async (ctx, next) => {
     vodNotes,
     vodPlayFrom,
     vodPlayNote,
-    vodPlayUrl, } = ctx.request.body
+    vodPlayUrl,
+  } = ctx.request.body
 
-  const data = await videoAdd({
+  const data = await videoEdit({
+    id,
     vodName,
     categoryId,
     vodSub,

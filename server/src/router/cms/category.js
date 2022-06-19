@@ -5,11 +5,22 @@ import {
   editVideoCategory,
   delVideoCategory,
   bindInterfaceList,
-  bindInterfaceAdd
+  bindInterfaceAdd,
+  categoryList,
 } from '../../controllers/cms/category'
 
 const router = new Router({
   prefix: '/category'
+})
+
+/**
+ * 
+ * @description 获取分类列表
+ */
+router.get('/list', async (ctx, next) => {
+  const data = await categoryList({})
+
+  ctx.body = data
 })
 
 /**
@@ -106,7 +117,6 @@ router.get('/bind/interface/list', async (ctx) => {
 
   ctx.body = res
 })
-
 
 /**
  * 
