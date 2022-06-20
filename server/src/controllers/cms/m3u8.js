@@ -42,3 +42,105 @@ export const m3u8List = async ({ fileName, vodName, doubanId, pageNo = 1, pageSi
     return response.error(500, {}, error)
   }
 }
+
+/**
+ * 
+ * @param {string} fileName 文件名称
+ * @param {string} fileUrl 文件地址
+ * @param {string} vodName 视频名称
+ * @param {string} remarks 备注
+ * @param {number} doubanId 豆瓣ID
+ * @description 上传m3u8视频
+ */
+export const m3u8Add = async ({
+  fileName,
+  fileUrl,
+  vodName,
+  remarks,
+  doubanId,
+  userId,
+  username,
+}) => {
+  try {
+    await M3u8Model.create({
+      fileName,
+      fileUrl,
+      vodName,
+      remarks,
+      doubanId,
+      userId,
+      username,
+    })
+
+    return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, {}, error)
+  }
+}
+
+/**
+ * 
+ * @param {number} id
+ * @param {string} fileName 文件名称
+ * @param {string} fileUrl 文件地址
+ * @param {string} vodName 视频名称
+ * @param {string} remarks 备注
+ * @param {number} doubanId 豆瓣ID
+ * @description 编辑m3u8视频
+ */
+export const m3u8Edit = async ({
+  id,
+  fileName,
+  fileUrl,
+  vodName,
+  remarks,
+  doubanId,
+  userId,
+  username,
+}) => {
+  try {
+    await M3u8Model.update(
+      {
+        fileName,
+        fileUrl,
+        vodName,
+        remarks,
+        doubanId,
+        userId,
+        username,
+      },
+      {
+        where: {
+          id,
+        }
+      }
+    )
+
+    return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, {}, error)
+  }
+}
+
+/**
+ * 
+ * @param {number} id
+ * @description 删除m3u8视频
+ */
+export const m3u8Del = async ({ id }) => {
+  try {
+    await M3u8Model.destroy({
+      where: {
+        id,
+      }
+    })
+
+    return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, {}, error)
+  }
+}
+

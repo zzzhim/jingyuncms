@@ -33,6 +33,17 @@ const M3u8 = sequelize.define(
       allowNull: true,
       comment: "备注",
     },
+    userId: {
+      type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
+      allowNull: false,
+      comment: "用户Id"
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      // field: 'douban_id',
+      comment: "上传人",
+    },
   },
   {
     underscored: true,
