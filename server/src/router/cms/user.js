@@ -13,11 +13,15 @@ const router = new Router({
  */
 router.get('/list', async (ctx, next) => {
   const {
+    username,
+    role,
     pageNo = 1,
     pageSize = 10,
   } = ctx.query
 
   const data = await userList({
+    username,
+    role,
     pageNo,
     pageSize
   })
@@ -33,7 +37,7 @@ router.get('/list', async (ctx, next) => {
  * @param {string} newPassword 新密码
  * @description 修改当前用户账户密码
  */
- router.post('/edit/accountAndPass', async (ctx, next) => {
+router.post('/edit/accountAndPass', async (ctx, next) => {
   const {
     username,
     oldPassword,

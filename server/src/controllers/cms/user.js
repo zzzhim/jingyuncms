@@ -2,14 +2,22 @@ import response from '../../utils/response'
 import { logger } from '../../utils/logger'
 import { UserModel } from '../../model/user'
 import md5 from 'md5'
+import { Op } from 'sequelize'
 
 /**
  *
+ * @param {string} username
+ * @param {string} role
  * @param {number} pageNo 页码
  * @param {number} pageSize 页数
  * @description 查询用户
  */
-export const userList = async ({ pageNo = 1, pageSize = 10 }) => {
+export const userList = async ({
+  username,
+  role,
+  pageNo = 1,
+  pageSize = 10
+}) => {
   try {
     const { count = 0, rows = [] } = await UserModel.findAndCountAll({
       attributes: [
@@ -24,6 +32,14 @@ export const userList = async ({ pageNo = 1, pageSize = 10 }) => {
         "createdAt",
         "updatedAt",
       ],
+      where: {
+        username: {
+          [Op.like]: `%${username || ''}%`
+        },
+        role: {
+          [Op.like]: role || '%%',
+        },
+      },
       limit: parseInt(pageSize),
       offset: parseInt(pageSize * (pageNo - 1)),
     })
