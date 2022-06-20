@@ -1,6 +1,6 @@
 import Router from "koa-router"
 import { ipRecordAddMiddleware } from "../../middleware/IpRecord"
-import { recommendRouter } from "../web/recommend"
+import { recommendRouter } from "./recommend"
 import { categoryRouter } from "./category"
 import { loginRouter } from "./login"
 import { videoRouter } from "./video"

@@ -1,15 +1,15 @@
-import cors from "@koa/cors"
 import Koa from "koa"
 import koaBody from "koa-body"
 import loggerRouter from "koa-logger"
 // import session from "koa-session"
 import koaStatic from 'koa-static'
 import path from "path"
+import cors from "@koa/cors"
 import { port, SECRET_KEY } from "./src/config"
 import { router } from "./src/router"
 import logger from "./src/utils/logger"
-import './src/socket'
 import { requestHandler, Sentry, tracingMiddleWare } from "./src/utils/sentry"
+// import './src/socket'
 
 const app = new Koa({
   proxy: true,
@@ -27,12 +27,12 @@ app
   //   key: SESSION_KEY
   // }, app))
   .use(koaBody())
-  .use(router.routes(), router.allowedMethods())
+  .use(router.routes())
   .use(koaStatic(path.join(__dirname, './public')))
 
 app.on("error", (err, ctx) => {
-  Sentry.withScope(function(scope) {
-    scope.addEventProcessor(function(event) {
+  Sentry.withScope(function(scope: { addEventProcessor: (arg0: (event: any) => any) => void }) {
+    scope.addEventProcessor(function(event: any) {
       return Sentry.Handlers.parseRequest(event, ctx.request)
     })
     Sentry.captureException(err)

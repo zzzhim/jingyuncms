@@ -15,7 +15,7 @@ export const login = async ({ username, password }) => {
     }
   })
 
-  if (data && data.dataValues) {
+  if (data) {
     return response.success(
       200,
       data

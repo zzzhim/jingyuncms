@@ -11,7 +11,7 @@ const User = sequelize.define(
     oid: {
       type: DataTypes.VIRTUAL,
       get() {
-        return this.id * 15 + 10000
+        return this.getDataValue('id') * 15 + 10000
       },
       comment: "oid"
     },
@@ -37,14 +37,15 @@ const User = sequelize.define(
     token: { // 虚拟字段
       type: DataTypes.VIRTUAL,
       get() {
+        this.get
         const token = createToken({
-          id: this.id,
-          oid: this.oid,
-          email: this.email,
-          username: this.username,
-          devices: this.devices,
-          sex: this.sex,
-          role: this.role,
+          id: this.getDataValue('id'),
+          oid: this.getDataValue('oid'),
+          email: this.getDataValue('email'),
+          username: this.getDataValue('username'),
+          devices: this.getDataValue('devices'),
+          sex: this.getDataValue('sex'),
+          role: this.getDataValue('role'),
         })
 
         return token
