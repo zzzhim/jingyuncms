@@ -59,14 +59,20 @@ const User = sequelize.define(
     avatar: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: `https://api.multiavatar.com/${dayjs().valueOf()}.png`,
       comment: "头像",
-      defaultValue: `https://api.multiavatar.com/${dayjs().valueOf()}.png`
     },
     sex: {
       type: DataTypes.ENUM("0", "1", "2"),
       allowNull: false,
       defaultValue: "0",
-      comment: "0 未知 1 男 2女"
+      comment: "0 未知 1 男 2女",
+    },
+    points: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      comment: "积分",
     },
   },
   {
@@ -79,9 +85,7 @@ export const UserModel = User
 
 User.findOrCreate({
   where: {
-    email: "123456@gmail.com",
     username: "admin",
     password: md5("admin123"),
-    role: '0',
   }
 })

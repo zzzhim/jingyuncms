@@ -12,21 +12,15 @@ import './src/socket'
 import { requestHandler, Sentry, tracingMiddleWare } from "./src/utils/sentry"
 
 const app = new Koa({
-  // proxy: true,
+  proxy: true,
   // proxyIpHeader
 })
-
-// require("./src/model/sequelize")
 
 app.keys = [ SECRET_KEY ]
 
 app
   .use(requestHandler)
   .use(tracingMiddleWare)
-
-app
-  // .use(requestHandler)
-  // .use(tracingMiddleWare)
   .use(loggerRouter())
   .use(cors())
   // .use(session({

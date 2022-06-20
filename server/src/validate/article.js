@@ -14,7 +14,7 @@ export async function articleListValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    ctx.body = warning(500, {}, error)
+    ctx.body = response.warning(500, {}, error.message || error)
   }
 }
 
@@ -31,7 +31,7 @@ export async function articleUpdateValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    ctx.body = warning(500, {}, error)
+    ctx.body = response.warning(500, {}, error.message || error)
   }
 }
 
@@ -48,7 +48,7 @@ export async function articleAddValidate(ctx, next) {
 
     return next()
   } catch (error) {
-    ctx.body = warning(500, {}, error)
+    ctx.body = response.warning(500, {}, error.message || error)
   }
 }
 

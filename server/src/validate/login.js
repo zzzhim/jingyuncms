@@ -5,10 +5,10 @@ export async function loginValidate(ctx, next) {
   try {
     const { username, password } = ctx.request.body
 
-    const value = await loginSchema.validateSync({ username, password })
+    await loginSchema.validateSync({ username, password })
 
     return next()
   } catch (error) {
-    ctx.body = response.warning(500, {}, error)
+    ctx.body = response.warning(500, {}, error.message || error)
   }
 }

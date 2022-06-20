@@ -3,6 +3,10 @@ node_modules/
 dist/
 log/*
 logs/*
+<<<<<<< HEAD
+=======
+./logs/*
+>>>>>>> 2510fe7b904f8d6c95f83e67c7814212653456e0
 
 .idea
 .vscode

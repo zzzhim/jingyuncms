@@ -8,12 +8,16 @@ import response from "../utils/response"
  */
 export async function commomIdValidate(ctx, next) {
   try {
-    const id = ctx.query.id || ctx.request.body.id
+    let id = ctx.query.id
 
-    const value = await CommonIdSchema.validateSync({ id })
+    if(!id) {
+      id = ctx.request.body.id
+    }
+
+    await CommonIdSchema.validateSync({ id })
 
     return next()
   } catch (error) {
-    ctx.body = response.warning(500, {}, error)
+    ctx.body = response.warning(500, {}, error.message || error)
   }
 }
