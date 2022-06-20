@@ -16,8 +16,8 @@ export const videoList = async (params) => {
     const {
       vodName,
       categoryId,
-      pageNo = 1,
-      pageSize = 10,
+      pageNo = '1',
+      pageSize = '10',
     } = params
 
     const { count = 0, rows = [] } = await VodModel.findAndCountAll({
@@ -30,8 +30,8 @@ export const videoList = async (params) => {
         },
         isDelete: "0",
       },
-      limit: pageSize,
-      offset: pageSize * (pageNo - 1),
+      limit: parseInt(pageSize),
+      offset: parseInt(pageSize) * (parseInt(pageNo) - 1),
     })
 
     return response.success(

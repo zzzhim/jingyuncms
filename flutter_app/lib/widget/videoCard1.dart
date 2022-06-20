@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/types/recommendMo.dart';
+import 'package:flutter_app/types/videoList.dart';
 import 'package:flutter_app/util/format_urli.dart';
 import 'package:flutter_app/widget/cachedImage.dart';
 import 'package:go_router/go_router.dart';
 
-class VideoCard extends StatelessWidget {
-  final VideoCardMo? videoMo;
+class VideoCard1 extends StatelessWidget {
+  final VideoMo? videoMo;
 
-  const VideoCard({Key? key, required this.videoMo}) : super(key: key);
+  const VideoCard1({Key? key, required this.videoMo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class VideoCard extends StatelessWidget {
     return Stack(
       children: [
         cachedImage(
-          videoMo?.imgUrl ?? '',
+          videoMo?.vodPic ?? '',
           width: (size.width - 50) / 3,
           height: 151,
         ),

@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/categoryVideo.dart';
-import 'package:flutter_app/api/recommend.dart';
+import 'package:flutter_app/pages/home/categoryTabContent.dart';
 import 'package:flutter_app/pages/home/tabContent.dart';
 import 'package:flutter_app/provider/category.dart';
-import 'package:flutter_app/types/recommendMo.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,8 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   List<Tab> tabs = [];
 
-  List<RecommendListMo> list = [];
-
   late TabController _tabController;
 
   @override
@@ -28,7 +24,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _tabController = TabController(vsync: this, length: tabs.length);
 
     getCategoryVideoApi();
-    getRecommendListApi();
   }
 
   @override
@@ -39,39 +34,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Colors.white70,
         appBar: AppBar(title: const Text('首页')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                color: Colors.white,
-                alignment: Alignment.centerLeft,
-                child: _appBar(),
-              ),
-              Flexible(
-                flex: 1,
-                child: _tabBarView(),
-              )
-            ],
+        body: MediaQuery.removePadding(
+          context: context,
+          removeTop: true,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  color: Colors.white,
+                  alignment: Alignment.centerLeft,
+                  child: _appBar(),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: _tabBarView(),
+                ),
+              ],
+            ),
           ),
         ),
       );
-
-  void getRecommendListApi() async {
-    try {
-      var res = await getRecommendList({});
-
-      if (res.code == 200) {
-        setState(() {
-          list = res.data!.list!;
-        });
-      }
-    } catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
-  }
 
   void getCategoryVideoApi() async {
     try {
@@ -98,28 +83,49 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   _appBar() {
-    return TabBar(
-      controller: _tabController,
-      tabs: tabs,
-      labelColor: Colors.red,
-      unselectedLabelColor: Colors.black,
-      isScrollable: true,
-      indicator: const UnderlineTabIndicator(
-        borderSide: BorderSide(color: Colors.red, width: 2),
+    return Container(
+      // margin: EdgeInsets.only(bottom: 15),
+      child: TabBar(
+        onTap: ((value) {
+          print(value);
+        }),
+        controller: _tabController,
+        tabs: tabs,
+        labelColor: Colors.red,
+        unselectedLabelColor: Colors.black,
+        isScrollable: true,
+        indicator: const UnderlineTabIndicator(
+          borderSide: BorderSide(color: Colors.red, width: 2),
+        ),
       ),
     );
   }
 
   _tabBarView() {
-    return TabBarView(
-      controller: _tabController,
-      children: tabs.map((e) => _tabBarViewContent()).toList(),
+    var list = tabs.asMap().entries.map((element) {
+      if (element.key == 0) {
+        return _tabBarViewContent();
+      }
+
+      var categoryList = context.read<CategoryProvider>().categoryList;
+
+      return _tabBarViewCategoryContent(
+          categoryList[element.key - 1].id as int);
+    }).toList();
+
+    return Container(
+      child: TabBarView(
+        controller: _tabController,
+        children: list,
+      ),
     );
   }
 
   Widget _tabBarViewContent() {
-    return TabContentWidget(
-      recommendListMo: list,
-    );
+    return const TabContentWidget();
+  }
+
+  Widget _tabBarViewCategoryContent(int categoryId) {
+    return CategoryTabContentWidget(categoryId: categoryId);
   }
 }

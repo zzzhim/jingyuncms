@@ -1,73 +1,131 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/api/recommend.dart';
 import 'package:flutter_app/types/recommendMo.dart';
 import 'package:flutter_app/widget/videoCard.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class TabContentWidget extends StatefulWidget {
-  // final String categoryName;
-  final List<RecommendListMo> recommendListMo;
-
   const TabContentWidget({
     Key? key,
-    required this.recommendListMo,
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _TabContentWidgetState createState() => _TabContentWidgetState();
 }
 
 class _TabContentWidgetState extends State<TabContentWidget>
     with AutomaticKeepAliveClientMixin {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
+
+  List<RecommendListMo> list = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    getRecommendListApi();
+  }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      color: Colors.red,
+      onRefresh: () async {
+        getRecommendListApi();
+      },
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: ListView(
             controller: _scrollController,
             // 允许滚动
             physics: const AlwaysScrollableScrollPhysics(),
             children: [
-              ...widget.recommendListMo.map((data) {
-                // return Row(
-                //   children: [
-                //     ...data.children!.map((item) {
-                //       return VideoCard(
-                //         videoMo: item,
-                //       );
-                //     })
-                //   ],
-                // );
-                return MasonryGridView.count(
-                  padding: EdgeInsets.only(
-                    left: 10,
-                    right: 10,
-                    // top: widget.bannerList != null ? 0 : 10,
-                    top: 10,
-                  ),
-                  shrinkWrap: true,
-                  crossAxisCount: 3,
-                  itemCount: data.children?.length ?? 0,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return VideoCard(
-                      videoMo: data.children![index],
-                    );
-                    // return Text('1');
-                  },
-                );
+              ...list.map((data) {
+                return _card(data);
               }),
+              Container(
+                margin: const EdgeInsets.only(top: 15, bottom: 15),
+                child: const Center(
+                  child: Text('已经到底部了~'),
+                ),
+              )
             ],
           ),
         ),
       ),
-      color: Colors.red,
-      onRefresh: () async {},
+    );
+  }
+
+  // 推荐列表
+  void getRecommendListApi() async {
+    try {
+      var res = await getRecommendList({});
+
+      print(jsonEncode(res));
+      if (res.code == 200) {
+        setState(() {
+          list = res.data!.list!;
+        });
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+  }
+
+  _card(RecommendListMo data) {
+    if (data.children!.isEmpty) {
+      return Container(height: 0);
+    }
+
+    final size = MediaQuery.of(context).size;
+
+    return Container(
+      margin: const EdgeInsets.only(top: 15),
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+          padding: EdgeInsets.all(0),
+          color: Colors.white,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      data.recommendName ?? '',
+                      style: const TextStyle(fontSize: 18, color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: size.width - 50 + 15,
+                // color: Colors.white,
+                // margin: EdgeInsets.only(left: -8),
+                transform: Matrix4.translationValues(-7.5, 0, 0),
+                child: Wrap(
+                  spacing: 0,
+                  runSpacing: 0,
+                  alignment: WrapAlignment.start,
+                  children: data.children!.map(
+                    (item) {
+                      return VideoCard(videoMo: item);
+                    },
+                  ).toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

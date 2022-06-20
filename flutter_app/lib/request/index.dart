@@ -13,6 +13,7 @@ Dio dio = Dio(options);
 Future<dynamic> request(
   String path, {
   dynamic data,
+  Map<String, dynamic>? queryParameters,
   required HttpMethod method,
 }) async {
   String methodOption = 'GET';
@@ -24,6 +25,7 @@ Future<dynamic> request(
   var result = await dio.request(
     path,
     data: data,
+    queryParameters: queryParameters,
     options: Options(method: methodOption),
   );
 
