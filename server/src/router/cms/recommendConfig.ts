@@ -21,9 +21,9 @@ router.get('/config/list', async (ctx, next) => {
   } = ctx.query
 
   const data = await configList({
-    keyword,
-    pageNo,
-    pageSize
+    keyword: keyword as string,
+    pageNo: parseInt(pageNo as string),
+    pageSize: parseInt(pageSize as string),
   })
 
   ctx.body = data
@@ -105,8 +105,8 @@ router.get('/config/bind/list', async (ctx, next) => {
 
   const data = await bindConfiglist({
     configId,
-    pageNo,
-    pageSize,
+    pageNo: parseInt(pageNo as string),
+    pageSize: parseInt(pageSize as string),
   })
 
   ctx.body = data
@@ -179,7 +179,6 @@ router.post('/config/bind/edit', commomIdValidate, addBindValidate, async (ctx, 
   const {
     id,
     sort,
-    configId,
     vodId,
     vodName,
     categoryId,
@@ -197,7 +196,6 @@ router.post('/config/bind/edit', commomIdValidate, addBindValidate, async (ctx, 
   const data = await editBindConfig({
     id,
     sort,
-    configId,
     vodId,
     vodName,
     categoryId,

@@ -26,7 +26,7 @@ export function ipRecordAddMiddleware(type) {
         port: type,
         ip: ctx.ip,
         cretaeTime: dayjs().format('YYYY-MM-DD'),
-      }
+      } as any
 
       if(userInfo) {
         whereParams.userId = userInfo.id
@@ -51,7 +51,7 @@ export function ipRecordAddMiddleware(type) {
             total: 1,
             cretaeTime: dayjs().format('YYYY-MM-DD'),
             updateTime: dayjs().format('YYYY-MM-DD'),
-          }
+          } as any
 
           if(userInfo) {
             params.userId = userInfo.id

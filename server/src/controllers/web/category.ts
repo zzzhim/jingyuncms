@@ -8,7 +8,7 @@ import sequelize from 'sequelize'
  *
  * @description 查询视频分类列表
  */
-export const categoryVideoList = async (params) => {
+export const categoryVideoList = async () => {
   try {
     const data = await VideoCategoryModel.findAll({
       where: {
@@ -25,6 +25,6 @@ export const categoryVideoList = async (params) => {
     )
   } catch (error) {
     logger.error(error)
-    return response.error(500)
+    return response.error(500, {})
   }
 }

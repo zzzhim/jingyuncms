@@ -26,8 +26,8 @@ export const m3u8List = async ({ fileName, vodName, doubanId, pageNo = 1, pageSi
           [Op.like]: `%${doubanId || ''}%`,
         },
       },
-      limit: parseInt(pageSize),
-      offset: parseInt(pageSize * (pageNo - 1)),
+      limit: pageSize,
+      offset: pageSize * (pageNo - 1),
     })
 
     return response.success(

@@ -30,8 +30,8 @@ export const videoList = async (params) => {
         },
         isDelete: "0",
       },
-      limit: parseInt(pageSize),
-      offset: parseInt(pageSize * (pageNo - 1)),
+      limit: pageSize,
+      offset: pageSize * (pageNo - 1),
     })
 
     return response.success(
@@ -43,7 +43,7 @@ export const videoList = async (params) => {
     )
   } catch (error) {
     logger.error(error)
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -72,6 +72,6 @@ export const videoList = async (params) => {
     )
   } catch (error) {
     logger.error(error)
-    return response.error(500)
+    return response.error(500, {})
   }
 }

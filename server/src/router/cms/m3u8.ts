@@ -28,8 +28,8 @@ router.get('/list', async (ctx, next) => {
     fileName,
     vodName,
     doubanId,
-    pageNo,
-    pageSize
+    pageNo: parseInt(pageNo as string),
+    pageSize: parseInt(pageSize as string),
   })
 
   ctx.body = data

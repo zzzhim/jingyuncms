@@ -14,7 +14,7 @@ const router = new Router({
  * @description 上传m3u8
  */
 router.post('/upload/m3u8', koaMulter.single('file'), m3u8FileValidate, async (ctx, next) => {
-  const file = ctx.request.file
+  const file = ctx.request['file']
   const { id, username } = ctx.state.user
   const prefixHost = ctx.request.protocol + "://" + ctx.req.headers.host
 
@@ -29,7 +29,7 @@ router.post('/upload/m3u8', koaMulter.single('file'), m3u8FileValidate, async (c
  * @description 上传图片
  */
 router.post('/upload/img', koaMulter.single('file'), imgFileValidate, async (ctx, next) => {
-  const file = ctx.request.file
+  const file = ctx.request['file']
   const { id, username } = ctx.state.user
   const prefixHost = ctx.request.protocol + "://" + ctx.req.headers.host
 

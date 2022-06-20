@@ -6,13 +6,13 @@ import response from "../../utils/response"
  * 
  * @description 苹果cms接口转发
  */
-export const maccmsApiProxy = ({ url, method = 'get', data = {}, params = {}, header }) => {
+export const maccmsApiProxy = ({ url, method = 'get', data = {}, params = {}, header }: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       const config = {
         url: url,
         method: method,
-      }
+      } as any
 
       if(method.toLocaleLowerCase() === 'get') {
         config.params = params

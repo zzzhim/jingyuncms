@@ -10,7 +10,7 @@ const router = new Router({
  * @description 获取推荐视频列表
  */
 router.get('/list', async (ctx, next) => {
-  const data = await recommendList({})
+  const data = await recommendList()
 
   ctx.body = data
 })

@@ -13,9 +13,9 @@ router.get('/list', async (ctx) => {
   } = ctx.query
 
   const res = await list({
-    interfaceName,
-    interfaceType,
-    cmsType,
+    interfaceName: interfaceName as string,
+    interfaceType: interfaceType as string,
+    cmsType: cmsType as string,
   })
 
   ctx.body = res

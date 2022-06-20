@@ -44,7 +44,7 @@ router.post('/video/add', async (ctx) => {
     categoryName,
     status,
   } = ctx.request.body
-  const params = {}
+  const params = {} as any
 
   if(sort) {
     params.sort = sort
@@ -75,7 +75,7 @@ router.post('/video/edit', async (ctx) => {
     categoryName,
     status,
   } = ctx.request.body
-  const params = {}
+  const params = {} as any
 
   if(sort) {
     params.sort = sort

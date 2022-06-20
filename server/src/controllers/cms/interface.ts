@@ -6,7 +6,7 @@ import response from "../../utils/response"
 
 /**
  * 
- * @param {string} keyword 关键字
+ * @param {string} interfaceName 接口名称
  * @param {string} interfaceType 接口类型 1 视频 2 文章 3 图片
  * @param {string} cmsType cms类型 1 鲸云cms 2 苹果cms 3 海洋cms 4 飞飞cms 5 wpcms 6 帝国cms"
  * @param {number} pageNo 页码
@@ -14,7 +14,7 @@ import response from "../../utils/response"
  * @description 查询接口列表
  */
 export const list = async ({
-  keyword = '',
+  interfaceName = '',
   interfaceType = '',
   cmsType = '',
   pageNo = 1,
@@ -24,7 +24,7 @@ export const list = async ({
     const { count = 0, rows = [] } = await InterfaceSetupModel.findAndCountAll({
       where: {
         interfaceName: {
-          [ Op.like ]: `%${keyword.trim()}%`
+          [ Op.like ]: `%${interfaceName.trim()}%`
         },
         interfaceType: {
           [ Op.like ]: `%${interfaceType.trim()}%`
@@ -34,8 +34,8 @@ export const list = async ({
         },
         isDelete: '0',
       },
-      limit: parseInt(pageSize),
-      offset: parseInt(pageSize * (pageNo - 1)),
+      limit: pageSize,
+      offset: pageSize * (pageNo - 1),
     })
 
     return response.success(
@@ -48,7 +48,7 @@ export const list = async ({
   } catch (error) {
     logger.error(error)
 
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -157,7 +157,4 @@ export const del = async ({ id }) => {
 export const collectionMaccmsVideo = async (url) => {
   const res = await axios.get('https://www.qilinzyz.com/api.php/provide/vod/?ac=list&pg=1')
 
-  logger.debug(res.code === 1, res.class, res.list)
-  if(res.code === 1 && res.lsit) {
-  }
 }

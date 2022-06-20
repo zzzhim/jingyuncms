@@ -2,7 +2,7 @@ import { VodModel } from '../../model/vod'
 import response from '../../utils/response'
 import { logger } from '../../utils/logger'
 import { BindCategoryModel } from '../../model/bindCategory'
-import { socketIo } from '../../socket'
+// import { socketIo } from '../../socket'
 import { underlineToHump } from '../../utils/underlineToHump'
 import { Op } from 'sequelize'
 
@@ -31,8 +31,8 @@ export const videoList = async ({
         },
         isDelete: "0",
       },
-      limit: parseInt(pageSize),
-      offset: parseInt(pageSize * (pageNo - 1)),
+      limit: pageSize,
+      offset: pageSize * (pageNo - 1),
     })
 
     return response.success(
@@ -44,7 +44,7 @@ export const videoList = async ({
     )
   } catch (error) {
     logger.error(error)
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -102,30 +102,30 @@ export const videoAdd = async (params) => {
           logger.error(error)
         }
 
-        socketIo.emit('logs', {
-          type: 'collection',
-          taskType: 'maccms',
-          message: '采集视频完毕',
-          data: {
-            log: `<span style="color: #67C23A;">采集视频成功</span> -> 分类ID: ${element.type_id} 分类名称: ${element.type_name} 视频名称:${element.vod_name} `
-          }
-        })
+        // socketIo.emit('logs', {
+        //   type: 'collection',
+        //   taskType: 'maccms',
+        //   message: '采集视频完毕',
+        //   data: {
+        //     log: `<span style="color: #67C23A;">采集视频成功</span> -> 分类ID: ${element.type_id} 分类名称: ${element.type_name} 视频名称:${element.vod_name} `
+        //   }
+        // })
       } else {
-        socketIo.emit('logs', {
-          type: 'collection',
-          taskType: 'maccms',
-          message: '采集视频失败',
-          data: {
-            log: `<span style="color: #E6A23C;">采集视频失败</span> -> 分类ID: ${element.type_id} 分类名称: ${element.type_name} 视频名称:${element.vod_name} <span style="color: #F56C6C;">未绑定分类</span>`
-          }
-        })
+        // socketIo.emit('logs', {
+        //   type: 'collection',
+        //   taskType: 'maccms',
+        //   message: '采集视频失败',
+        //   data: {
+        //     log: `<span style="color: #E6A23C;">采集视频失败</span> -> 分类ID: ${element.type_id} 分类名称: ${element.type_name} 视频名称:${element.vod_name} <span style="color: #F56C6C;">未绑定分类</span>`
+        //   }
+        // })
       }
     })
 
     return response.success(200, {})
   } catch (error) {
     logger.error(error)
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -213,7 +213,7 @@ export const videoEdit = async (params) => {
     return response.success(200, {})
   } catch (error) {
     logger.error(error)
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -233,7 +233,7 @@ export const videoEdit = async (params) => {
     return response.success(200, {})
   } catch (error) {
     logger.error(error)
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -252,6 +252,6 @@ export const videoWarehousing = async (params) => {
     return response.success(200, {})
   } catch (error) {
     logger.error(error)
-    return response.error(500)
+    return response.error(500, {})
   }
 }

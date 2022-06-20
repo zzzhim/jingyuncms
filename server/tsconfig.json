@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-      "target": "es6",
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "noImplicitAny": false,
-      "removeComments": true,
-      "preserveConstEnums": true,
-      "sourceMap": false,
-      
+    "target": "ES2021",
+    "moduleResolution": "Node16",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": false,
   },
   "exclude": [
     "node_modules",
-    "**/*.js"
-  ]
+    "**/*.js",
+  ],
 }

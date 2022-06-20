@@ -40,8 +40,8 @@ export const userList = async ({
           [Op.like]: role || '%%',
         },
       },
-      limit: parseInt(pageSize),
-      offset: parseInt(pageSize * (pageNo - 1)),
+      limit: pageSize,
+      offset: pageSize * (pageNo - 1),
     })
 
     return response.success(

@@ -17,7 +17,7 @@ router.get('/log/list', async (ctx) => {
     pageSize = 10,
   } = ctx.query
 
-  const res = await logList({ pageNo, pageSize })
+  const res = await logList({ pageNo: parseInt(pageNo as string), pageSize: parseInt(pageSize as string) })
 
   ctx.body = res
 })

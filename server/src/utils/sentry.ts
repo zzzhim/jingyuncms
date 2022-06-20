@@ -28,7 +28,7 @@ const requestHandler = (ctx, next) => {
         )
       )
       await next()
-      resolve()
+      resolve(true)
     })
   })
 }

@@ -35,8 +35,8 @@ export const configList = async ({
           [Op.like]: `%${keyword.trim()}%`
         },
       },
-      limit: parseInt(pageSize),
-      offset: parseInt(pageSize * (pageNo - 1)),
+      limit: pageSize,
+      offset: pageSize * (pageNo - 1),
     })
 
     return response.success(
@@ -75,11 +75,11 @@ export const addConfig = async (params) => {
       updateAuthorName: params.updateAuthorName,
     })
 
-    return response.success(200)
+    return response.success(200, {})
   } catch (error) {
     logger.error(error)
 
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -112,11 +112,11 @@ export const editConfig = async ({ id, ...params }) => {
       }
     )
 
-    return response.success(200)
+    return response.success(200, {})
   } catch (error) {
     logger.error(error)
 
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -135,11 +135,11 @@ export const delConfig = async ({ id }) => {
       }
     )
 
-    return response.success(200)
+    return response.success(200, {})
   } catch (error) {
     logger.error(error)
 
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -160,8 +160,8 @@ export const bindConfiglist = async ({
       where: {
         configId: configId,
       },
-      limit: parseInt(pageSize),
-      offset: parseInt(pageSize * (pageNo - 1)),
+      limit: pageSize,
+      offset: pageSize * (pageNo - 1),
     })
 
     return response.success(
@@ -174,7 +174,7 @@ export const bindConfiglist = async ({
   } catch (error) {
     logger.error(error)
 
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -228,11 +228,11 @@ export const addBindConfig = async (params) => {
       updateAuthorName,
     })
 
-    return response.success(200)
+    return response.success(200, {})
   } catch (error) {
     logger.error(error)
 
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -291,11 +291,11 @@ export const editBindConfig = async ({
       }
     )
 
-    return response.success(200)
+    return response.success(200, {})
   } catch (error) {
     logger.error(error)
 
-    return response.error(500)
+    return response.error(500, {})
   }
 }
 
@@ -313,10 +313,10 @@ export const delBind = async ({ id }) => {
       }
     )
 
-    return response.success(200)
+    return response.success(200, {})
   } catch (error) {
     logger.error(error)
 
-    return response.error(500)
+    return response.error(500, {})
   }
 }
