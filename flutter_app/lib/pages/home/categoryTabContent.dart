@@ -19,10 +19,7 @@ class CategoryTabContentWidget extends StatefulWidget {
       _CategoryTabContentWidgetState();
 }
 
-class _CategoryTabContentWidgetState extends State<CategoryTabContentWidget>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
+class _CategoryTabContentWidgetState extends State<CategoryTabContentWidget> {
   bool loading = false;
   int pageNo = 1;
   List<VideoMo> list = [];
@@ -30,15 +27,8 @@ class _CategoryTabContentWidgetState extends State<CategoryTabContentWidget>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
 
     getVideoListApi();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
   }
 
   getVideoListApi() async {
@@ -78,42 +68,39 @@ class _CategoryTabContentWidgetState extends State<CategoryTabContentWidget>
 
   @override
   Widget build(BuildContext context) {
-    return EasyRefresh(
-      header: MaterialHeader(),
-      footer: MaterialFooter(),
-      onRefresh: () async {
-        setState(() {
-          pageNo = 1;
-        });
-      },
-      onLoad: () async {
-        getVideoListApi();
-      },
-      child: ListView(
-        children: [
-          Container(
-            child: Wrap(
-              children: [
-                ...list.map((e) => VideoCard1(videoMo: e)),
-              ],
-            ),
-          ),
-        ],
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
+      ),
+      child: Container(
+        // color: Color.fromRGBO(26, 31, 49, 1),
+        color: Colors.red,
+        child: Wrap(
+          children: [
+            ...list.map((e) => VideoCard1(videoMo: e)),
+          ],
+        ),
       ),
     );
-    // return RefreshIndicator(
-    //   onRefresh: () async {},
-    //   child: ListView(
-    //     children: [
-    //       Container(
-    //         child: Wrap(
-    //           children: [
-    //             ...list.map((e) => VideoCard1(videoMo: e)),
-    //           ],
-    //         ),
-    //       )
-    //     ],
-    //   ),
-    // );
+    //   return EasyRefresh(
+    //     header: MaterialHeader(),
+    //     footer: MaterialFooter(),
+    //     onRefresh: () async {
+    //       setState(() {
+    //         pageNo = 1;
+    //       });
+    //     },
+    //     onLoad: () async {
+    //       getVideoListApi();
+    //     },
+    //     child: Container(
+    //       child: Wrap(
+    //         children: [
+    //           ...list.map((e) => VideoCard1(videoMo: e)),
+    //         ],
+    //       ),
+    //     ),
+    //   );
   }
 }

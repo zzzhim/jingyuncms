@@ -3,6 +3,7 @@ import 'package:flutter_app/api/categoryVideo.dart';
 import 'package:flutter_app/pages/home/categoryTabContent.dart';
 import 'package:flutter_app/pages/home/tabContent.dart';
 import 'package:flutter_app/provider/category.dart';
+import 'package:flutter_app/theme/index.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,26 +35,44 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white70,
-        appBar: AppBar(title: const Text('首页')),
+        backgroundColor: BgColor,
+        // appBar: AppBar(title: const Text('首页')),
         body: MediaQuery.removePadding(
           context: context,
           removeTop: true,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  color: Colors.white,
-                  alignment: Alignment.centerLeft,
-                  child: _appBar(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).viewPadding.top,
                 ),
-                Flexible(
-                  flex: 1,
-                  child: _tabBarView(),
-                ),
-              ],
-            ),
+                alignment: Alignment.centerLeft,
+                child: _appBar(),
+              ),
+              Flexible(
+                flex: 1,
+                child: _tabBarView(),
+                // child: ListView(
+                //   children: [
+                //     Container(
+                //       width: MediaQuery.of(context).size.width,
+                //       height: MediaQuery.of(context).size.height -
+                //           MediaQuery.of(context).viewPadding.top,
+                //       padding: EdgeInsets.all(0),
+                //       child: Column(
+                //         children: [
+                //           Text((MediaQuery.of(context).size.height -
+                //                   MediaQuery.of(context).viewPadding.top)
+                //               .toString()),
+                //           _tabBarView()
+                //         ],
+                //       ),
+                //     ),
+                //   ],
+                // ),
+              ),
+            ],
           ),
         ),
       );
@@ -71,8 +90,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
         setState(() {
           tabs = [
-            Tab(text: '推荐'),
-            ...list.map((item) => Tab(text: item.categoryName)).toList(),
+            _createTab('推荐'),
+            ...list.map((item) => _createTab(item.categoryName!)).toList(),
           ];
         });
       }
@@ -80,6 +99,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       // ignore: avoid_print
       print(e);
     }
+  }
+
+  _createTab(String name) {
+    return Tab(
+      // height: 50,
+      child: Text(
+        name,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
   }
 
   _appBar() {
@@ -91,11 +123,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         }),
         controller: _tabController,
         tabs: tabs,
-        labelColor: Colors.red,
-        unselectedLabelColor: Colors.black,
+        labelColor: PrimaryColor,
+        unselectedLabelColor: const Color.fromRGBO(91, 103, 131, 1),
         isScrollable: true,
         indicator: const UnderlineTabIndicator(
-          borderSide: BorderSide(color: Colors.red, width: 2),
+          borderSide: BorderSide(color: PrimaryColor, width: 2),
         ),
       ),
     );

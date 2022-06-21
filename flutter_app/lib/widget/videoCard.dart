@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/types/recommendMo.dart';
 import 'package:flutter_app/util/format_urli.dart';
 import 'package:flutter_app/widget/cachedImage.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class VideoCard extends StatelessWidget {
@@ -20,10 +21,10 @@ class VideoCard extends StatelessWidget {
           GoRouter.of(context).push('/vod_detail?id=$id');
         },
         child: SizedBox(
-          width: (size.width - 50 + 15) / 3,
+          width: 105,
           height: 210,
           child: Card(
-            margin: const EdgeInsets.only(left: 15, right: 0, bottom: 15),
+            margin: const EdgeInsets.only(left: 0, right: 0, bottom: 15),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Column(
@@ -46,8 +47,9 @@ class VideoCard extends StatelessWidget {
       children: [
         cachedImage(
           videoMo?.imgUrl ?? '',
-          width: (size.width - 50) / 3,
-          height: 151,
+          // width: ScreenUtil().setWidth(105),
+          width: 105,
+          height: 139,
         ),
         Positioned(
           left: 0,
