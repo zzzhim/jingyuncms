@@ -26,7 +26,7 @@ const M3u8 = sequelize.define(
     vodName: {
       type: DataTypes.STRING,
       allowNull: false,
-      comment: "视频名称"
+      comment: "视频名称",
     },
     remarks: {
       type: DataTypes.STRING,

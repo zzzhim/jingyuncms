@@ -12,7 +12,13 @@ import { Op } from 'sequelize'
  * @param {number} pageSize 页数
  * @description 查询m3u8列表
  */
-export const m3u8List = async ({ fileName, vodName, doubanId, pageNo = 1, pageSize = 10 }) => {
+export const m3u8List = async ({
+  fileName,
+  vodName,
+  doubanId,
+  pageNo = '1',
+  pageSize = '10'
+}) => {
   try {
     const { count = 0, rows = [] } = await M3u8Model.findAndCountAll({
       where: {
@@ -26,8 +32,8 @@ export const m3u8List = async ({ fileName, vodName, doubanId, pageNo = 1, pageSi
           [Op.like]: `%${doubanId || ''}%`,
         },
       },
-      limit: pageSize,
-      offset: pageSize * (pageNo - 1),
+      limit: parseInt(pageSize),
+      offset: parseInt(pageSize) * (parseInt(pageNo) - 1),
     })
 
     return response.success(

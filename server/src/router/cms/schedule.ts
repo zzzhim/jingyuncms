@@ -13,11 +13,14 @@ const router = new Router({
  */
 router.get('/log/list', async (ctx) => {
   const {
-    pageNo = 1,
-    pageSize = 10,
+    pageNo,
+    pageSize,
   } = ctx.query
 
-  const res = await logList({ pageNo: parseInt(pageNo as string), pageSize: parseInt(pageSize as string) })
+  const res = await logList({
+    pageNo: pageNo as string,
+    pageSize: pageSize as string,
+  })
 
   ctx.body = res
 })

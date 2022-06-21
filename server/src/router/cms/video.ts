@@ -30,8 +30,8 @@ router.get('/list', async (ctx, next) => {
   const data = await videoList({
     vodName,
     categoryId,
-    pageNo: pageNo as unknown as number,
-    pageSize: pageSize as unknown as number,
+    pageNo: pageNo as string,
+    pageSize: pageSize as string,
   })
 
   ctx.body = data

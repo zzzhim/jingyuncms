@@ -16,14 +16,14 @@ const router = new Router({
 router.get('/config/list', async (ctx, next) => {
   const {
     keyword = '',
-    pageNo = 1,
-    pageSize = 10,
+    pageNo,
+    pageSize,
   } = ctx.query
 
   const data = await configList({
     keyword: keyword as string,
-    pageNo: parseInt(pageNo as string),
-    pageSize: parseInt(pageSize as string),
+    pageNo: pageNo as string,
+    pageSize: pageSize as string,
   })
 
   ctx.body = data
@@ -99,14 +99,14 @@ router.post('/config/del', delConfigValidate, async (ctx, next) => {
 router.get('/config/bind/list', async (ctx, next) => {
   const {
     configId,
-    pageNo = 1,
-    pageSize = 10,
+    pageNo,
+    pageSize,
   } = ctx.query
 
   const data = await bindConfiglist({
     configId,
-    pageNo: parseInt(pageNo as string),
-    pageSize: parseInt(pageSize as string),
+    pageNo: pageNo as string,
+    pageSize: pageSize as string,
   })
 
   ctx.body = data

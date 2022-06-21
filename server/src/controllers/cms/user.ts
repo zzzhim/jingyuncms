@@ -15,8 +15,8 @@ import { Op } from 'sequelize'
 export const userList = async ({
   username,
   role,
-  pageNo = 1,
-  pageSize = 10
+  pageNo = '1',
+  pageSize = '10'
 }) => {
   try {
     const { count = 0, rows = [] } = await UserModel.findAndCountAll({
@@ -40,8 +40,8 @@ export const userList = async ({
           [Op.like]: role || '%%',
         },
       },
-      limit: pageSize,
-      offset: pageSize * (pageNo - 1),
+      limit: parseInt(pageSize),
+      offset: parseInt(pageSize) * (parseInt(pageNo) - 1),
     })
 
     return response.success(

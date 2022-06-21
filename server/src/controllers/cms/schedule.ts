@@ -12,8 +12,8 @@ import response from "../../utils/response"
  */
 export const logList = async ({
   keyword = '',
-  pageNo = 1,
-  pageSize = 10,
+  pageNo = '1',
+  pageSize = '10',
 }) => {
   try {
     const { count = 0, rows = [] } = await ScheduleJobUserModel.findAndCountAll({
@@ -22,8 +22,8 @@ export const logList = async ({
           [ Op.like ]: `%${keyword.trim() || ''}%`
         },
       },
-      limit: pageSize,
-      offset: pageSize * (pageNo - 1),
+      limit: parseInt(pageSize),
+      offset: parseInt(pageSize) * (parseInt(pageNo) - 1),
     })
 
     return response.success(

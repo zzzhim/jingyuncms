@@ -15,15 +15,15 @@ router.get('/list', async (ctx, next) => {
   const {
     username,
     role,
-    pageNo = 1,
-    pageSize = 10,
+    pageNo,
+    pageSize,
   } = ctx.query
 
   const data = await userList({
     username,
     role,
-    pageNo: parseInt(pageNo as string),
-    pageSize: parseInt(pageSize as string),
+    pageNo: pageNo as string,
+    pageSize: pageSize as string,
   })
 
   ctx.body = data

@@ -13,8 +13,8 @@ import response from "../../utils/response"
  */
 export const configList = async ({
   keyword = '',
-  pageNo = 1,
-  pageSize = 10,
+  pageNo = '1',
+  pageSize = '10',
 }) => {
   try {
     const { count = 0, rows = [] } = await RecommendConfigModel.findAndCountAll({
@@ -35,8 +35,8 @@ export const configList = async ({
           [Op.like]: `%${keyword.trim()}%`
         },
       },
-      limit: pageSize,
-      offset: pageSize * (pageNo - 1),
+      limit: parseInt(pageSize),
+      offset: parseInt(pageSize) * (parseInt(pageNo) - 1),
     })
 
     return response.success(
@@ -152,16 +152,16 @@ export const delConfig = async ({ id }) => {
  */
 export const bindConfiglist = async ({
   configId,
-  pageNo = 1,
-  pageSize = 10,
+  pageNo = '1',
+  pageSize = '10',
 }) => {
   try {
     const { count = 0, rows = [] } = await RecommendListModel.findAndCountAll({
       where: {
         configId: configId,
       },
-      limit: pageSize,
-      offset: pageSize * (pageNo - 1),
+      limit: parseInt(pageSize),
+      offset: parseInt(pageSize) * (parseInt(pageNo) - 1),
     })
 
     return response.success(

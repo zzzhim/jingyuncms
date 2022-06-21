@@ -17,8 +17,8 @@ export const list = async ({
   interfaceName = '',
   interfaceType = '',
   cmsType = '',
-  pageNo = 1,
-  pageSize = 10,
+  pageNo = '1',
+  pageSize = '10',
 }) => {
   try {
     const { count = 0, rows = [] } = await InterfaceSetupModel.findAndCountAll({
@@ -34,8 +34,8 @@ export const list = async ({
         },
         isDelete: '0',
       },
-      limit: pageSize,
-      offset: pageSize * (pageNo - 1),
+      limit: parseInt(pageSize),
+      offset: parseInt(pageSize) * (parseInt(pageNo) - 1),
     })
 
     return response.success(
