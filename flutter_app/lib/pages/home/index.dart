@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   _bottomNavigationBar() {
-    return BottomNavigationBarWidget(
+    return const BottomNavigationBarWidget(
       currentIndex: 0,
     );
   }

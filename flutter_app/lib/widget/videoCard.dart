@@ -13,26 +13,21 @@ class VideoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 105.w,
+      height: 160.w,
       child: InkWell(
         onTap: () {
           var id = videoMo!.id;
           GoRouter.of(context).push('/vod_detail?id=$id');
         },
-        child: SizedBox(
-          width: 105.w,
-          height: 210.w,
-          child: Card(
-            margin: EdgeInsets.only(left: 0, right: 0, bottom: 15.w),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _itemImage(context),
-                  _infoText(),
-                ],
-              ),
-            ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(5.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _itemImage(context),
+              _infoText(),
+            ],
           ),
         ),
       ),
@@ -40,46 +35,49 @@ class VideoCard extends StatelessWidget {
   }
 
   _itemImage(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Stack(
-      children: [
-        cachedImage(
-          videoMo?.imgUrl ?? '',
-          // width: ScreenUtil().setWidth(105),
-          width: 105.w,
-          height: 139.w,
-        ),
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: Container(
-            padding: EdgeInsets.only(
-              left: 8.w,
-              right: 8.w,
-              bottom: 3.w,
-              top: 5.w,
-            ),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [Colors.black54, Colors.transparent],
-              ),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _iconText(Icons.ondemand_video, 0),
-                _iconText(Icons.favorite_border, 0),
-                _iconText(null, 0),
-              ],
-            ),
-          ),
-        ),
-      ],
+    return cachedImage(
+      videoMo?.imgUrl ?? '',
+      width: 105.w,
+      height: 139.w,
     );
+    // return Stack(
+    //   children: [
+    //     cachedImage(
+    //       videoMo?.imgUrl ?? '',
+    //       width: 105.w,
+    //       height: 139.w,
+    //     ),
+    //     // Positioned(
+    //     //   left: 0,
+    //     //   right: 0,
+    //     //   bottom: 0,
+    //     //   child: Container(
+    //     //     padding: EdgeInsets.only(
+    //     //       left: 8.w,
+    //     //       right: 8.w,
+    //     //       bottom: 3.w,
+    //     //       top: 5.w,
+    //     //     ),
+    //     //     decoration: const BoxDecoration(
+    //     //       gradient: LinearGradient(
+    //     //         begin: Alignment.bottomCenter,
+    //     //         end: Alignment.topCenter,
+    //     //         colors: [Colors.black54, Colors.transparent],
+    //     //       ),
+    //     //     ),
+    //     //     child: Row(
+    //     //       crossAxisAlignment: CrossAxisAlignment.center,
+    //     //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //     //       children: [
+    //     //         _iconText(Icons.ondemand_video, 0),
+    //     //         _iconText(Icons.favorite_border, 0),
+    //     //         _iconText(null, 0),
+    //     //       ],
+    //     //     ),
+    //     //   ),
+    //     // ),
+    //   ],
+    // );
   }
 
   _iconText(IconData? ondemandVideo, int? count) {
@@ -115,23 +113,33 @@ class VideoCard extends StatelessWidget {
   }
 
   _infoText() {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.only(top: 5.w, left: 8.w, right: 8.w, bottom: 5.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              videoMo?.vodName ?? '',
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 12, color: Colors.black87),
-            ),
-            // _onwer(),
-          ],
-        ),
+    return Container(
+      height: 20.w,
+      // margin: EdgeInsets.only(top: 6.w),
+      child: Text(
+        videoMo?.vodName ?? '',
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(fontSize: 12, color: Colors.black87),
       ),
     );
+    // return Expanded(
+    //   child: Container(
+    //     padding: EdgeInsets.only(top: 6.w),
+    //     child: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //       children: [
+    //         Text(
+    //           videoMo?.vodName ?? '',
+    //           maxLines: 1,
+    //           overflow: TextOverflow.ellipsis,
+    //           style: const TextStyle(fontSize: 12, color: Colors.black87),
+    //         ),
+    //         // _onwer(),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }
