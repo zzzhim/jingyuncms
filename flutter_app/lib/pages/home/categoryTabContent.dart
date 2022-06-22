@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/videoList.dart';
+import 'package:flutter_app/theme/index.dart';
 import 'package:flutter_app/types/videoList.dart';
-import 'package:flutter_app/widget/videoCard1.dart';
+import 'package:flutter_app/widget/videoCard.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryTabContentWidget extends StatefulWidget {
   final int categoryId;
@@ -68,39 +70,52 @@ class _CategoryTabContentWidgetState extends State<CategoryTabContentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(20),
-        topRight: Radius.circular(20),
+    return EasyRefresh(
+      header: ClassicalHeader(
+        refreshText: '继续下拉',
+        refreshReadyText: '松开下拉',
+        refreshingText: '正在刷新',
+        refreshedText: '刷新成功',
+        refreshFailedText: '刷新失败',
+        // infoText: DateTime(year),
+        textColor: PrimaryColor,
       ),
+      footer: BallPulseFooter(color: PrimaryColor),
+      onRefresh: () async {
+        setState(() {
+          pageNo = 1;
+        });
+        getVideoListApi();
+      },
+      onLoad: () async {
+        getVideoListApi();
+      },
       child: Container(
-        // color: Color.fromRGBO(26, 31, 49, 1),
-        color: Colors.red,
+        width: 335.w,
+        padding: EdgeInsets.all(20.w),
         child: Wrap(
+          alignment: WrapAlignment.start,
           children: [
-            ...list.map((e) => VideoCard1(videoMo: e)),
+            ...list
+                .asMap()
+                .entries
+                .map(
+                  (item) => Container(
+                    margin: EdgeInsets.only(
+                      right: (item.key + 1) % 3 == 0 ? 0 : 10.w,
+                      bottom: 20.w,
+                    ),
+                    child: VideoCard(
+                      id: item.value.id,
+                      vodName: item.value.vodName,
+                      imgUrl: item.value.vodPic,
+                    ),
+                  ),
+                )
+                .toList(),
           ],
         ),
       ),
     );
-    //   return EasyRefresh(
-    //     header: MaterialHeader(),
-    //     footer: MaterialFooter(),
-    //     onRefresh: () async {
-    //       setState(() {
-    //         pageNo = 1;
-    //       });
-    //     },
-    //     onLoad: () async {
-    //       getVideoListApi();
-    //     },
-    //     child: Container(
-    //       child: Wrap(
-    //         children: [
-    //           ...list.map((e) => VideoCard1(videoMo: e)),
-    //         ],
-    //       ),
-    //     ),
-    //   );
   }
 }

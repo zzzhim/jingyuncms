@@ -5,6 +5,7 @@ import 'package:flutter_app/theme/index.dart';
 import 'package:flutter_app/types/recommendMo.dart';
 import 'package:flutter_app/widget/videoCard.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
 class TabContentWidget extends StatefulWidget {
   const TabContentWidget({
@@ -35,11 +36,10 @@ class _TabContentWidgetState extends State<TabContentWidget>
       children: [
         // 轮播
         Padding(
-          padding: EdgeInsets.all(20.w),
+          padding: EdgeInsets.only(top: 20.w, bottom: 20.w),
           child: Container(
             height: 168.w,
-            color: Colors.white,
-            child: const Text(('轮播')),
+            child: _swiper(),
           ),
         ),
         ClipRRect(
@@ -126,8 +126,15 @@ class _TabContentWidgetState extends State<TabContentWidget>
                 (item) {
                   return Container(
                     width: 105.w,
-                    margin: EdgeInsets.only(left: item.key % 3 == 0 ? 0 : 10.w),
-                    child: VideoCard(videoMo: item.value),
+                    margin: EdgeInsets.only(
+                      left: item.key % 3 == 0 ? 0 : 10.w,
+                      bottom: 20.w,
+                    ),
+                    child: VideoCard(
+                      id: item.value.id,
+                      vodName: item.value.vodName,
+                      imgUrl: item.value.imgUrl,
+                    ),
                   );
                 },
               ).toList(),
@@ -135,6 +142,24 @@ class _TabContentWidgetState extends State<TabContentWidget>
           ),
         ],
       ),
+    );
+  }
+
+  _swiper() {
+    return Swiper(
+      itemBuilder: (BuildContext context, int index) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(5.w),
+          child: Image.network(
+            "http://via.placeholder.com/288x188",
+            fit: BoxFit.fill,
+          ),
+        );
+      },
+      itemCount: 10,
+      viewportFraction: 0.8,
+      scale: 0.9,
+      autoplay: true,
     );
   }
 

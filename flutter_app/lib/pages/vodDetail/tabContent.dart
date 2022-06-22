@@ -55,10 +55,8 @@ class _TabContentWidgetState extends State<TabContentWidget>
                   itemCount: data.children?.length ?? 0,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return VideoCard(
-                      videoMo: data.children![index],
-                    );
-                    // return Text('1');
+                    // return VideoCard();
+                    return Text('1');
                   },
                 );
               }),

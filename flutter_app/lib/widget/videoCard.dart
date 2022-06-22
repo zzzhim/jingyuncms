@@ -6,9 +6,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class VideoCard extends StatelessWidget {
-  final VideoCardMo? videoMo;
+  // final VideoCardMo? videoMo;
+  final int? id;
+  final String? vodName;
+  final String? imgUrl;
 
-  const VideoCard({Key? key, required this.videoMo}) : super(key: key);
+  const VideoCard({
+    Key? key,
+    this.id,
+    this.vodName,
+    this.imgUrl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +25,6 @@ class VideoCard extends StatelessWidget {
       height: 160.w,
       child: InkWell(
         onTap: () {
-          var id = videoMo!.id;
           GoRouter.of(context).push('/vod_detail?id=$id');
         },
         child: ClipRRect(
@@ -36,110 +43,26 @@ class VideoCard extends StatelessWidget {
 
   _itemImage(BuildContext context) {
     return cachedImage(
-      videoMo?.imgUrl ?? '',
+      imgUrl!,
       width: 105.w,
       height: 139.w,
-    );
-    // return Stack(
-    //   children: [
-    //     cachedImage(
-    //       videoMo?.imgUrl ?? '',
-    //       width: 105.w,
-    //       height: 139.w,
-    //     ),
-    //     // Positioned(
-    //     //   left: 0,
-    //     //   right: 0,
-    //     //   bottom: 0,
-    //     //   child: Container(
-    //     //     padding: EdgeInsets.only(
-    //     //       left: 8.w,
-    //     //       right: 8.w,
-    //     //       bottom: 3.w,
-    //     //       top: 5.w,
-    //     //     ),
-    //     //     decoration: const BoxDecoration(
-    //     //       gradient: LinearGradient(
-    //     //         begin: Alignment.bottomCenter,
-    //     //         end: Alignment.topCenter,
-    //     //         colors: [Colors.black54, Colors.transparent],
-    //     //       ),
-    //     //     ),
-    //     //     child: Row(
-    //     //       crossAxisAlignment: CrossAxisAlignment.center,
-    //     //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //     //       children: [
-    //     //         _iconText(Icons.ondemand_video, 0),
-    //     //         _iconText(Icons.favorite_border, 0),
-    //     //         _iconText(null, 0),
-    //     //       ],
-    //     //     ),
-    //     //   ),
-    //     // ),
-    //   ],
-    // );
-  }
-
-  _iconText(IconData? ondemandVideo, int? count) {
-    String views = "";
-    // ignore: unnecessary_null_comparison
-    if (IconData != null) {
-      views = countFormat(count ?? 0);
-    } else {
-      views = durationTransform(0);
-    }
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        if (ondemandVideo != null)
-          Icon(
-            ondemandVideo,
-            color: Colors.white,
-            size: 10,
-          ),
-        Padding(
-          padding: const EdgeInsets.only(left: 3),
-          child: Text(
-            views,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-            ),
-          ),
-        ),
-      ],
     );
   }
 
   _infoText() {
     return Container(
       height: 20.w,
-      // margin: EdgeInsets.only(top: 6.w),
+      // alignment: Alignment.centerLeft,
+      alignment: Alignment.bottomLeft,
       child: Text(
-        videoMo?.vodName ?? '',
+        vodName ?? '',
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(fontSize: 12, color: Colors.black87),
+        style: TextStyle(
+          fontSize: 12.sp,
+          color: Color.fromRGBO(240, 241, 243, 1),
+        ),
       ),
     );
-    // return Expanded(
-    //   child: Container(
-    //     padding: EdgeInsets.only(top: 6.w),
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //       children: [
-    //         Text(
-    //           videoMo?.vodName ?? '',
-    //           maxLines: 1,
-    //           overflow: TextOverflow.ellipsis,
-    //           style: const TextStyle(fontSize: 12, color: Colors.black87),
-    //         ),
-    //         // _onwer(),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
