@@ -71,6 +71,8 @@ class App extends StatelessWidget {
 
   // 路由
   final GoRouter _router = GoRouter(
+    // initialLocation: '/vod_detail?id=1',
+    initialLocation: '/',
     routes: <GoRoute>[
       GoRoute(
         name: 'home',

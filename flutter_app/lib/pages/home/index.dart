@@ -5,7 +5,6 @@ import 'package:flutter_app/pages/home/tabContent.dart';
 import 'package:flutter_app/provider/category.dart';
 import 'package:flutter_app/theme/index.dart';
 import 'package:flutter_app/widget/bottomNavigationBar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
