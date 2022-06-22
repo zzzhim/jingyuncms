@@ -12,8 +12,6 @@ class VideoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Container(
       child: InkWell(
         onTap: () {
@@ -21,12 +19,12 @@ class VideoCard extends StatelessWidget {
           GoRouter.of(context).push('/vod_detail?id=$id');
         },
         child: SizedBox(
-          width: 105,
-          height: 210,
+          width: 105.w,
+          height: 210.w,
           child: Card(
-            margin: const EdgeInsets.only(left: 0, right: 0, bottom: 15),
+            margin: EdgeInsets.only(left: 0, right: 0, bottom: 15.w),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(5.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -48,19 +46,19 @@ class VideoCard extends StatelessWidget {
         cachedImage(
           videoMo?.imgUrl ?? '',
           // width: ScreenUtil().setWidth(105),
-          width: 105,
-          height: 139,
+          width: 105.w,
+          height: 139.w,
         ),
         Positioned(
           left: 0,
           right: 0,
           bottom: 0,
           child: Container(
-            padding: const EdgeInsets.only(
-              left: 8,
-              right: 8,
-              bottom: 3,
-              top: 5,
+            padding: EdgeInsets.only(
+              left: 8.w,
+              right: 8.w,
+              bottom: 3.w,
+              top: 5.w,
             ),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -119,10 +117,10 @@ class VideoCard extends StatelessWidget {
   _infoText() {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
+        padding: EdgeInsets.only(top: 5.w, left: 8.w, right: 8.w, bottom: 5.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
               videoMo?.vodName ?? '',

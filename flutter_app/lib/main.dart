@@ -16,9 +16,43 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
       ],
-      child: App(),
+      child: MyApp(),
     ),
   );
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    //填入设计稿中设备的屏幕尺寸,单位dp
+    return ScreenUtilInit(
+      designSize: const Size(375, 896),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (BuildContext c, child) => MaterialApp(
+        builder: (BuildContext ctx, widget) {
+          //add this line
+          ScreenUtil.init(
+            ctx,
+            designSize: const Size(375, 896),
+            minTextAdapt: true,
+            splitScreenMode: true,
+          );
+          return MediaQuery(
+            //Setting font does not change with system font size
+            data: MediaQuery.of(ctx).copyWith(textScaleFactor: 1.0),
+            child: widget!,
+          );
+        },
+        home: App(),
+        // theme: ThemeData(
+        //   textTheme: TextTheme(
+        //       //要支持下面这个需要使用第一种初始化方式
+        //       button: TextStyle(fontSize: 45.sp)),
+        // ),
+      ),
+    );
+  }
 }
 
 /// The main app.
@@ -28,14 +62,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //设置尺寸（填写设计中设备的屏幕尺寸）如果设计基于360dp * 690dp的屏幕
-    // ScreenUtil.init(
-    //   context,
-    //   designSize: const Size(375, 690),
-    //   minTextAdapt: true,
-    //   splitScreenMode: true,
-    // );
-
     return MaterialApp.router(
       routeInformationProvider: _router.routeInformationProvider,
       routeInformationParser: _router.routeInformationParser,

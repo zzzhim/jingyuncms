@@ -4,6 +4,7 @@ import 'package:flutter_app/api/recommend.dart';
 import 'package:flutter_app/theme/index.dart';
 import 'package:flutter_app/types/recommendMo.dart';
 import 'package:flutter_app/widget/videoCard.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TabContentWidget extends StatefulWidget {
   const TabContentWidget({
@@ -34,29 +35,29 @@ class _TabContentWidgetState extends State<TabContentWidget>
       children: [
         // 轮播
         Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(20.w),
           child: Container(
-            height: 168,
+            height: 168.w,
             color: Colors.white,
-            child: Text(('轮播')),
+            child: const Text(('轮播')),
           ),
         ),
         ClipRRect(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20.w),
+            topRight: Radius.circular(20.w),
           ),
           child: Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(20),
-            color: Color.fromRGBO(26, 31, 49, 1),
+            padding: EdgeInsets.all(20.w),
+            color: const Color.fromRGBO(26, 31, 49, 1),
             child: Column(
               children: [
                 ...list.map((data) {
                   return _card(data);
                 }),
                 Container(
-                  padding: const EdgeInsets.only(top: 15, bottom: 15),
+                  padding: EdgeInsets.only(top: 15.w, bottom: 15.w),
                   child: const Center(
                     child: Text(
                       '已经到底部了~',
@@ -80,7 +81,6 @@ class _TabContentWidgetState extends State<TabContentWidget>
     try {
       var res = await getRecommendList({});
 
-      print(jsonEncode(res));
       if (res.code == 200) {
         setState(() {
           list = res.data!.list!;
@@ -97,21 +97,18 @@ class _TabContentWidgetState extends State<TabContentWidget>
       return Container(height: 0);
     }
 
-    final size = MediaQuery.of(context).size;
-
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.only(bottom: 10.w),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 0, bottom: 20),
+            padding: EdgeInsets.only(top: 0, bottom: 20.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
-                  // data.recommendName ?? '',
-                  '电影名称',
-                  style: TextStyle(
+                  data.recommendName ?? '',
+                  style: const TextStyle(
                     fontSize: 18,
                     color: Color.fromRGBO(91, 103, 131, 1),
                   ),
@@ -119,8 +116,8 @@ class _TabContentWidgetState extends State<TabContentWidget>
               ],
             ),
           ),
-          Container(
-            width: 335,
+          SizedBox(
+            width: 335.w,
             child: Wrap(
               spacing: 0,
               runSpacing: 0,
@@ -128,7 +125,8 @@ class _TabContentWidgetState extends State<TabContentWidget>
               children: data.children!.asMap().entries.map(
                 (item) {
                   return Container(
-                    margin: EdgeInsets.only(left: item.key % 3 == 0 ? 0 : 10),
+                    width: 105.w,
+                    margin: EdgeInsets.only(left: item.key % 3 == 0 ? 0 : 10.w),
                     child: VideoCard(videoMo: item.value),
                   );
                 },
