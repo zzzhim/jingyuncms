@@ -4,6 +4,7 @@ import 'package:flutter_app/pages/home/categoryTabContent.dart';
 import 'package:flutter_app/pages/home/tabContent.dart';
 import 'package:flutter_app/provider/category.dart';
 import 'package:flutter_app/theme/index.dart';
+import 'package:flutter_app/widget/bottomNavigationBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -55,25 +56,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Flexible(
               flex: 1,
               child: _tabBarView(),
-              // child: ListView(
-              //   children: [
-              //     Container(
-              //       width: MediaQuery.of(context).size.width,
-              //       height: MediaQuery.of(context).size.height -
-              //           MediaQuery.of(context).viewPadding.top,
-              //       padding: EdgeInsets.all(0),
-              //       child: Column(
-              //         children: [
-              //           Text((MediaQuery.of(context).size.height -
-              //                   MediaQuery.of(context).viewPadding.top)
-              //               .toString()),
-              //           _tabBarView()
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ),
+            _bottomNavigationBar(),
           ],
         ),
       ),
@@ -133,6 +117,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           borderSide: BorderSide(color: PrimaryColor, width: 2),
         ),
       ),
+    );
+  }
+
+  _bottomNavigationBar() {
+    return BottomNavigationBarWidget(
+      currentIndex: 0,
     );
   }
 
