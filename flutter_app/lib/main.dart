@@ -3,9 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/home/index.dart';
-import 'package:flutter_app/pages/vodDetail/index.dart';
-import 'package:flutter_app/provider/category.dart';
+import 'package:jingyun_app/pages/home/index.dart';
+import 'package:jingyun_app/pages/vodDetail/index.dart';
+import 'package:jingyun_app/provider/category.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -71,8 +71,8 @@ class App extends StatelessWidget {
 
   // 路由
   final GoRouter _router = GoRouter(
-    // initialLocation: '/vod_detail?id=1',
-    initialLocation: '/',
+    initialLocation: '/vod_detail?id=1',
+    // initialLocation: '/',
     routes: <GoRoute>[
       GoRoute(
         name: 'home',

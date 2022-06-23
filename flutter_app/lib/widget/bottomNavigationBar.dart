@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/theme/index.dart';
+import 'package:jingyun_app/theme/index.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   final int currentIndex;

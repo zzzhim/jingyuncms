@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_app/types/categoryVideoMo.dart';
+import 'package:jingyun_app/types/categoryVideoMo.dart';
 
 class CategoryProvider with ChangeNotifier, DiagnosticableTreeMixin {
   List<CategoryVideoMo> _categoryList = [];

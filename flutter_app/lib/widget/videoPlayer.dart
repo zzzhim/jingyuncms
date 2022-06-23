@@ -1,14 +1,18 @@
-import 'package:chewie/chewie.dart';
+import 'package:chewie/chewie.dart' hide MaterialControls;
 import 'package:flutter/material.dart';
-import 'package:flutter_app/theme/index.dart';
-import 'package:flutter_app/util/black_linear_gradient.dart';
-import 'package:flutter_app/util/chewie_video_controls.dart';
+import 'package:jingyun_app/theme/index.dart';
+import 'package:jingyun_app/util/black_linear_gradient.dart';
+import 'package:jingyun_app/util/chewie_video_controls.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jingyun_app/widget/videoAppBar.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
-  final String? vodUrl;
-  const VideoPlayerWidget({Key? key, this.vodUrl}) : super(key: key);
+  final String vodUrl;
+  const VideoPlayerWidget(
+    this.vodUrl, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
@@ -16,7 +20,6 @@ class VideoPlayerWidget extends StatefulWidget {
 
 class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   VideoPlayerController? videoPlayerController;
-
   ChewieController? chewieController;
 
   // 进度条颜色配置
@@ -40,35 +43,14 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
       looping: true,
       aspectRatio: 16 / 9,
       allowMuting: false,
-      fullScreenByDefault: false,
-      customControls: MaterialChewieControls(
+      allowPlaybackSpeedChanging: false,
+      customControls: MaterialControls(
         bottomGradient: blackLinearGradient(),
-        // overlayUI: widget.overlayUI, // 头部导航
+        overlayUI: VideoAppBar(), // 头部导航
       ),
       materialProgressColors: _progressColors,
     );
   }
-
-  // _initController() {
-  //   videoPlayerController = VideoPlayerController.network(widget?.vodUrl ?? '');
-  //   // _onControllerChange(widget?.vodUrl ?? '');
-
-  //   chewieController = ChewieController(
-  //     videoPlayerController: videoPlayerController!,
-  //     autoPlay: true,
-  //     looping: true,
-  //     aspectRatio: 16 / 9,
-  //     allowMuting: false,
-  //     fullScreenByDefault: false,
-  //     customControls: MaterialChewieControls(
-  //       bottomGradient: blackLinearGradient(),
-  //       // overlayUI: widget.overlayUI, // 头部导航
-  //     ),
-  //     materialProgressColors: _progressColors,
-  //   );
-
-  //   return chewieController;
-  // }
 
   @override
   void dispose() {

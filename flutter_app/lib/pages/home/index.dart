@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/api/categoryVideo.dart';
-import 'package:flutter_app/pages/home/categoryTabContent.dart';
-import 'package:flutter_app/pages/home/tabContent.dart';
-import 'package:flutter_app/provider/category.dart';
-import 'package:flutter_app/theme/index.dart';
-import 'package:flutter_app/widget/bottomNavigationBar.dart';
+import 'package:jingyun_app/api/categoryVideo.dart';
+import 'package:jingyun_app/pages/home/categoryTabContent.dart';
+import 'package:jingyun_app/pages/home/tabContent.dart';
+import 'package:jingyun_app/provider/category.dart';
+import 'package:jingyun_app/theme/index.dart';
+import 'package:jingyun_app/widget/bottomNavigationBar.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/api/videoList.dart';
-import 'package:flutter_app/theme/index.dart';
-import 'package:flutter_app/types/videoList.dart';
-import 'package:flutter_app/widget/videoCard.dart';
+import 'package:jingyun_app/api/videoList.dart';
+import 'package:jingyun_app/theme/index.dart';
+import 'package:jingyun_app/types/videoList.dart';
+import 'package:jingyun_app/widget/videoCard.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';

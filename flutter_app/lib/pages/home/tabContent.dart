@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/api/recommend.dart';
-import 'package:flutter_app/theme/index.dart';
-import 'package:flutter_app/types/recommendMo.dart';
-import 'package:flutter_app/widget/videoCard.dart';
+import 'package:jingyun_app/api/recommend.dart';
+import 'package:jingyun_app/theme/index.dart';
+import 'package:jingyun_app/types/recommendMo.dart';
+import 'package:jingyun_app/widget/videoCard.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 

@@ -1,5 +1,5 @@
-import 'package:flutter_app/request/index.dart';
-import 'package:flutter_app/types/recommendMo.dart';
+import 'package:jingyun_app/request/index.dart';
+import 'package:jingyun_app/types/recommendMo.dart';
 
 Future<RecommendListResponseMo> getRecommendList(dynamic data) async {
   var result = await request(

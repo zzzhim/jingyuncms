@@ -8,13 +8,13 @@ import 'package:chewie/src/material/material_progress_bar.dart';
 import 'package:chewie/src/models/subtitle_model.dart';
 import 'package:chewie/src/notifiers/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/theme/index.dart';
+import 'package:jingyun_app/theme/index.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 ///自定义播放器UI
 ///支持空安全的皮肤，for chewie: > ^1.2.0
-class MaterialChewieControls extends StatefulWidget {
+class MaterialControls extends StatefulWidget {
   //初始化时是否展示loading
   final bool showLoadingOnInitialize;
 
@@ -30,7 +30,7 @@ class MaterialChewieControls extends StatefulWidget {
   //弹幕浮层
   final Widget? barrageUI;
 
-  const MaterialChewieControls(
+  const MaterialControls(
       {Key? key,
       this.showLoadingOnInitialize = true,
       this.showBigPlayIcon = true,
@@ -41,11 +41,11 @@ class MaterialChewieControls extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _MaterialChewieControlsState();
+    return _MaterialControlsState();
   }
 }
 
-class _MaterialChewieControlsState extends State<MaterialChewieControls>
+class _MaterialControlsState extends State<MaterialControls>
     with SingleTickerProviderStateMixin {
   late PlayerNotifier notifier;
   late VideoPlayerValue _latestValue;

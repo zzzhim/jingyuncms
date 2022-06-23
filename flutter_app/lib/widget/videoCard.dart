@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/types/recommendMo.dart';
-import 'package:flutter_app/util/format_urli.dart';
-import 'package:flutter_app/widget/cachedImage.dart';
+import 'package:jingyun_app/types/recommendMo.dart';
+import 'package:jingyun_app/util/format_urli.dart';
+import 'package:jingyun_app/widget/cachedImage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
