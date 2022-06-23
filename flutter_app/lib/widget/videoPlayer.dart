@@ -62,14 +62,14 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     double playerHeight = screenWidth / (16 / 9);
 
     return Container(
       width: screenWidth,
-      height: playerHeight,
+      height: playerHeight > screenHeight ? playerHeight : screenHeight,
       child: Chewie(
         controller: chewieController!,
-        // controller: _initController(),
       ),
     );
   }

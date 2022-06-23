@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jingyun_app/types/recommendMo.dart';
-import 'package:jingyun_app/util/format_urli.dart';
+import 'package:jingyun_app/pages/vodDetail/index.dart';
 import 'package:jingyun_app/widget/cachedImage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 class VideoCard extends StatelessWidget {
   // final VideoCardMo? videoMo;
@@ -25,7 +23,15 @@ class VideoCard extends StatelessWidget {
       height: 160.w,
       child: InkWell(
         onTap: () {
-          GoRouter.of(context).push('/vod_detail?id=$id');
+          // GoRouter.of(context).push('/vod_detail?id=$id');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return VodDetail(
+                vodId: 1,
+              );
+            }),
+          );
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(5.w),

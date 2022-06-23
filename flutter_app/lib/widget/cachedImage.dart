@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 // 带缓存的image
 Widget cachedImage(String url, {double? width, double? height}) {
   return CachedNetworkImage(
-    imageUrl: url,
-    // imageUrl:
-    //     'http://frp.lovewyf.xyz:7600/image/admin_1/2022_06_19/de07f286-f5a4-43b7-8190-80e5ae769af2.png',
+    // imageUrl: url,
+    imageUrl:
+        'http://frp.lovewyf.xyz:7600/image/admin_1/2022_06_19/de07f286-f5a4-43b7-8190-80e5ae769af2.png',
     width: width,
     height: height,
     fit: BoxFit.cover,
