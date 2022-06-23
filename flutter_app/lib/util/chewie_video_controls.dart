@@ -149,7 +149,6 @@ class _MaterialControlsState extends State<MaterialControls>
     final _oldController = _chewieController;
     _chewieController = ChewieController.of(context);
     controller = chewieController.videoPlayerController;
-
     if (_oldController != chewieController) {
       _dispose();
       _initialize();

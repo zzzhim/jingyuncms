@@ -5,6 +5,7 @@ import 'package:jingyun_app/util/black_linear_gradient.dart';
 import 'package:jingyun_app/util/chewie_video_controls.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jingyun_app/widget/videoAppBar.dart';
+import 'package:jingyun_app/widget/webVideoPlayer.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
@@ -68,9 +69,10 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     return Container(
       width: screenWidth,
       height: playerHeight > screenHeight ? playerHeight : screenHeight,
-      child: Chewie(
-        controller: chewieController!,
-      ),
+      // child: Chewie(
+      //   controller: chewieController!,
+      // ),
+      child: WebVideoPlayer(),
     );
   }
 }
