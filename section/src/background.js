@@ -98,21 +98,13 @@ if (isDevelopment) {
 
 // import FormData from "form-data"
 // import fs from "fs"
-// import { hupuUpload, kuaishouQiYeUpload, kuaishouUpload } from './api/upload'
+// // import { hupuUpload, kuaishouQiYeUpload, kuaishouUpload } from './api/upload'
+// import { bilibiliUpload } from './api/upload'
 
 
-// const formData = new FormData()
 
-// formData.append('file', fs.createReadStream('C:/Users/admin/Pictures/animation1.png'))
-// hupuUpload(formData).then(res => {
-//   console.log(res)
-// }).catch(err => {
-//   console.log(err)
-// })
-
-// console.log(`开始上传`)
-// // const res = await douyinUpload(formData)
-// kuaishouQiYeUpload(formData).then(res => {
+// const file = fs.createReadStream('C:/Users/admin/Pictures/animation1.png')
+// bilibiliUpload(file).then(res => {
 //   console.log(res)
 // }).catch(err => {
 //   console.log(err)
