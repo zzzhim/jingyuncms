@@ -107,7 +107,7 @@ class App extends StatelessWidget {
           var currentIndex = state.queryParams['currentIndex'];
           print(currentIndex);
           return MainPage(
-            currentIndex: currentIndex == null ? 2 : int.parse(currentIndex),
+            currentIndex: currentIndex == null ? 3 : int.parse(currentIndex),
           );
         },
       ),

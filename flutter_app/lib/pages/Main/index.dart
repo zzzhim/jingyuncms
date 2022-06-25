@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:jingyun_app/pages/home/index.dart';
 import 'package:jingyun_app/pages/search/index.dart';
+import 'package:jingyun_app/pages/user/index.dart';
 import 'package:jingyun_app/theme/index.dart';
 
 class MainPage extends StatefulWidget {
@@ -38,6 +39,7 @@ class _MainPageState extends State<MainPage> {
         children: [
           if (currentIndex == 0) const HomePage(),
           if (currentIndex == 2) const SearchPage(),
+          if (currentIndex == 3) const UserPage(),
         ],
       ),
       bottomNavigationBar: _bottomNavigationBar(),
@@ -57,7 +59,7 @@ class _MainPageState extends State<MainPage> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.search),
-          label: '我的',
+          label: '搜索',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
