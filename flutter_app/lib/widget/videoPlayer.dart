@@ -69,10 +69,10 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     return Container(
       width: screenWidth,
       height: playerHeight > screenHeight ? playerHeight : screenHeight,
-      // child: Chewie(
-      //   controller: chewieController!,
-      // ),
-      child: WebVideoPlayer(),
+      child: Chewie(
+        controller: chewieController!,
+      ),
+      // child: WebVideoPlayer(),
     );
   }
 }

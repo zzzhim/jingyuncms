@@ -5,13 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VideoCard extends StatelessWidget {
   // final VideoCardMo? videoMo;
-  final int? id;
+  final int id;
   final String? vodName;
   final String? imgUrl;
 
   const VideoCard({
     Key? key,
-    this.id,
+    required this.id,
     this.vodName,
     this.imgUrl,
   }) : super(key: key);
@@ -28,30 +28,30 @@ class VideoCard extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) {
               return VodDetail(
-                vodId: 1,
+                vodId: id,
               );
             }),
           );
         },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(5.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _itemImage(context),
-              _infoText(),
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _itemImage(context),
+            _infoText(),
+          ],
         ),
       ),
     );
   }
 
   _itemImage(BuildContext context) {
-    return cachedImage(
-      imgUrl!,
-      width: 105.w,
-      height: 139.w,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(6.w),
+      child: cachedImage(
+        imgUrl!,
+        width: 105.w,
+        height: 139.w,
+      ),
     );
   }
 

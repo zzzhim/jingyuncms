@@ -4,7 +4,6 @@ import 'package:jingyun_app/pages/home/categoryTabContent.dart';
 import 'package:jingyun_app/pages/home/tabContent.dart';
 import 'package:jingyun_app/provider/category.dart';
 import 'package:jingyun_app/theme/index.dart';
-import 'package:jingyun_app/widget/bottomNavigationBar.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,7 +13,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   List<Tab> tabs = [];
 
   late TabController _tabController;
@@ -36,10 +36,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: BgColor,
-      // appBar: AppBar(title: const Text('首页')),
-      body: MediaQuery.removePadding(
+    return Container(
+      child: MediaQuery.removePadding(
         context: context,
         removeTop: true,
         child: Column(
@@ -56,7 +54,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               flex: 1,
               child: _tabBarView(),
             ),
-            _bottomNavigationBar(),
           ],
         ),
       ),
@@ -119,12 +116,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  _bottomNavigationBar() {
-    return const BottomNavigationBarWidget(
-      currentIndex: 0,
-    );
-  }
-
   _tabBarView() {
     var list = tabs.asMap().entries.map((element) {
       if (element.key == 0) {
@@ -152,4 +143,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget _tabBarViewCategoryContent(int categoryId) {
     return CategoryTabContentWidget(categoryId: categoryId);
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

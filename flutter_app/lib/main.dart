@@ -3,7 +3,10 @@
 // found in the LICENSE file.
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jingyun_app/pages/Main/index.dart';
 import 'package:jingyun_app/pages/home/index.dart';
+import 'package:jingyun_app/pages/search/index.dart';
 import 'package:jingyun_app/pages/vodDetail/index.dart';
 import 'package:jingyun_app/provider/category.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,26 +63,64 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// /// The main app.
+// // /// The main app.
+// class App extends StatelessWidget {
+//   /// Creates an [App].
+//   App({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       initialRoute: '/',
+//       routes: {
+//         '/': (BuildContext context) {
+//           // return Routers();
+//           return HomePage();
+//         },
+//         '/vod_detail': (BuildContext context) {
+//           return VodDetail(
+//             vodId: 1,
+//           );
+//         },
+//       },
+//     );
+//   }
+// }
+
 class App extends StatelessWidget {
-  /// Creates an [App].
   App({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/vod_detail',
-      routes: {
-        '/': (BuildContext context) {
-          // return Routers();
-          return HomePage();
-        },
-        '/vod_detail': (BuildContext context) {
-          return VodDetail(
-            vodId: 1,
+  Widget build(BuildContext context) => MaterialApp.router(
+        routeInformationProvider: _router.routeInformationProvider,
+        routeInformationParser: _router.routeInformationParser,
+        routerDelegate: _router.routerDelegate,
+        title: '鲸云视频',
+      );
+
+  final GoRouter _router = GoRouter(
+    routes: <GoRoute>[
+      GoRoute(
+        name: 'main',
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          var currentIndex = state.queryParams['currentIndex'];
+          print(currentIndex);
+          return MainPage(
+            currentIndex: currentIndex == null ? 2 : int.parse(currentIndex),
           );
         },
-      },
-    );
-  }
+      ),
+      GoRoute(
+        name: 'vod_detail',
+        path: '/vod_detail',
+        builder: (BuildContext context, GoRouterState state) {
+          var id = state.queryParams['id'] as String;
+          return VodDetail(
+            vodId: int.parse(id),
+          );
+        },
+      ),
+    ],
+  );
 }

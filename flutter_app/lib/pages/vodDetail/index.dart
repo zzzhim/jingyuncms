@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jingyun_app/theme/index.dart';
 import 'package:jingyun_app/widget/videoPlayer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,38 +31,53 @@ class _VodDetailState extends State<VodDetail> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: BgColor,
-        body: MediaQuery.removePadding(
-          context: context,
-          removeTop: true,
-          child: Column(
-            children: [
-              Container(
-                width: 375.w,
-                height: 280.w,
-                child: VideoPlayerWidget(
-                  'https://video.jingyunshipin.com/cache/zzzhim/1.m3u8',
-                ),
+        body: InkWell(
+          onTap: () {
+            GoRouter.of(context).pop();
+          },
+          child: Container(
+            height: 500,
+            child: Text(
+              widget.vodId.toString(),
+              style: TextStyle(
+                color: Colors.white,
               ),
-              _tabBar(),
-              Flexible(
-                flex: 1,
-                child: TabBarView(
-                  controller: _controller,
-                  children: [
-                    Container(
-                      color: Colors.white,
-                      child: Text('1111'),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      child: Text('1111'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
         ),
+        // body: MediaQuery.removePadding(
+        //   context: context,
+        //   removeTop: true,
+        //   child: Column(
+        //     children: [
+        //       // Container(
+        //       //   width: 375.w,
+        //       //   height: 280.w,
+        //       //   child: VideoPlayerWidget(
+        //       //     // 'https://video.jingyunshipin.com/cache/zzzhim/1.m3u8',
+        //       //     "http://127.0.0.1:4000/a.m3u8",
+        //       //   ),
+        //       // ),
+        //       _tabBar(),
+        //       Flexible(
+        //         flex: 1,
+        //         child: TabBarView(
+        //           controller: _controller,
+        //           children: [
+        //             Container(
+        //               color: Colors.white,
+        //               child: Text('1111'),
+        //             ),
+        //             Container(
+        //               color: Colors.white,
+        //               child: Text('1111'),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       );
 
   _tabBar() {

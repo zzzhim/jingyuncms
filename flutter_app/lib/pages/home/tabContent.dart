@@ -131,7 +131,7 @@ class _TabContentWidgetState extends State<TabContentWidget>
                       bottom: 20.w,
                     ),
                     child: VideoCard(
-                      id: item.value.id,
+                      id: item.value.id!,
                       vodName: item.value.vodName,
                       imgUrl: item.value.imgUrl,
                     ),

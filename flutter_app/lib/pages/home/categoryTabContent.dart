@@ -106,7 +106,7 @@ class _CategoryTabContentWidgetState extends State<CategoryTabContentWidget> {
                       bottom: 20.w,
                     ),
                     child: VideoCard(
-                      id: item.value.id,
+                      id: item.value.id!,
                       vodName: item.value.vodName,
                       imgUrl: item.value.vodPic,
                     ),
