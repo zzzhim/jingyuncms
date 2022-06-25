@@ -33,6 +33,10 @@ export const videoList = async ({
       },
       limit: parseInt(pageSize),
       offset: parseInt(pageSize) * (parseInt(pageNo) - 1),
+      order: [
+        // 将转义 title 并针对有效方向列表进行降序排列
+        ['updated_at', 'DESC'],
+      ]
     })
 
     return response.success(
@@ -54,75 +58,94 @@ export const videoList = async ({
  */
 export const videoAdd = async (params) => {
   try {
-    const category = await BindCategoryModel.findAll({
-      where: {
-        interfaceId: params.interfaceId,
-      }
-    })
+    const {
+      vodName,
+      categoryId,
+      vodSub,
+      vodStatus,
+      vodTag,
+      vodPic,
+      vodBlurb,
+      vodRemarks,
+      vodTotal,
+      vodYear,
+      vodState,
+      vodIsend,
+      vodCopyright,
+      vodHits,
+      vodHitsDay,
+      vodHitsWeek,
+      vodHitsMonth,
+      vodDuration,
+      vodUp,
+      vodDown,
+      vodScore,
+      vodScoreAll,
+      vodScoreNum,
+      vodTrysee,
+      vodDoubanId,
+      vodDoubanScore,
+      vodContent,
+      vodNotes,
+      vodPlayFrom,
+      vodPlayNote,
+      vodPlayUrl,
+    } = params
 
-    let list = params.list.map(item => {
-      const find = category.find(ele => {
-        return ele.getDataValue('interfaceCategoryId') == item.type_id
-      })
-
-      if (find) {
-        return {
-          ...item,
-          categoryId: find.getDataValue('bindVideoCategoryId'),
-          is_bind_category: true
-        }
-      } else {
-        return {
-          ...item,
-          is_bind_category: false
-        }
-      }
-    })
-
-    // list = list.filter(item => item != false)
-
-    // 批量添加视频数据
-    // await VodModel.bulkCreate(list)
-
-    list.forEach(async element => {
-      if (element.is_bind_category) {
-        const obj = {}
-        for (const key in element) {
-          obj[underlineToHump(key)] = element[key]
-        }
-
-        try {
-          await VodModel.findOrCreate({
-            where: {
-              vodName: element.vod_name
-            },
-            defaults: obj,
-          })
-        } catch (error) {
-          logger.error(error)
-        }
-
-        // socketIo.emit('logs', {
-        //   type: 'collection',
-        //   taskType: 'maccms',
-        //   message: '采集视频完毕',
-        //   data: {
-        //     log: `<span style="color: #67C23A;">采集视频成功</span> -> 分类ID: ${element.type_id} 分类名称: ${element.type_name} 视频名称:${element.vod_name} `
-        //   }
-        // })
-      } else {
-        // socketIo.emit('logs', {
-        //   type: 'collection',
-        //   taskType: 'maccms',
-        //   message: '采集视频失败',
-        //   data: {
-        //     log: `<span style="color: #E6A23C;">采集视频失败</span> -> 分类ID: ${element.type_id} 分类名称: ${element.type_name} 视频名称:${element.vod_name} <span style="color: #F56C6C;">未绑定分类</span>`
-        //   }
-        // })
-      }
+    await VodModel.create({
+      vodName,
+      categoryId,
+      vodSub,
+      vodStatus,
+      vodTag,
+      vodPic,
+      vodBlurb,
+      vodRemarks,
+      vodTotal,
+      vodYear,
+      vodState,
+      vodIsend,
+      vodCopyright,
+      vodHits,
+      vodHitsDay,
+      vodHitsWeek,
+      vodHitsMonth,
+      vodDuration,
+      vodUp,
+      vodDown,
+      vodScore,
+      vodScoreAll,
+      vodScoreNum,
+      vodTrysee,
+      vodDoubanId,
+      vodDoubanScore,
+      vodContent,
+      vodNotes,
+      vodPlayFrom,
+      vodPlayNote,
+      vodPlayUrl,
     })
 
     return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, {})
+  }
+}
+
+
+/**
+ *
+ * @description 批量添加视频
+ */
+ export const videoAddList = async (params) => {
+  try {
+    const { list } = params
+
+    await VodModel.bulkCreate(list)
+
+    return response.success(200, {})
+
   } catch (error) {
     logger.error(error)
     return response.error(500, {})
@@ -222,7 +245,7 @@ export const videoEdit = async (params) => {
  * @param {number} id 视频Id
  * @description 删除视频
  */
- export const videoDel = async ({ id }) => {
+export const videoDel = async ({ id }) => {
   try {
     await VodModel.destroy({
       where: {

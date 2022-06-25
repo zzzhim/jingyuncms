@@ -5,7 +5,7 @@
         class="tag"
         v-for="item in classList"
         :key="item.type_id"
-        :type=" bindCategory(item) === '未绑定' ? 'danger' : 'success'"
+        :type="bindCategory(item) === '未绑定' ? 'danger' : 'success'"
         @click="handleBindVideo(item)"
       >{{ item.type_name }}({{ bindCategory(item) }})</el-tag>
     </div>
@@ -97,7 +97,7 @@
 
 <script>
 import { maccmsProxy, maccmsDetailProxy } from "@/api/proxy"
-import { videoAdd } from "@/api/video"
+import { videoAddList } from "@/api/video"
 import { underlineToHump } from "@/utils/underlineToHump"
 import { bindInterfaceList, categoryVideoTree } from "@/api/category"
 import BindCategory from "./bindCategory.vue"
@@ -215,7 +215,7 @@ export default {
         if(res.code === 200 && res.data.code === 1) {
           this.$message.success('采集成功，开始添加视频数据')
 
-          this.videoAdd(res.data.list)
+          this.videoAddList(res.data.list)
         }
       } catch (error) {
         console.log(error)
@@ -260,21 +260,27 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    async videoAdd(list) {
+    async videoAddList(list) {
       try {
+        list = list.filter(item => {
+          return this.bindCategoryList.find(ele => ele.interfaceCategoryId === item.type_id)
+        })
+
         list = list.map(item => {
           const obj = {}
           for(let key in item) {
             obj[underlineToHump(key)] = item[key]
           }
 
+          const find = this.bindCategoryList.find(ele => ele.interfaceCategoryId === item.type_id)
+
+          // 分类Id
+          obj.categoryId = find.interfaceCategoryId
+
           return obj
         })
 
-        const res = await videoAdd({
-          interfaceId: this.$route.query.id,
-          list
-        })
+        const res = await videoAddList({ list })
 
         if(res.code === 200) {
           this.$message.success('添加视频成功')

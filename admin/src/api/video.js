@@ -16,3 +16,12 @@ export function videoAdd(params) {
     data: params
   })
 }
+
+
+export function videoAddList(params) {
+  return request({
+    url: '/video/add/list',
+    method: 'post',
+    data: params
+  })
+}

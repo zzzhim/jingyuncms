@@ -5,6 +5,7 @@ import {
   videoWarehousing,
   videoDel,
   videoEdit,
+  videoAddList,
 } from '../../controllers/cms/video'
 import { commomIdValidate } from '../../validate/common'
 
@@ -42,9 +43,85 @@ router.get('/list', async (ctx, next) => {
  * @description 添加视频
  */
 router.post('/add', async (ctx, next) => {
-  const { list, interfaceId } = ctx.request.body
+  const {
+    vodName,
+    categoryId,
+    vodSub,
+    vodStatus,
+    vodTag,
+    vodPic,
+    vodBlurb,
+    vodRemarks,
+    vodTotal,
+    vodYear,
+    vodState,
+    vodIsend,
+    vodCopyright,
+    vodHits,
+    vodHitsDay,
+    vodHitsWeek,
+    vodHitsMonth,
+    vodDuration,
+    vodUp,
+    vodDown,
+    vodScore,
+    vodScoreAll,
+    vodScoreNum,
+    vodTrysee,
+    vodDoubanId,
+    vodDoubanScore,
+    vodContent,
+    vodNotes,
+    vodPlayFrom,
+    vodPlayNote,
+    vodPlayUrl,
+  } = ctx.request.body
 
-  const data = await videoAdd({ list, interfaceId })
+  const data = await videoAdd({
+    vodName,
+    categoryId,
+    vodSub,
+    vodStatus,
+    vodTag,
+    vodPic,
+    vodBlurb,
+    vodRemarks,
+    vodTotal,
+    vodYear,
+    vodState,
+    vodIsend,
+    vodCopyright,
+    vodHits,
+    vodHitsDay,
+    vodHitsWeek,
+    vodHitsMonth,
+    vodDuration,
+    vodUp,
+    vodDown,
+    vodScore,
+    vodScoreAll,
+    vodScoreNum,
+    vodTrysee,
+    vodDoubanId,
+    vodDoubanScore,
+    vodContent,
+    vodNotes,
+    vodPlayFrom,
+    vodPlayNote,
+    vodPlayUrl,
+  })
+
+  ctx.body = data
+})
+
+/**
+ *
+ * @description 批量添加视频
+ */
+ router.post('/add/list', async (ctx, next) => {
+  const { list } = ctx.request.body
+
+  const data = await videoAddList({ list })
 
   ctx.body = data
 })
