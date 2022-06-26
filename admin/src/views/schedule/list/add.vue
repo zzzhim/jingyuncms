@@ -162,7 +162,8 @@ export default {
       this.$refs.AdvancedForm.$refs['accurateSearch'].validate(async (valid) => {
         if (valid) {
           const find = this.categoryList.find(item => item.id == this.queryPar.bindVideoCategoryId)
-
+          console.log(this.queryPar)
+          return
           const res = await bindInterfaceAdd({
             interfaceId: this.queryPar.id,
             interfaceCategoryId: this.queryPar.typeId,

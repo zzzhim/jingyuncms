@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getLogList(params) {
   return request({
-    url: '/schedule/log/list',
+    url: '/schedule/list',
     method: 'get',
     params
   })
