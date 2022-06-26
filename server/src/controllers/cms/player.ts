@@ -61,3 +61,67 @@ export const playerAdd = async ({
     return response.error(500, {}, error)
   }
 }
+
+/**
+ * 
+ * @param {number} sort 排序
+ * @param {string} playerCode 播放器编码
+ * @param {string} playerName 播放器名称
+ * @param {string} playerUrl 播放器地址
+ * @param {string} remarks 备注
+ * @description 添加播放器
+ */
+ export const playerEdit = async ({
+  id,
+  sort,
+  playerCode,
+  playerName,
+  playerUrl,
+  remarks,
+  userId,
+  username,
+}) => {
+  try {
+    await PlayerModel.update(
+      {
+        sort,
+        playerCode,
+        playerName,
+        playerUrl,
+        remarks,
+        updateById: userId,
+        updateByName: username,
+      },
+      {
+        where: {
+          id,
+        }
+      }
+    )
+
+    return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, {}, error)
+  }
+}
+
+/**
+ * 
+ * @param {number} id
+ * @description 删除播放器
+ */
+ export const playerDel = async ({ id }) => {
+  try {
+    await PlayerModel.destroy({
+      where: {
+        id,
+      }
+    })
+
+    return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, {}, error)
+  }
+}

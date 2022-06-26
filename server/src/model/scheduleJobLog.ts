@@ -36,7 +36,6 @@ const ScheduleJobUser = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       comment: "参数",
-      // field: 'job_params'
     },
     jobLog: {
       type: DataTypes.TEXT,

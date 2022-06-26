@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize"
 import { sequelize } from "./sequelize"
 
 // 定时任务表
-const ScheduleJobUser = sequelize.define(
+const ScheduleJob = sequelize.define(
   'schedule_job',
   {
     cron: {
@@ -15,15 +15,20 @@ const ScheduleJobUser = sequelize.define(
       allowNull: false,
       comment: "任务名称",
     },
-    jobHandler: {
-      type: DataTypes.STRING,
+    jobType: {
+      type: DataTypes.ENUM([ "0", "1", "2", "3" ]),
       allowNull: false,
-      comment: "任务处理方法",
+      comment: "任务类型",
     },
     jobParams: {
       type: DataTypes.STRING,
       allowNull: false,
       comment: "参数",
+    },
+    jobAdditionalParams: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      comment: "附加参数",
     },
     description: {
       type: DataTypes.STRING,
@@ -36,12 +41,12 @@ const ScheduleJobUser = sequelize.define(
       defaultValue: '0',
       comment: "0停止 1启动",
     },
-    createBy: {
-      type: DataTypes.STRING,
+    updateById: {
+      type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
       allowNull: false,
-      comment: "创建人",
+      comment: "用户Id"
     },
-    updateBy: {
+    updateByName: {
       type: DataTypes.STRING,
       allowNull: false,
       comment: "更新人",
@@ -53,4 +58,4 @@ const ScheduleJobUser = sequelize.define(
   }
 )
 
-export const ScheduleJobUserModel = ScheduleJobUser
+export const ScheduleJobModel = ScheduleJob
