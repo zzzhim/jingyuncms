@@ -1,50 +1,23 @@
 <template>
   <div class="dashboard-container">
-    <AccurateSearch
-      :list="list"
-      :formData="queryParams"
-      @queryTable="getList"
-      @handleQuery="handleQuery"
-      :isOneRow="true"
-    />
+    <AccurateSearch :list="list" :formData="queryParams" @queryTable="getList" @handleQuery="handleQuery"
+      :isOneRow="true" />
 
-    <el-table
-      :data="tableData"
-      style="width: 100%"
-      v-loading="loading"
-    >
-      <el-table-column
-        prop="jobId"
-        label="定时任务ID"
-        >
+    <el-table :data="tableData" style="width: 100%" v-loading="loading">
+      <el-table-column prop="id" label="定时任务ID">
       </el-table-column>
-      <el-table-column
-        prop="jobName"
-        label="任务名称"
-        >
+      <el-table-column prop="jobName" label="任务名称">
       </el-table-column>
-      <el-table-column
-        prop="cron"
-        label="cron表达式"
-        >
+      <el-table-column prop="cron" label="cron表达式">
       </el-table-column>
 
-      <el-table-column
-        prop="jobParams"
-        label="参数"
-        >
+      <el-table-column prop="jobParams" label="参数">
       </el-table-column>
 
-      <el-table-column
-        prop="jobHandler"
-        label="任务处理方法"
-        >
+      <el-table-column prop="jobHandler" label="任务处理方法">
       </el-table-column>
 
-      <el-table-column
-        prop="jobHandlerTime"
-        label="任务处理时间"
-        >
+      <el-table-column prop="jobHandlerTime" label="任务处理时间">
       </el-table-column>
       <!-- 
       <el-table-column
@@ -59,44 +32,29 @@
         >
       </el-table-column> -->
 
-      <el-table-column
-        prop="description"
-        label="详情"
-        >
+      <el-table-column prop="description" label="详情">
       </el-table-column>
 
-      <el-table-column
-        prop="jobStatus"
-        label="任务状态"
-        >
+      <el-table-column prop="jobStatus" label="任务状态">
+        <template slot-scope="scope">
+          <div>
+            {{ scope.row.jobStatus }}
+          </div>
+        </template>
       </el-table-column>
 
-      <el-table-column
-        prop="triggerType"
-        label="触发类型"
-        >
+      <el-table-column prop="triggerType" label="触发类型">
       </el-table-column>
 
-      <el-table-column
-        prop="executionStatus"
-        label="任务执行状态"
-        >
+      <el-table-column prop="executionStatus" label="任务执行状态">
       </el-table-column>
 
-      <el-table-column
-        prop="updatedAt"
-        label="更新时间"
-        >
+      <el-table-column prop="updatedAt" label="更新时间">
       </el-table-column>
     </el-table>
 
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="queryParams.pageNo"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <pagination v-show="total>0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
+      @pagination="getList" />
   </div>
 </template>
 
@@ -144,7 +102,7 @@ export default {
       const res = await getLogList({ ...this.queryParams })
 
       if(res.code === 200) {
-        this.tableData = res.data.list
+        this.tableData = res.data
         this.total = res.data.total || 0
       }
     },

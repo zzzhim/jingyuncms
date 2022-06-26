@@ -55,6 +55,51 @@ export const constantRoutes = [
     ]
   },
 
+
+  
+   {
+     path: '/videoUzList',
+    component: Layout,
+     name: 'videoUzList',
+     redirect: '/videoUzList/upVideo/index',
+     meta: { title: '上传视频', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'upVideo',
+        name: 'upVideo',
+        component: () => import('@/views/videoUzList/upVideo/index'),
+        meta: { title: '上传视频', icon: 'dashboard' }
+      },
+      {
+        path: 'videoList',
+        name: 'videoList',
+        component: () => import('@/views/videoUzList/videoList/index'),
+        meta: { title: '视频库', icon: 'dashboard' }
+      },
+
+      // {
+      //   path: 'warehousing',
+      //   name: 'warehousing',
+      //   component: () => import('@/views/video/warehousing/index'),
+      //   meta: { title: '视频入库', icon: 'dashboard' }
+      // }
+    ]
+  },
+  {
+    path: '/player',
+    component: Layout,
+    name: 'player',
+    redirect: '/player/index',
+    meta: { title: '播放器', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'player',
+        name: 'player',
+        component: () => import('@/views/player/index'),
+        meta: { title: '播放器', icon: 'dashboard' }
+      },
+    ]
+  },
   {
     path: '/video',
     component: Layout,

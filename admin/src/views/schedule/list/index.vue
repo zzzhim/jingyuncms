@@ -37,19 +37,6 @@
         label="任务处理时间"
         >
       </el-table-column>
-      <!-- 
-      <el-table-column
-        prop="jobLog"
-        label="任务日志"
-        >
-      </el-table-column>
-      
-      <el-table-column
-        prop="jobErrorLog"
-        label="任务异常日志"
-        >
-      </el-table-column> -->
-
       <el-table-column
         prop="description"
         label="详情"

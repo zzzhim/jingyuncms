@@ -113,7 +113,9 @@ export default {
 
     },
     pagination(e){
-      console.log(e)
+      this.form.pageSize = e.limit
+      this.form.pageNo = e.page
+      this.userList()
     },
     getList() {
       this.userList()
