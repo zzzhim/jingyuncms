@@ -142,30 +142,36 @@ export const constantRoutes = [
         component: () => import('@/views/collection/setup/index'),
         meta: { title: '自定义接口', icon: 'dashboard' }
       },
-    ]
-  },
-  
-  {
-    path: '/schedule',
-    component: Layout,
-    name: 'schedule',
-    redirect: '/schedule/list',
-    meta: { title: '定时任务', icon: 'el-icon-s-help' },
-    children: [
       {
-        path: 'list',
-        name: 'list',
-        component: () => import('@/views/schedule/list/index'),
-        meta: { title: '定时任务列表', icon: 'dashboard' }
-      },
-      {
-        path: 'log',
-        name: 'log',
-        component: () => import('@/views/schedule/log/index'),
-        meta: { title: '定时任务日志', icon: 'dashboard' }
+        path: 'schedule',
+        name: 'schedule',
+        component: () => import('@/views/collection/schedule/index'),
+        meta: { title: '定时采集', icon: 'dashboard' }
       },
     ]
   },
+
+  // {
+  //   path: '/schedule',
+  //   component: Layout,
+  //   name: 'schedule',
+  //   redirect: '/schedule/list',
+  //   meta: { title: '定时任务', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: 'list',
+  //       name: 'list',
+  //       component: () => import('@/views/schedule/list/index'),
+  //       meta: { title: '定时任务列表', icon: 'dashboard' }
+  //     },
+  //     {
+  //       path: 'log',
+  //       name: 'log',
+  //       component: () => import('@/views/schedule/log/index'),
+  //       meta: { title: '定时任务日志', icon: 'dashboard' }
+  //     },
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

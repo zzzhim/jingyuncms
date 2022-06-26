@@ -39,3 +39,19 @@ export const logList = async ({
     return response.error(500, {})
   }
 }
+
+
+/**
+ * 
+ * @description 定时任务启动
+ */
+ export const ScheduleJobStart = async ({}) => {
+  try {
+    
+
+    return response.success(200, {})
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, {})
+  }
+}

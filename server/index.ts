@@ -9,6 +9,7 @@ import { port, SECRET_KEY } from "./src/config"
 import { router } from "./src/router"
 import logger from "./src/utils/logger"
 import { requestHandler, Sentry, tracingMiddleWare } from "./src/utils/sentry"
+import { initRedis } from "./src/utils/redis"
 // import './src/socket'
 
 const app = new Koa({
@@ -40,6 +41,8 @@ app.on("error", (err, ctx) => {
 })
 
 app.listen(port, () => {
+  initRedis()
+
   logger.info(process.env.APP_NODE_ENV)
   logger.info(`server start http://localhost:${port}`)
 })
