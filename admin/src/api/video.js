@@ -33,6 +33,13 @@ export function videoEdit(params) {
     data: params
   })
 }
+export function videoAddList(params) {
+  return request({
+    url: '/video/add/list',
+    method: 'post',
+    data: params
+  })
+}
 //上传封面
 export function uploadImg(params) {
   return request({

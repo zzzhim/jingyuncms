@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/Dplayer.min.css"></link>
+  <script src="./js/flv.min.js"></script>
+  <script src="./js/hls.min.js"></script>
+  <script src="./js/dplayer.min.js"></script>
+
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+    .dplayer {
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+    }
+
+    .a {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="dplayer" id="dplayer"></div>
+  <div class="a" id="a"></div>
+</body>
+</html>
+
+<script>
+  window.handleHlsVideo = function (xhr, callbacks) {
+  const base64_img = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAANSURBVBhXY/j///9/AAn7A/0FQ0XKAAAAAElFTkSuQmCCR0AREABC8CUAAcEAAP8B/wAB/IAUSBIBBkZGbXBlZwlTZXJ2aWNlMDF3fEPK//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9HQAAQAACwDQABwQAAAAHwACqxBLL//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////0dQABAAArAdAAHBAADhAPAAG+EA8AAP4QHwBgoEdW5kAAh96Hf/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////R0EAMAdQ"
+
+  function blobToBase64(blob, callback) {
+    var fileReader = new FileReader()
+    fileReader.onload = (e) => {
+      callback(e.target.result)
+    }
+    // readAsDataURL
+    fileReader.readAsDataURL(blob)
+    fileReader.onerror = () => {
+      callback('blobToBase64 error')
+    }
+  }
+
+  function str2ab(base64String) {
+    var base64 = base64String
+
+    var rawData = window.atob(base64)
+    var outputArray = new Uint8Array(rawData.length)
+
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i)
+    }
+    return outputArray
+  }
+
+  blobToBase64(new Blob([xhr.response]), function (res) {
+    var str = res.split(base64_img).length >= 2 ? res.split(base64_img)[1] : res.split(base64_img)[0]
+
+    callbacks(str2ab(str))
+  })
+}
+
+  window.onload = () => {
+    const dp = new DPlayer({
+      container: document.getElementById('dplayer'),
+      video: {
+        url: 'https://video.jingyunshipin.com/cache/zzzhim/2.m3u8',
+        type: 'auto'
+      },
+    })
+
+    document.getElementById('a').innerHTML = '222'
+  }
+
+  setTimeout(() => {
+    document.getElementById('a').innerHTML = '333'
+  }, 3000)
+</script>

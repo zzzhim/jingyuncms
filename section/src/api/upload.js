@@ -1,6 +1,9 @@
+import FormData from "form-data"
 import axios from "axios"
 
-export async function douyinUpload(formData) {
+export async function douyinUpload(file) {
+  const formData = new FormData()
+  formData.append('file', file)
   const res = await axios.post(
     'https://music.douyin.com/console/api/v1/upload/cover',
     formData,
@@ -32,7 +35,9 @@ export async function douyinUpload(formData) {
   }
 }
 
-export async function kuaishouUpload(formData) {
+export async function kuaishouUpload(file) {
+  const formData = new FormData()
+  formData.append('file', file)
   const res = await axios.post(
     'https://music.kuaishou.com/rest/kd/music/musician/v2/upload/image',
     formData,
@@ -62,37 +67,9 @@ export async function kuaishouUpload(formData) {
   }
 }
 
-export async function kuaishouQiYeUpload(formData) {
-  const res = await axios.post(
-    'https://e-signature.kuaishou.com/esignature/api/files/upload',
-    formData,
-    {
-      headers:{
-        "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundarydElWST380hXlvGAB",
-        "cookie": "did=web_8fd7185fb9a92362bb7842db5572239d; didv=1648705816557; userId=2620452474; kuaishou.web.api_st=ChNrdWFpc2hvdS53ZWIuYXBpLnN0EqABxbTcPAtT-tbAOOSIGVMUVIP-XEh62Y7qvqe6A2HybZGtf62C-F_C7Y2GPkgbIaizz5n3tL936g84KjZzL0IK8CblLTjBF4vgMyzRdgLRx-AIkAZGZecYZPJTLBXSPJB5Xj4HsYOHFE8YCqmWLISxCGfAteujGgOHmrPmf-vIHbFox6jl3-LwnAhSSgPwETXXteMsjffDAHN3qYwsPMJCxhoSUjUAnsMNQB-XR6joXoIhaTaJIiAWn4pPOA8g2YVa1UXkNsiTuw39ceaoeOtR17jPsisLvigFMAE; kuaishou.web.api_ph=81f274e71e50aea324ed51ec7bec11d87abb; Hm_lvt_86a27b7db2c5c0ae37fee4a8a35033ee=1654654672; apdid=4fb29643-a508-48c1-94d0-f6c758d430bfa79d4b4335703be6de53b7c4f3c6023c:1654654673:1; p-token=ee49c0b9e2c742c09daad536f2cd41911654654675540; Hm_lpvt_86a27b7db2c5c0ae37fee4a8a35033ee=1654654681",
-      },
-      timeout: 60 * 1000
-    }
-  )
-
-  if(res.data && res.data.code == 0) {
-    if(res.data.result) {
-      return {
-        code: 200,
-        data: {
-          url: `https://e-signature.kuaishou.com/esignature/api/files/seals/preview/${res.data.result.id}`
-        }
-      }
-    }
-  }
-
-  return {
-    code: 500,
-    data: {}
-  }
-}
-
-export async function hupuUpload(formData) {
+export async function hupuUpload(file) {
+  const formData = new FormData()
+  formData.append('file', file)
   const res = await axios.post(
     'https://bbs.hupu.com/postnew/multiUpload',
     formData,
@@ -112,6 +89,76 @@ export async function hupuUpload(formData) {
       code: 200,
       data: {
         url: res.data[0]
+      }
+    }
+  }
+
+  return {
+    code: 500,
+    data: {}
+  }
+}
+
+export async function doubanUpload(file) {
+  const formData = new FormData()
+  formData.append('image', file)
+  formData.append('ck', "_odJ")
+  formData.append('upload_auth_token', "170201692:721dbc086cd2d1edc2d7d5c476fdc012e27d308e")
+
+  const res = await axios.post(
+    'https://www.douban.com/j/upload',
+    formData,
+    {
+      headers:{
+        "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryGm5AOIN4voqVtqTa",
+        "cookie": `ll="108251"; bid=0wryF26taeE; __utmz=30149280.1655274677.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __gads=ID=693872f7910d4ae1-2206fd5f8cd400ff:T=1655274682:RT=1655708270:S=ALNI_MaGoQ2zypz9YcRYtufQlKwAQV0UqA; __gpi=UID=0000074f549666c8:T=1655274682:RT=1655708270:S=ALNI_MZ20FG6u3Bn6Q5gqbl7yqCGIyJAjw; _pk_ses.100001.8cb4=*; __utma=30149280.290321449.1655274677.1655708266.1656037044.3; __utmc=30149280; __utmt=1; dbcl2="170201692:j+MLIXA94vw"; ck=_odJ; ap_v=0,6.0; push_noty_num=0; push_doumail_num=0; __utmv=30149280.17020; _pk_id.100001.8cb4=d9096c4618171651.1655274660.3.1656037123.1655708267.; __utmb=30149280.5.10.1656037044`,
+      },
+      timeout: 60 * 1000
+    }
+  )
+
+  if(res.data) {
+    return {
+      code: 200,
+      data: {
+        url: res.data.url
+      }
+    }
+  }
+
+  return {
+    code: 500,
+    data: {}
+  }
+}
+
+export async function bilibiliUpload(file) {
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('csrf', "74453f4cac7d2b2969a21c6aa0805468")
+  formData.append('bucket', "material_up")
+  formData.append('dir', "")
+
+
+  const res = await axios.post(
+    'https://member.bilibili.com/x/material/up/upload',
+    formData,
+    {
+      headers:{
+        "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary7nghvYNg4aE69vAx",
+        "cookie": `buvid3=21181623-011F-43E8-AB95-1252B26D349414262infoc; _uuid=410F22B49-DE59-7E102-110DD-8144E6D1B32C15632infoc; rpdid=|(J~|J|)mu|~0J'uYRum)kuu~; DedeUserID=383444010; DedeUserID__ckMd5=4c7877d000f35f7c; SESSDATA=8a922dc1%2C1657534178%2C61bbd*11; bili_jct=74453f4cac7d2b2969a21c6aa0805468; buvid4=BFDF4DD7-AC6B-8734-B670-61A657BD4E9B44743-022020911-SjAPq9halyhV+xaoyvbfSQ%3D%3D; i-wanna-go-back=-1; b_ut=5; CURRENT_BLACKGAP=0; LIVE_BUVID=AUTO4716462831070663; buvid_fp_plain=undefined; sid=7ui0bmkl; buvid_fp=efb23be0a92e3b2959d6d04c2a6909a3; nostalgia_conf=-1; blackside_state=0; CURRENT_QUALITY=116; PVID=2; innersign=0; b_lsid=2F52CF37_18193708B7D; is-2022-channel=1; CURRENT_FNVAL=4048; bp_video_offset_383444010=675164993464827900; fingerprint3=f3f61a305d6cdf6db3ebc7cef3e9179b; fingerprint=6ac1de20ee4b34c8352119aaf6fe2104; b_timer=%7B%22ffp%22%3A%7B%22333.1007.fp.risk_21181623%22%3A%2218193709615%22%2C%22333.1073.fp.risk_21181623%22%3A%221819370A68D%22%2C%22666.4.fp.risk_21181623%22%3A%221819370BC68%22%2C%22666.25.fp.risk_21181623%22%3A%221819370DD54%22%2C%22333.999.fp.risk_21181623%22%3A%22181939B3C6B%22%2C%22333.885.fp.risk_21181623%22%3A%22181939C37B4%22%2C%22333.1024.fp.risk_21181623%22%3A%22181939C4DFC%22%2C%22333.954.fp.risk_21181623%22%3A%22181939C8B01%22%7D%7D`,
+      },
+      timeout: 60 * 1000
+    }
+  )
+
+  console.log(res)
+
+  if(res.data && res.data.data) {
+    return {
+      code: 200,
+      data: {
+        url: res.data.data.location
       }
     }
   }

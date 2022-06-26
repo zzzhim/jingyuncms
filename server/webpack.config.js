@@ -8,7 +8,7 @@ module.exports = {
   // mode: process.env.NODE_ENV === "prod" ? 'production' : "development",
   mode: 'production',
   target: "node",
-  entry: './index.js',
+  entry: './index.ts',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
@@ -18,8 +18,7 @@ module.exports = {
       'node_modules',
       path.resolve(__dirname, 'src')
     ],
-    extensions: ['.js'],
-    
+    extensions: ['.js', '.ts'],
   },
   externals: [ webpackNodeExternals(), 'pg', 'sqlite3', 'tedious', 'pg-hstore' ],
   plugins: [
@@ -69,17 +68,11 @@ module.exports = {
     },
   },
   module: {
-    // rules: [
-    //   {
-    //     test: /\.ejs$/i,
-    //     use: [
-    //       'html-loader',
-    //       {
-    //         loader: 'template-ejs-loader',
-    //         options: {}
-    //       }
-    //     ],
-    //   },
-    // ]
+    rules: [
+      {
+        test: /\.ts?$/,
+        loader: "ts-loader"
+      },
+    ]
   }
 };
