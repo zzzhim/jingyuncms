@@ -14,6 +14,7 @@ import { cmsValidateTokenMiddleware } from "../../middleware/cmsValidateToken"
 import { ipRecordAddMiddleware } from "../../middleware/IpRecord"
 import { userRouter } from "./user"
 import { m3u8Router } from "./m3u8"
+import { playerRouter } from "./player"
 
 const router = new Router({
   prefix: '/cms',
@@ -25,6 +26,7 @@ router
   .use(commonRouter.routes(), commonRouter.allowedMethods())
   .use(loginRouter.routes(), loginRouter.allowedMethods())
   .use(cmsValidateTokenMiddleware)
+  .use(playerRouter.routes(), playerRouter.allowedMethods())
   .use(userRouter.routes(), userRouter.allowedMethods())
   .use(fileRouter.routes(), fileRouter.allowedMethods())
   .use(videoRouter.routes(), videoRouter.allowedMethods())

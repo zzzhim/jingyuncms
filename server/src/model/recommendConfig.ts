@@ -5,13 +5,6 @@ import { sequelize } from "./sequelize"
 const RecommendConfig = sequelize.define(
   'recommend_config',
   {
-    // 'id': {
-    //   type: DataTypes.INTEGER({ length: 10, unsigned: true, }),
-    //   allowNull: false,
-    //   primaryKey: true,
-    //   autoIncrement: true,
-    //   comment: "配置id"
-    // },
     sort: {
       type: DataTypes.INTEGER({ length: 10 }),
       allowNull: false,
