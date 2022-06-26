@@ -14,3 +14,11 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function userList(params) {
+  return request({
+    url: '/user/list',
+    method: 'get',
+    params
+  })
+}

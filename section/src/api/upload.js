@@ -92,7 +92,6 @@ export async function kuaishouQiYeUpload(formData) {
   }
 }
 
-
 export async function hupuUpload(formData) {
   const res = await axios.post(
     'https://bbs.hupu.com/postnew/multiUpload',
@@ -122,3 +121,4 @@ export async function hupuUpload(formData) {
     data: {}
   }
 }
+

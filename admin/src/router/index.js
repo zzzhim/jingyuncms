@@ -68,6 +68,29 @@ export const constantRoutes = [
         component: () => import('@/views/video/list/index'),
         meta: { title: '视频列表', icon: 'dashboard' }
       },
+   
+      // {
+      //   path: 'warehousing',
+      //   name: 'warehousing',
+      //   component: () => import('@/views/video/warehousing/index'),
+      //   meta: { title: '视频入库', icon: 'dashboard' }
+      // }
+    ]
+  },
+  {
+    path: '/userList',
+    component: Layout,
+    name: 'userList',
+    redirect: '/video/userList',
+    meta: { title: '用户', icon: 'el-icon-s-help' },
+    children: [
+   
+      {
+        path: 'userList',
+        name: 'userList',
+        component: () => import('@/views/userList/list/index'),
+        meta: { title: '用户列表', icon: 'dashboard' }
+      },
       // {
       //   path: 'warehousing',
       //   name: 'warehousing',

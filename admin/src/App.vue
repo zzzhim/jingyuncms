@@ -32,30 +32,30 @@ export default {
       list: []
     }
   },
-  mounted() {
-    const socket = io("localhost:4001/socket")
+  // mounted() {
+  //   const socket = io("localhost:4001/socket")
 
-    socket.emit('login', {})
+  //   socket.emit('login', {})
 
-    socket.on('connect', () => {
-      console.log(socket.id)
-    })
+  //   socket.on('connect', () => {
+  //     console.log(socket.id)
+  //   })
 
-    socket.on("disconnect", () => {
-      console.log(socket.id) // undefined
-    })
+  //   socket.on("disconnect", () => {
+  //     console.log(socket.id) // undefined
+  //   })
 
-    socket.on('logs', (data) => {
-      if(data.type === "collection" && data.taskType === "maccms") {
-        this.list = [
-          {
-            log: data.data.log,
-          },
-          ...this.list,
-        ]
-      }
-    })
-  }
+  //   socket.on('logs', (data) => {
+  //     if(data.type === "collection" && data.taskType === "maccms") {
+  //       this.list = [
+  //         {
+  //           log: data.data.log,
+  //         },
+  //         ...this.list,
+  //       ]
+  //     }
+  //   })
+  // }
 }
 </script>
 

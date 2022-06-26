@@ -5,10 +5,16 @@ const state = {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
-  device: 'desktop'
+  device: 'desktop',
+  videotreeList:''
+
 }
 
 const mutations = {
+  VIDEOTREE_LIST: (state,data) => {
+    state.videotreeList = data
+    Cookies.set('videotreeList', data)
+  },
   TOGGLE_SIDEBAR: state => {
     state.sidebar.opened = !state.sidebar.opened
     state.sidebar.withoutAnimation = false
@@ -29,6 +35,9 @@ const mutations = {
 }
 
 const actions = {
+  videotreeListBar({ commit }, data) {
+    commit('VIDEOTREE_LIST', data)
+  },
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR')
   },

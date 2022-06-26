@@ -19,13 +19,27 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, } from 'vuex'
 import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
+import { categoryList, } from '@/api/category';
 
 export default {
   components: { SidebarItem, Logo },
+  mounted() {
+    this.categoryList()
+  },
+  methods: {
+    async categoryList() {
+      const res = await categoryList({ pageSize:10000,})
+      if(res.code === 200) {
+        let str = JSON.stringify(res.data.list)
+        this.$store.dispatch('app/videotreeListBar',str)
+
+      }
+    },
+  },
   computed: {
     ...mapGetters([
       'sidebar'

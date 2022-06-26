@@ -1,7 +1,17 @@
 <template>
   <div class="dashboard-container">
+    <el-form :inline="true" :model="form" class="demo-form-inline">
+      <el-form-item label="视频名称">
+        <el-input v-model="form.vodName" @change="sousuo" placeholder="视频名称"></el-input>
+      </el-form-item>
+      <el-form-item label="视频分类">
+        <el-select v-model="form.categoryId" @change="sousuo" placeholder="视频分类">
+          <el-option :label="item.categoryName" v-for="item in  tableData" :key="item.id" :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
     <el-table
-      :data="list"
+      :data="list" height="calc(100vh - 270px)" v-loading="loading"
       style="width: 100%"
     >
       <el-table-column
@@ -14,10 +24,7 @@
         label="视频封面"
       >
         <template slot-scope="scope">
-          <el-image
-            :scr="scope.row.vodPic"
-            :preview-src-list="[ scope.row.vodPic ]"
-          />
+            <img :src="scope.row.vodPic" style="height:88px" alt="">
         </template>
       </el-table-column>
       <el-table-column
@@ -25,11 +32,16 @@
         label="视频名称"
         >
       </el-table-column>
-      <!-- <el-table-column
-        prop="vod_class"
+      <el-table-column
+        prop="categoryId"
         label="分类"
         >
-      </el-table-column> -->
+        <template  slot-scope="scope">
+          <div v-if="scope.row.categoryId">
+            {{scope.row.categoryName}}
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="vodPlayFrom"
         label="播放器"
@@ -57,46 +69,127 @@
         </template>
       </el-table-column>
     </el-table>
+    <Pagination style="text-align:center" :pageSize="form.pageSize" :page="form.pageNo" :total="total" @pagination="pagination"></Pagination>
+    <videoeEdit ref="videoeEdit" @shuaxin="videoList"></videoeEdit>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { videoList } from '../../../api/video'
-
+import { videoList,videoDel } from '../../../api/video'
+import Pagination from '@/components/Pagination';
+import videoeEdit from '../edit/index'
+// videoeEdit
 export default {
+  components:{
+    Pagination,videoeEdit
+  },
   data() {
     return {
       list: [],
       total: 0,
+      form:{
+        pageSize:10,
+        pageNo:1,
+        vodName:'',
+        categoryId:''
+      },
+      total:0,
+      loading:false,
+      tableData:[],
     }
   },
   computed: {
     ...mapGetters([
       'name'
-    ])
+    ]),
   },
   methods: {
+    categoryVideoTree(){
+        if(this.$store.state.app.videotreeList){
+          this.tableData = JSON.parse(this.$store.state.app.videotreeList)
+
+        }else{
+          setTimeout(() => {
+            this.tableData = JSON.parse(this.$store.state.app.videotreeList)
+          }, 1000);
+        }
+    },
+    categoryIdFun(id){
+
+      console.log(this.tableData )
+
+      // return
+      for (let index = 0; index < this.tableData.length; index++) {
+        if(this.tableData[index].id == id){
+           return this.tableData[index].categoryName
+
+        }
+      }
+    },
+    error(e){
+      console.log(e)
+    },
+    sousuo(){
+      this.form.pageNo = 1
+      this.videoList()
+
+    },
+   
+    pagination(e){
+      console.log(e)
+      this.form.pageSize = e.limit
+      this.form.pageNo =  e.page
+      this.videoList()
+
+    },
     getList() {
       this.videoList()
     },
-    async videoList(params = {}) {
-      const res = await videoList(params)
+    async videoList() {
+      this.loading = true
+      const res = await videoList(this.form)
+      this.loading = false
 
       if(res.code === 200) {
+      
+        for (let index = 0; index <  res.data.list.length; index++) {
+           res.data.list[index].categoryName = await this.categoryIdFun(res.data.list[index].categoryId)
+        }
         this.list = res.data.list
+
+        this.total = res.data.total
       }
     },
-    handleEdit() {
-
+    handleEdit(index,e) {
+      this.$refs.videoeEdit.init(e)
     },
-    handleDelete() {
-
+    handleDelete(e,row) {
+        this.$confirm('是否确认删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async () => {
+          let res = await videoDel({id:row.id})
+          if(res.code == 200){
+            this.$message.success(res.message)
+            this.videoList()
+          }else{
+            this.$message.warning(res.message)
+          }
+        }).catch(() => {
+              
+        });
     }
   },
-  created() {
+  async mounted() {
+
+    await  this.categoryVideoTree()
+
     this.getList()
+    // this.categoryVideoTree()
   }
+  
 }
 </script>
 
