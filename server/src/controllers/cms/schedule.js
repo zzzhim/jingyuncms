@@ -57,6 +57,71 @@ export const ScheduleJobAdd = async ({
   }
 }
 
+
+/**
+ * 
+ * @description 定时任务编辑
+ */
+export const ScheduleJobEdit = async ({
+  id,
+  jobName,
+  dayOfWeek = [],
+  hour = [],
+  minute = 0,
+  jobType,
+  jobParams,
+  jobAdditionalParams,
+  description,
+  updateById,
+  updateByName,
+}) => {
+  try {
+    await ScheduleJobModel.update(
+      {
+        cron: JSON.stringify({
+          dayOfWeek,
+          hour,
+          minute,
+        }),
+        jobName,
+        jobType,
+        jobParams,
+        jobAdditionalParams,
+        description,
+        updateById,
+        updateByName,
+      },
+      {
+        where: {
+          id,
+        }
+      }
+    )
+
+    return response.success(200, {})
+  } catch (error) {
+    return response.error(500, {})
+  }
+}
+
+/**
+ * 
+ * @description 删除定时任务
+ */
+export const ScheduleJobDel = async ({ id }) => {
+  try {
+    await ScheduleJobModel.destroy({
+      where: {
+        id,
+      }
+    })
+
+    return response.success(200, {})
+  } catch (error) {
+    return response.error(500, {})
+  }
+}
+
 /**
  * 
  * @description 定时任务启动

@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { ScheduleJobList, ScheduleJobAdd, ScheduleJobStart, ScheduleJobStop } from '../../controllers/cms/schedule'
+import { ScheduleJobList, ScheduleJobAdd, ScheduleJobStart, ScheduleJobStop, ScheduleJobEdit, ScheduleJobDel } from '../../controllers/cms/schedule'
 
 const router = new Router({
   prefix: '/schedule'
@@ -17,8 +17,6 @@ router.get('/list', async (ctx) => {
 
 /**
  * 
- * @param {number} pageNo 页码
- * @param {number} pageSize 页数
  * @description 定时任务添加
  */
 router.post('/add', async (ctx) => {
@@ -50,6 +48,58 @@ router.post('/add', async (ctx) => {
     updateById,
     updateByName,
   })
+
+  ctx.body = res
+})
+
+/**
+ * 
+ * @description 定时任务编辑
+ */
+router.post('/edit', async (ctx) => {
+  const {
+    id,
+    jobName,
+    dayOfWeek,
+    hour,
+    minute,
+    jobType,
+    jobParams,
+    jobAdditionalParams,
+    description,
+  } = ctx.request.body
+
+  const {
+    id: updateById,
+    username: updateByName,
+  } = ctx.state.user
+
+  const res = await ScheduleJobEdit({
+    id,
+    jobName,
+    dayOfWeek,
+    hour,
+    minute,
+    jobType,
+    jobParams,
+    jobAdditionalParams,
+    description,
+    updateById,
+    updateByName,
+  })
+
+  ctx.body = res
+})
+
+/**
+ * 
+ * @param {number} id
+ * @description 删除定时任务
+ */
+router.post('/del', async (ctx) => {
+  const { id } = ctx.request.body
+
+  const res = await ScheduleJobDel({ id })
 
   ctx.body = res
 })

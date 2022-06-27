@@ -9,15 +9,17 @@ import response from "../../utils/response"
  */
 export const maccmsCollection = async ({ id, h = '' }) => {
   try {
-    const dataModel = await InterfaceSetupModel.findOne({
+    const data = await InterfaceSetupModel.findOne({
       where: {
         id
       }
     })
 
-    const url = dataModel.getDataValue('interfaceUrl')
-
-    collectionVideo({ id, url, h })
+    collectionVideo({
+      id,
+      url: data.interfaceUrl,
+      h,
+    })
 
     return response.success(200, {}, '开始采集视频')
   } catch (error) {

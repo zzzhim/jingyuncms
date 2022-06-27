@@ -30,7 +30,7 @@ export async function collectionVideo({ id, url, h }) {
               let list = response.data.list
 
               list = list.filter(item => {
-                return categoryVideoList.find(ele => ele.id === item.type_id)
+                return categoryVideoList.find(ele => ele.interfaceCategoryId === item.type_id)
               })
       
               list = list.map(item => {
@@ -39,15 +39,13 @@ export async function collectionVideo({ id, url, h }) {
                   obj[underlineToHump(key)] = item[key]
                 }
       
-                const find = categoryVideoList.find(ele => ele.id === item.type_id)
+                const find = categoryVideoList.find(ele => ele.interfaceCategoryId === item.type_id)
       
                 // 分类Id
-                obj.categoryId = find.interfaceCategoryId
+                obj.categoryId = find.bindVideoCategoryId
       
                 return obj
               })
-
-              console.log("---添加视频定时任务开始---")
 
               await videoAddList({ list: list })
             }

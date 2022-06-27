@@ -37,8 +37,13 @@ export async function startSchedule(data) {
     rule.dayOfWeek = cron.dayOfWeek // 星期
     rule.hour = cron.hour // 小时
     rule.minute = cron.minute // 分钟
+    // rule.minute = 17 // 分钟
+    // rule.minute = [ 55,56, 57, 58, 59 ] // 分钟
+    // rule.second = [ 30,40, 50, ] // 分钟
 
     schedule.scheduleJob(data.jobUuid, rule, async function () {
+      console.log("---添加视频定时任务开始---")
+
       const interfaceId = data.jobParams
       const h = data.jobAdditionalParams
 

@@ -177,7 +177,7 @@ export default {
 
         this.loading = true
 
-        let params = '&ac=list'
+        let params = '?&ac=list'
         if(this.queryParams.keyword) {
           params = params + `&wd=${encodeURIComponent(this.queryParams.keyword)}`
         }
@@ -186,7 +186,7 @@ export default {
           params = params + `&t=${this.queryParams.type_id}`
         }
 
-        const res = await maccmsProxy({ url: this.$route.query.url + `&ac=list&pg=${this.queryParams.pg}${params}`, method: 'get' })
+        const res = await maccmsProxy({ url: this.$route.query.url + `${params}&pg=${this.queryParams.pg}`, method: 'get' })
 
         if(res.code === 200 && res.data.code === 1) {
           const limit = parseInt(res.data.limit)

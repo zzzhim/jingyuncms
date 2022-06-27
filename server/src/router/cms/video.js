@@ -24,6 +24,7 @@ router.get('/list', async (ctx, next) => {
   const {
     vodName,
     categoryId,
+    vodPlayFrom,
     pageNo,
     pageSize,
   } = ctx.query
@@ -31,6 +32,7 @@ router.get('/list', async (ctx, next) => {
   const data = await videoList({
     vodName,
     categoryId,
+    vodPlayFrom,
     pageNo: pageNo,
     pageSize: pageSize,
   })
