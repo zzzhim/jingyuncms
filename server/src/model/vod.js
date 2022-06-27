@@ -20,10 +20,20 @@ const Vod = sequelize.define(
       allowNull: false,
       comment: "视频名称"
     },
+    vodNamePinYin: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      comment: "视频名称拼音"
+    },
     vodSub: {
       type: DataTypes.STRING,
       allowNull: true,
       comment: "副标题",
+    },
+    vodWeight: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      comment: "视频权重词",
     },
     vodEn: {
       type: DataTypes.STRING,

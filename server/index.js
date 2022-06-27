@@ -49,6 +49,22 @@ app.listen(port, () => {
   logger.info(`server start http://localhost:${port}`)
 })
 
+// // 载入模块
+// var Segment = require('segment');
+// // 创建实例
+// var segment = new Segment();
+// // 使用默认的识别模块及字典，载入字典文件需要1秒，仅初始化时执行一次即可
+// segment.useDefault();
+
+// var text = '之所以要编写一个纯JS的分词器是因为当时没有一个简单易用的Node.js模块';
+
+// var result = segment.doSegment(text, {
+//   convertSynonym: true, // 转换同义词
+//   stripStopword: true, // 去除停止符
+//   simple: true, // 不返回词性
+// });
+// console.log(result);
+
 // var nodejieba = require("nodejieba");
 // var segment = require("hanzi-tools")
 
