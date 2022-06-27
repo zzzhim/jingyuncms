@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { ScheduleJobList, ScheduleJobAdd, ScheduleJobStart } from '../../controllers/cms/schedule'
+import { ScheduleJobList, ScheduleJobAdd, ScheduleJobStart, ScheduleJobStop } from '../../controllers/cms/schedule'
 
 const router = new Router({
   prefix: '/schedule'
@@ -63,6 +63,19 @@ router.post('/start', async (ctx) => {
   const { id } = ctx.request.body
 
   const res = await ScheduleJobStart({ id })
+
+  ctx.body = res
+})
+
+/**
+ * 
+ * @param {number} id
+ * @description 定时任务启动
+ */
+router.post('/stop', async (ctx) => {
+  const { id } = ctx.request.body
+
+  const res = await ScheduleJobStop({ id })
 
   ctx.body = res
 })

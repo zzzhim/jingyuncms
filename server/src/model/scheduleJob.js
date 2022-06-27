@@ -10,6 +10,15 @@ const ScheduleJob = sequelize.define(
       allowNull: false,
       comment: "cron表达式"
     },
+    jobUuid: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      defaultValue: DataTypes.UUIDV4,
+      comment: "任务标识",
+      validate: {
+        isUUID: 4,
+      }
+    },
     jobName: {
       type: DataTypes.STRING,
       allowNull: false,

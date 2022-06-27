@@ -1,16 +1,13 @@
 import logger from "../../utils/logger"
 import response from "../../utils/response"
-import schedule from 'node-schedule'
 import { ScheduleJobModel } from "../../model/scheduleJob"
-import { bindInterfaceList } from "./category"
-import { InterfaceSetupModel } from "../../model/InterfaceSetup"
-import { collectionVideo } from "../../utils/collectionVideo"
+import { startSchedule, stopSchedule } from "../../utils/schedule"
 
 /**
  * 
  * @description 查询接口列表
  */
-export const ScheduleJobList = async ({}) => {
+export const ScheduleJobList = async ({ }) => {
   try {
     const data = await ScheduleJobModel.findAll({})
 
@@ -37,7 +34,7 @@ export const ScheduleJobAdd = async ({
   description,
   updateById,
   updateByName,
- }) => {
+}) => {
   try {
     await ScheduleJobModel.create({
       cron: JSON.stringify({
@@ -55,7 +52,7 @@ export const ScheduleJobAdd = async ({
     })
 
     return response.success(200, {})
-  } catch (error) { 
+  } catch (error) {
     return response.error(500, {})
   }
 }
@@ -64,7 +61,7 @@ export const ScheduleJobAdd = async ({
  * 
  * @description 定时任务启动
  */
- export const ScheduleJobStart = async ({ id }) => {
+export const ScheduleJobStart = async ({ id }) => {
   try {
     const data = await ScheduleJobModel.findOne({
       where: {
@@ -72,38 +69,12 @@ export const ScheduleJobAdd = async ({
       }
     })
 
-    if(data === null) {
+    if (data === null) {
       return response.error(500, {}, "定时任务不存在")
     }
 
-    // 采集视频
-    if(data.jobType === "0") {
-      const rule = new schedule.RecurrenceRule();
-      const cron = JSON.parse(data.cron)
-
-      rule.dayOfWeek = cron.dayOfWeek // 星期
-      rule.hour = cron.hour // 小时
-      rule.minute = cron.minute // 分钟
-      
-      schedule.scheduleJob(rule, async function(){
-        const interfaceId = data.jobParams
-        const h = data.jobAdditionalParams
-
-        const result = await InterfaceSetupModel.findOne({
-          where: {
-            id: interfaceId
-          }
-        })
-
-        if(result) {
-          collectionVideo({
-            id: interfaceId,
-            url: result.interfaceUrl,
-            h: h,
-          })
-        }
-      })
-    }
+    // 启动定时任务
+    await startSchedule(data)
 
     await data.update({
       jobStatus: "1"
@@ -112,37 +83,38 @@ export const ScheduleJobAdd = async ({
     await data.save()
 
     return response.success(200, {})
-  } catch (error) { 
+  } catch (error) {
     return response.error(500, {})
   }
 }
 
 /**
  * 
- * @description 定时任务启动
+ * @description 定时任务停止
  */
-export const ScheduleCollectionVideoStart = async ({
-  dayOfWeek = [],
-  hour = [],
-  minute = [],
-  scheduleType,
-  interfaceId,
-}) => {
+export const ScheduleJobStop = async ({ id }) => {
   try {
-    if(scheduleType === "0") {
-      const rule = new schedule.RecurrenceRule();
-      rule.dayOfWeek = [ 0, 1, 2, 3, 4, 5, 6 ] // 星期
-      rule.hour = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, ] // 小时
-      rule.minute = [ new schedule.Range(0, 59) ] // 分钟
+    const data = await ScheduleJobModel.findOne({
+      where: {
+        id,
+      }
+    })
 
-      schedule.scheduleJob(rule, function(){
-        console.log('The answer to life, the universe, and everything!');
-      })
+    if (data === null) {
+      return response.error(500, {}, "定时任务不存在")
     }
 
+    await stopSchedule(data)
+
+    await data.update({
+      jobStatus: "0"
+    })
+
+    await data.save()
 
     return response.success(200, {})
   } catch (error) {
+    logger.error(error)
     return response.error(500, {})
   }
 }

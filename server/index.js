@@ -10,6 +10,7 @@ import { router } from "./src/router/index"
 import logger from "./src/utils/logger"
 import { requestHandler, Sentry, tracingMiddleWare } from "./src/utils/sentry"
 import { initRedis } from "./src/utils/redis"
+import { initSchedule } from "./src/utils/schedule"
 // import './src/socket'
 
 const app = new Koa({
@@ -41,7 +42,8 @@ app.on("error", (err, ctx) => {
 })
 
 app.listen(port, () => {
-  initRedis()
+  initRedis() // 初始化redis
+  initSchedule() // 初始化定时任务
 
   logger.info(process.env.APP_NODE_ENV)
   logger.info(`server start http://localhost:${port}`)
