@@ -48,3 +48,21 @@ app.listen(port, () => {
   logger.info(process.env.APP_NODE_ENV)
   logger.info(`server start http://localhost:${port}`)
 })
+
+// var nodejieba = require("nodejieba");
+// var segment = require("hanzi-tools")
+
+// nodejieba.load({
+//   userDict: "./user.uft8"
+// });
+
+// const content = "影片为侏罗纪世界系列的完结篇，故事的开篇设定在纳布拉尔岛被摧毁的四年后。如今，恐龙在世界各地与人类共同生活、共同捕猎。这一脆弱的平衡将重塑未来，并最终决定人类能否与史上最可怕生物共享这颗星球，并继续站在食物链的顶端。"
+
+// 提取关键词
+// console.log(nodejieba.extract(content, 5))
+
+// // 简体转繁体
+// console.log(segment.traditionalize(content))
+
+// // 汉字转拼音
+// console.log(segment.pinyinify(content))
