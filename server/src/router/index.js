@@ -1,6 +1,6 @@
 import Router from "koa-router"
 import { cmsRouter } from "./cms/index"
-import { webRouter } from "./web"
+import { webRouter } from "./web/index"
 
 const router = new Router({
   prefix: '/api'

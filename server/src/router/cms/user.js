@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { userList, userRoleEdit, userEditAccountAndPass }  from '../../controllers/cms/user'
+import { userList, userRoleEdit, userEditAccountAndPass } from '../../controllers/cms/user'
 
 const router = new Router({
   prefix: "/user"
@@ -22,8 +22,8 @@ router.get('/list', async (ctx, next) => {
   const data = await userList({
     username,
     role,
-    pageNo: pageNo as string,
-    pageSize: pageSize as string,
+    pageNo: pageNo,
+    pageSize: pageSize,
   })
 
   ctx.body = data

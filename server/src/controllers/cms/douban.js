@@ -6,7 +6,7 @@ const getDocumentData = () => {
   const _dom = document.querySelector('#content')
 
   const videoName = () => {
-    const str = _dom.querySelector('h1 span[property="v:itemreviewed"]') as any
+    const str = _dom.querySelector('h1 span[property="v:itemreviewed"]')
 
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""
@@ -16,7 +16,7 @@ const getDocumentData = () => {
   }
 
   const year = () => {
-    const str = _dom.querySelector('h1 span.year') as any
+    const str = _dom.querySelector('h1 span.year')
 
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""
@@ -26,7 +26,7 @@ const getDocumentData = () => {
   }
 
   const imgUrl = () => {
-    const str = _dom.querySelector('#mainpic img[rel="v:image"]') as any
+    const str = _dom.querySelector('#mainpic img[rel="v:image"]')
 
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""
@@ -36,7 +36,7 @@ const getDocumentData = () => {
   }
 
   const daoyan = () => {
-    const str = _dom.querySelector('#info > span:nth-of-type(1) .attrs') as any
+    const str = _dom.querySelector('#info > span:nth-of-type(1) .attrs')
 
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""
@@ -46,7 +46,7 @@ const getDocumentData = () => {
   }
 
   const bianju = () => {
-    const str = _dom.querySelector('#info > span:nth-of-type(2) .attrs') as any
+    const str = _dom.querySelector('#info > span:nth-of-type(2) .attrs')
 
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""
@@ -56,7 +56,7 @@ const getDocumentData = () => {
   }
 
   const zhuyan = () => {
-    let str = _dom.querySelectorAll('#info > span:nth-of-type(3) .attrs span a') as any
+    let str = _dom.querySelectorAll('#info > span:nth-of-type(3) .attrs span a')
     
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""
@@ -73,7 +73,7 @@ const getDocumentData = () => {
 
   // 类型
   const type = () => {
-    let str = _dom.querySelectorAll('span[property="v:genre"]') as any
+    let str = _dom.querySelectorAll('span[property="v:genre"]')
 
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""
@@ -90,21 +90,21 @@ const getDocumentData = () => {
 
   // 地区
   const diqu = () => {
-    const str = (_dom.querySelector("#info") as any).innerText
+    const str = (_dom.querySelector("#info")).innerText
 
     return str.substring(str.indexOf('制片国家/地区:') + 8, str.indexOf('语言:')).trim()
   }
 
   // 语言
   const yuyan = () => {
-    const str = (_dom.querySelector("#info") as any).innerText
+    const str = (_dom.querySelector("#info")).innerText
 
     return str.substring(str.indexOf('语言:') + 3, str.indexOf('上映日期:')).trim()
   }
 
   // 上映时间
   const time = () => {
-    let str = _dom.querySelector('span[property="v:initialReleaseDate"]') as any
+    let str = _dom.querySelector('span[property="v:initialReleaseDate"]')
 
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""
@@ -115,7 +115,7 @@ const getDocumentData = () => {
 
   // 片长
   const pianchang = () => {
-    let str = _dom.querySelector('span[property="v:runtime"]') as any
+    let str = _dom.querySelector('span[property="v:runtime"]')
 
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""
@@ -126,14 +126,14 @@ const getDocumentData = () => {
   
   // 别名
   const bieming = () => {
-    const str = (_dom.querySelector("#info") as any).innerText
+    const str = (_dom.querySelector("#info")).innerText
 
     return str.substring(str.indexOf('又名:') + 3, str.indexOf('IMDb')).trim()
   }
 
   // 评分
   const pingfen = () => {
-    const str = _dom.querySelector('[property="v:average"]') as any
+    const str = _dom.querySelector('[property="v:average"]')
 
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""
@@ -143,7 +143,7 @@ const getDocumentData = () => {
   }
 
   const desc = () => {
-    const str = _dom.querySelector('#link-report') as any
+    const str = _dom.querySelector('#link-report')
 
     if(Object.prototype.toString.call(str) === '[object Null]') {
       return ""

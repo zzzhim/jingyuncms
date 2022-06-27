@@ -44,17 +44,17 @@ router.post('/video/add', async (ctx) => {
     categoryName,
     status,
   } = ctx.request.body
-  const params = {} as any
+  const params = {}
 
-  if(sort) {
+  if (sort) {
     params.sort = sort
   }
 
-  if(parentId != null && parentId != undefined) {
+  if (parentId != null && parentId != undefined) {
     params.parentId = parentId
   }
 
-  if(status) {
+  if (status) {
     params.status = status
   }
 
@@ -75,17 +75,17 @@ router.post('/video/edit', async (ctx) => {
     categoryName,
     status,
   } = ctx.request.body
-  const params = {} as any
+  const params = {}
 
-  if(sort) {
+  if (sort) {
     params.sort = sort
   }
 
-  if(parentId != null && parentId != undefined) {
+  if (parentId != null && parentId != undefined) {
     params.parentId = parentId
   }
 
-  if(status) {
+  if (status) {
     params.status = status
   }
 

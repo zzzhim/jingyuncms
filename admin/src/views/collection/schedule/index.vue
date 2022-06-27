@@ -114,8 +114,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getInterfaceList, interfaceDel } from '@/api/interface'
-import { collectionMaccmsVideo } from '@/api/collection'
 
 export default {
   components: {
@@ -178,26 +176,10 @@ export default {
   },
   methods: {
     getList() {
-      this.getInterfaceList()
     },
     handleQuery() {
       this.queryParams.pageNo = 1
       this.getList()
-    },
-    async getInterfaceList(params = {}) {
-      const res = await getInterfaceList(params)
-
-      if(res.code === 200) {
-        this.tableData = res.data.list
-        this.total = res.data.total || 0
-      }
-    },
-    async handleCollectionStart(row, h) {
-      // const res = await collectionMaccmsVideo({ id: row.id, h })
-
-      // if(res.code === 200) {
-      //   this.$message.success("操作成功")
-      // }
     },
   },
   created() {

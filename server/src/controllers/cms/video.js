@@ -17,6 +17,7 @@ import { Op } from 'sequelize'
 export const videoList = async ({
   vodName,
   categoryId,
+  vodPlayFrom,
   pageNo = '1',
   pageSize = '10',
 }) => {
@@ -28,6 +29,9 @@ export const videoList = async ({
         },
         categoryId: {
           [Op.like]: `%${categoryId || ''}%`,
+        },
+        vodPlayFrom: {
+          [Op.like]: `%${vodPlayFrom || ''}%`,
         },
         isDelete: "0",
       },

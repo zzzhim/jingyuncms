@@ -24,6 +24,7 @@ router.get('/list', async (ctx, next) => {
   const {
     vodName,
     categoryId,
+    vodPlayFrom,
     pageNo,
     pageSize,
   } = ctx.query
@@ -31,8 +32,9 @@ router.get('/list', async (ctx, next) => {
   const data = await videoList({
     vodName,
     categoryId,
-    pageNo: pageNo as string,
-    pageSize: pageSize as string,
+    vodPlayFrom,
+    pageNo: pageNo,
+    pageSize: pageSize,
   })
 
   ctx.body = data
@@ -118,7 +120,7 @@ router.post('/add', async (ctx, next) => {
  *
  * @description 批量添加视频
  */
- router.post('/add/list', async (ctx, next) => {
+router.post('/add/list', async (ctx, next) => {
   const { list } = ctx.request.body
 
   const data = await videoAddList({ list })

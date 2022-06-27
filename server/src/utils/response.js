@@ -16,7 +16,7 @@ class Response {
    * @param {string} message
    * @param {any} data
    */
-  success(code, data, message?) {
+  success(code, data, message) {
     return {
       code,
       message: message || this._status[code],
@@ -32,7 +32,7 @@ class Response {
    * @param {string} message
    * @param {any} data
    */
-  info(code, data, message?) {
+  info(code, data, message) {
     return {
       code,
       message: message || this._status[code],
@@ -48,7 +48,7 @@ class Response {
    * @param {string} message
    * @param {any} data
    */
-  warning(code, data, message?) {
+  warning(code, data, message) {
     if(message && Array.isArray(message.details)) {
       const str = message.details.map(item => item.message)
 
@@ -74,7 +74,7 @@ class Response {
    * @param {string} message
    * @param {any} data
    */
-  error(code, data, message?) {
+  error(code, data, message) {
     return {
       code,
       message: message || this._status[code],
