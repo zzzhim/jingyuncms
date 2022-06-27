@@ -67,12 +67,18 @@ module.exports = {
       },
     },
   },
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.ts?$/,
-  //       loader: "ts-loader"
-  //     },
-  //   ]
-  // }
+  module: {
+    // rules: [
+    //   {
+    //     test: /\.ejs$/i,
+    //     use: [
+    //       'html-loader',
+    //       {
+    //         loader: 'template-ejs-loader',
+    //         options: {}
+    //       }
+    //     ],
+    //   },
+    // ]
+  }
 };

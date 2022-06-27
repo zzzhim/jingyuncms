@@ -118,7 +118,7 @@ router.post('/add', async (ctx, next) => {
  *
  * @description 批量添加视频
  */
- router.post('/add/list', async (ctx, next) => {
+router.post('/add/list', async (ctx, next) => {
   const { list } = ctx.request.body
 
   const data = await videoAddList({ list })

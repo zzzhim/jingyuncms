@@ -21,7 +21,7 @@ router.get('/list', async (ctx, next) => {
     vodName = '',
     doubanId,
     pageNo,
-    pageSize ,
+    pageSize,
   } = ctx.query
 
   const data = await m3u8List({

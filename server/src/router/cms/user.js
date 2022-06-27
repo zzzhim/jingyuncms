@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { userList, userRoleEdit, userEditAccountAndPass }  from '../../controllers/cms/user'
+import { userList, userRoleEdit, userEditAccountAndPass } from '../../controllers/cms/user'
 
 const router = new Router({
   prefix: "/user"

@@ -59,7 +59,7 @@ router.post('/add', async (ctx) => {
  * @param {number} id
  * @description 定时任务启动
  */
- router.post('/start', async (ctx) => {
+router.post('/start', async (ctx) => {
   const { id } = ctx.request.body
 
   const res = await ScheduleJobStart({ id })

@@ -8,7 +8,7 @@ import { underlineToHump } from "./underlineToHump"
 // 采集视频
 export async function collectionVideo({ id, url, h }) {
   try {
-    const data = await maccmsApiProxy({ url: `${url}?&ac=list&h=${h}`, method: 'get' }) as any
+    const data = await maccmsApiProxy({ url: `${url}?&ac=list&h=${h}`, method: 'get' })
 
     if(data.code === 200 && data.data.code === 1) {
       const { pagecount } = data.data
@@ -16,12 +16,12 @@ export async function collectionVideo({ id, url, h }) {
       for (let index = 0; index < pagecount; index++) {
         try {
           // 拿去列表，通过列表拿取id
-          const res = await maccmsApiProxy({ url: `${url}?&ac=list&h=${h}&pg=${index + 1}`, method: 'get' }) as any
+          const res = await maccmsApiProxy({ url: `${url}?&ac=list&h=${h}&pg=${index + 1}`, method: 'get' })
 
           if(res.code === 200 && res.data.code === 1) {
             const list = res.data.list.map(item => item.vod_id)
             // 拿视频详情
-            const response = await maccmsApiProxy({ url: `${url}?&ac=detail&ids=${list.join(',')}`, method: 'get' }) as any
+            const response = await maccmsApiProxy({ url: `${url}?&ac=detail&ids=${list.join(',')}`, method: 'get' })
 
             if(response.code === 200 && response.data.code === 1) {
               const data = await bindInterfaceList({ id })
@@ -34,7 +34,7 @@ export async function collectionVideo({ id, url, h }) {
               })
       
               list = list.map(item => {
-                const obj = {} as any
+                const obj = {}
                 for(let key in item) {
                   obj[underlineToHump(key)] = item[key]
                 }
