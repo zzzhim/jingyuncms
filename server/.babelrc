@@ -1,17 +1,5 @@
 {
   "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "modules": "commonjs"
-      }
-    ],
-    [
-      "@babel/preset-typescript",
-      {
-        "isTSX": false,
-        "allExtensions": false
-      }
-    ]
+    [ "@babel/preset-env" ]
   ]
 }

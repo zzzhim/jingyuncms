@@ -5,8 +5,8 @@ import loggerRouter from "koa-logger"
 import koaStatic from 'koa-static'
 import path from "path"
 import cors from "@koa/cors"
-import { port, SECRET_KEY } from "./src/config"
-import { router } from "./src/router"
+import { port, SECRET_KEY } from "./src/config/index"
+import { router } from "./src/router/index"
 import logger from "./src/utils/logger"
 import { requestHandler, Sentry, tracingMiddleWare } from "./src/utils/sentry"
 import { initRedis } from "./src/utils/redis"
@@ -32,8 +32,8 @@ app
   .use(koaStatic(path.join(__dirname, './public')))
 
 app.on("error", (err, ctx) => {
-  Sentry.withScope(function(scope: { addEventProcessor: (arg0: (event: any) => any) => void }) {
-    scope.addEventProcessor(function(event: any) {
+  Sentry.withScope(function(scope) {
+    scope.addEventProcessor(function(event) {
       return Sentry.Handlers.parseRequest(event, ctx.request)
     })
     Sentry.captureException(err)

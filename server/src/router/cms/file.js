@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { uploadM3u8, uploadImg } from '../../controllers/cms/file'
+import { uploadM3u8, uploadImg } from '../../controllers/cms/file.js/index'
 import KoaMulter from "@koa/multer"
 import { imgFileValidate, m3u8FileValidate } from '../../validate/cms/file'
 

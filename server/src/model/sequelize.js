@@ -11,7 +11,7 @@ const sequelize = new Sequelize('jingyuncms', 'jingyuncms', '3Z6Ry36dfAwk4TJS', 
     charset: "utf8",
   },
   timezone: '+08:00',
-  logging: false, // 是否输出查询日志
+  // logging: false, // 是否输出查询日志
 })
 
 try {

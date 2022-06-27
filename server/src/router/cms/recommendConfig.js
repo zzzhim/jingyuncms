@@ -21,9 +21,9 @@ router.get('/config/list', async (ctx, next) => {
   } = ctx.query
 
   const data = await configList({
-    keyword: keyword as string,
-    pageNo: pageNo as string,
-    pageSize: pageSize as string,
+    keyword: keyword,
+    pageNo: pageNo,
+    pageSize: pageSize,
   })
 
   ctx.body = data
@@ -105,8 +105,8 @@ router.get('/config/bind/list', async (ctx, next) => {
 
   const data = await bindConfiglist({
     configId,
-    pageNo: pageNo as string,
-    pageSize: pageSize as string,
+    pageNo: pageNo,
+    pageSize: pageSize,
   })
 
   ctx.body = data
