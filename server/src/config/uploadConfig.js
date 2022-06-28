@@ -1,7 +1,3 @@
-import fs from "fs"
-import FormData from "form-data"
-import axios from "axios"
-
 const uploadConfigList = [
   { // 快手
     url: "https://music.kuaishou.com/rest/kd/music/musician/v2/upload/image",
@@ -72,71 +68,22 @@ const uploadConfigList = [
     },
     result: "url"
   },
+  { // 慕课网
+    url: "http://coding.imooc.com/learn/uploadimg",
+    formData: {
+      fileParamName: "pic",
+      addParam: [
+        // [ "id", "WU_FILE_0" ],
+        // [ "name", "DM_20220326112405_001.jpg" ],
+        // [ "type", "image/jpeg" ],
+        // [ "lastModifiedDate", "WU_FILE_0" ],
+        // [ "id", "WU_FILE_0" ],
+      ],
+    },
+    headers: {
+      "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary0qBpEXBLrHDrAuTV",
+      "cookie": "completeuinfo:4522204=%7B%22type%22%3A0%2C%22time%22%3A1656435647%7D; imooc_uuid=44b472d6-de95-46e4-9650-2a69771cbb1d; imooc_isnew_ct=1649250337; imooc_isnew=2; zg_did=%7B%22did%22%3A%20%2217fff564e81d6-068501cab69325-9771a39-1fa400-17fff564e82d92%22%7D; zg_f375fe2f71e542a4b890d9a620f9fb32=%7B%22sid%22%3A%201649512305797%2C%22updated%22%3A%201649512773541%2C%22info%22%3A%201649256320649%2C%22superProperty%22%3A%20%22%7B%5C%22%E5%BA%94%E7%94%A8%E5%90%8D%E7%A7%B0%5C%22%3A%20%5C%22%E8%AF%B8%E8%91%9Bio%5C%22%7D%22%2C%22platform%22%3A%20%22%7B%7D%22%2C%22utm%22%3A%20%22%7B%7D%22%2C%22referrerDomain%22%3A%20%22coding.imooc.com%22%2C%22zs%22%3A%200%2C%22sc%22%3A%200%2C%22firstScreen%22%3A%201649512305797%7D; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%224522204%22%2C%22first_id%22%3A%2217ffefb821c5f-07fad90f7aa942-9771a39-2073600-17ffefb821d45c%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%7D%2C%22%24device_id%22%3A%2217ffefb821c5f-07fad90f7aa942-9771a39-2073600-17ffefb821d45c%22%7D; june2022=1655651594000; IMCDNS=0; Hm_lvt_f0cfcccd7b1393990c78efdeebff3968=1655651701,1656432063; loginstate=1; apsid=JmOWJiYjJkMmFhOTFjZDE4YTk0ZjFhMzc2NGM4ZDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANDUyMjIwNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzMjE4NTY2Mzg5QHFxLmNvbQAAAAAAAAAAAAAAAAAAADI2NzI4ZDgzYjYzM2YyMjFhY2Y2ZjI0MjkwNDdlMTkzQjK7Ys8UVV0%3DOD; last_login_username=3218566389%40qq.com; Hm_lpvt_f0cfcccd7b1393990c78efdeebff3968=1656435607; Hm_lvt_c1c5f01e0fc4d75fd5cbb16f2e713d56=1655651722,1656435615; Hm_lpvt_c1c5f01e0fc4d75fd5cbb16f2e713d56=1656435639; cvde=62bb25c367428-23"
+    },
+    result: "url"
+  },
 ]
-
-export async function uploadImg(filePath) {
-  const config = uploadConfigList[4]
-
-  let form
-
-  if(config.paramType === "base64") { // base64形式上传
-    const file = fs.readFileSync(filePath, "base64")
-
-    form = {}
-
-    form[config.formData.fileParamName] = "data:image/jpeg;base64," + file
-
-    // 附加参数
-    if(config.formData.addParam.length > 0) {
-      config.formData.addParam.forEach(item => {
-        form[item[0]] = item[1]
-      })
-    }
-  }else { // FormData形式上传
-    const file = fs.createReadStream(filePath)
-
-    // paramType
-    form = new FormData()
-    form.append(config.formData.fileParamName, file)
-
-    // 附加参数
-    if(config.formData.addParam.length > 0) {
-      config.formData.addParam.forEach(item => {
-        form.append(item[0], item[1])
-      })
-    }
-  }
-
-  const res = await axios.post(
-    config.url,
-    form,
-    {
-      headers: config.headers,
-      timeout: 60 * 1000
-    }
-  )
-  
-  let result = res.data
-
-  console.log(result)
-
-  if(result) {
-    const list = config.result.split('.')
-
-    for (let index = 0; index < list.length; index++) {
-      result = result[list[index]]
-    }
-
-    return {
-      code: 200,
-      data: {
-        url: result
-      }
-    }
-  }
-
-  return {
-    code: 500,
-    data: {}
-  }
-}

@@ -1,11 +1,11 @@
 import Koa from "koa"
 import koaBody from "koa-body"
 import loggerRouter from "koa-logger"
-// import session from "koa-session"
+import session from "koa-session"
 import koaStatic from 'koa-static'
 import path from "path"
 import cors from "@koa/cors"
-import { port, SECRET_KEY } from "./src/config/index"
+import { port, SECRET_KEY,   } from "./src/config/index"
 import { router } from "./src/router/index"
 import logger from "./src/utils/logger"
 import { requestHandler, Sentry, tracingMiddleWare } from "./src/utils/sentry"
@@ -25,9 +25,9 @@ app
   .use(tracingMiddleWare)
   .use(loggerRouter())
   .use(cors())
-  // .use(session({
-  //   key: SESSION_KEY
-  // }, app))
+  .use(session({
+    key: SESSION_KEY
+  }, app))  
   .use(koaBody())
   .use(router.routes())
   .use(koaStatic(path.join(__dirname, './public')))

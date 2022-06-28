@@ -6,8 +6,7 @@ import fluentFfmpeg from "fluent-ffmpeg"
 import ffmpegStaticElectron from "ffmpeg-static-electron"
 import { isPathExists } from "@/utils/isPathExists"
 import { base64_img } from "@/config"
-import FormData from "form-data"
-import { douyinUpload, kuaishouUpload, doubanUpload, hupuUpload, bilibiliUpload } from "@/api/upload"
+import { uploadImg } from "@/api/upload"
 import { createPath } from "@/utils/createPath"
 import { sleep } from "@/utils/sleep"
 import { logger } from "@/utils/logger"
@@ -130,18 +129,12 @@ export async function tsToPng({
       const fileDataPath = path.join(dirPath, fileName.substring(0, fileName.length - 3) + '.png')
       fs.writeFileSync(fileDataPath, base64_img + data, "base64")
 
-      const file = fs.createReadStream(fileDataPath)
-
       try {
         logger.info(`${fileName}开始上传`)
-        // const uploadList = [ douyinUpload, kuaishouUpload, kuaishouQiYeUpload, hupuUpload ]
-        const uploadList = [ douyinUpload, kuaishouUpload, hupuUpload, doubanUpload, bilibiliUpload ]
+        // const uploadList = [ douyinUpload, kuaishouUpload, hupuUpload, doubanUpload, bilibiliUpload ]
         
-        const uploadApi = uploadList[Math.floor(Math.random() * 4)]
-        // const res = await uploadApi(file)
-        // const res = await douyinUpload(file)
-        // const res = await kuaishouUpload(file)
-        const res = await bilibiliUpload(file)
+        // const uploadApi = uploadList[Math.floor(Math.random() * 4)]
+        const res = await uploadImg(fileDataPath)
         
         if(res.code === 200) {
           updateM3u8File(m3u8Path, fileName, res.data.url)
