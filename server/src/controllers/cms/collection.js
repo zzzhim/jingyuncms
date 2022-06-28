@@ -33,11 +33,11 @@ export const maccmsCollection = async ({ id, h = '' }) => {
  * 
  * @description 获取采集视频配置
  */
- export const collectionVideoSettingGet = async ({}) => {
+export const collectionVideoSettingGet = async ({}) => {
   try {
     const data = getCollectionVideoSetting()
 
-    return response.success(200, JSON.parse(data))
+    return response.success(200, data)
   } catch (error) {
     logger.error(error)
     return response.error(500, error, '服务器异常')
@@ -54,20 +54,21 @@ export const collectionVideoSettingUpdate = async ({
   createWeight,
   vodNameSynonymReplace,
   descSynonymReplace,
+  traditionalizeEnable,
+  descDecorateState,
   collectionVideoActive,
   coolectionVideoContentUpdateActive,
   contentFilter,
 }) => {
   try {
-    const data = JSON.parse(getCollectionVideoSetting())
-
     setCollectionVideoSetting({
-      ...data,
       status,
       createPinYin,
       createWeight,
       vodNameSynonymReplace,
       descSynonymReplace,
+      traditionalizeEnable,
+      descDecorateState,
       collectionVideoActive,
       coolectionVideoContentUpdateActive,
       contentFilter,

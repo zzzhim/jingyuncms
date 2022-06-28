@@ -48,37 +48,3 @@ app.listen(port, () => {
   logger.info(process.env.APP_NODE_ENV)
   logger.info(`server start http://localhost:${port}`)
 })
-
-// // 载入模块
-// var Segment = require('segment');
-// // 创建实例
-// var segment = new Segment();
-// // 使用默认的识别模块及字典，载入字典文件需要1秒，仅初始化时执行一次即可
-// segment.useDefault();
-
-// var text = '之所以要编写一个纯JS的分词器是因为当时没有一个简单易用的Node.js模块';
-
-// var result = segment.doSegment(text, {
-//   convertSynonym: true, // 转换同义词
-//   stripStopword: true, // 去除停止符
-//   simple: true, // 不返回词性
-// });
-// console.log(result);
-
-// var nodejieba = require("nodejieba");
-// var segment = require("hanzi-tools")
-
-// nodejieba.load({
-//   userDict: "./user.uft8"
-// });
-
-// const content = "影片为侏罗纪世界系列的完结篇，故事的开篇设定在纳布拉尔岛被摧毁的四年后。如今，恐龙在世界各地与人类共同生活、共同捕猎。这一脆弱的平衡将重塑未来，并最终决定人类能否与史上最可怕生物共享这颗星球，并继续站在食物链的顶端。"
-
-// 提取关键词
-// console.log(nodejieba.extract(content, 5))
-
-// // 简体转繁体
-// console.log(segment.traditionalize(content))
-
-// // 汉字转拼音
-// console.log(segment.pinyinify(content))

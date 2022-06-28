@@ -210,7 +210,7 @@ export default {
 
         this.loading = true
 
-        const res = await maccmsDetailProxy({ url: this.$route.query.url + `&ac=detail&ids=${ids}`, method: 'get' })
+        const res = await maccmsDetailProxy({ url: this.$route.query.url + `?&ac=detail&ids=${ids}`, method: 'get' })
 
         if(res.code === 200 && res.data.code === 1) {
           this.$message.success('采集成功，开始添加视频数据')

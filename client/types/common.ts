@@ -1,7 +1,6 @@
 export interface Response<T = any> {
-  code: string
-  msg: string
-  timestamp: number
+  code: number
+  message: string
   data?: T
 }
 
