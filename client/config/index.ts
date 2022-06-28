@@ -24,10 +24,11 @@ export const ASSETS_BASE_URL: string = (() => {
 })()
 
 export const BASE_URL: string = (() => {
-  let BASE_URL = "http://192.168.0.107/api/pc/cms"
+  let BASE_URL = "http://frp.lovewyf.xyz:7600/api/web"
+
   switch (NODE_ENV_API) {
     case "dev":
-      BASE_URL = ""
+      BASE_URL = "http://frp.lovewyf.xyz:7600/api/web"
       break
     case "test":
       BASE_URL = ""

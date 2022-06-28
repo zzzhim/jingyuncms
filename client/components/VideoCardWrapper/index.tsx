@@ -1,20 +1,31 @@
+import { RecommendList } from "../../types/recommend"
 import { VideoCard } from "../VideoCard"
 
+interface Props extends RecommendList {
+
+}
+
 // 视频列表
-function VideoCardWrapper() {
+function VideoCardWrapper(props: Props) {
   return (
     <div className="module">
       <div className="module-heading">
-        <h2 className="module-title">连续剧</h2>
-        <a className="more" href="/vodtype/qCCCCS.html" title="更多连续剧">
-          更多连续剧<i className="icon-arrow-right-o"></i>
+        <h2 className="module-title">{ props?.recommendName }</h2>
+        <a
+          className="more"
+          href="/vodtype/qCCCCS.html"
+          title={`更多${props?.recommendName}`}
+        >
+          更多{ props?.recommendName }<i className="icon-arrow-right-o"></i>
         </a>
       </div>
 
       <div className="module-list module-lines-list">
         <div className="module-items">
           {
-            [ ...new Array(10) ].map((item, index) => <VideoCard key={index} />)
+            props.children.map(item => (
+              <VideoCard key={item.id} { ...item } />
+            ))
           }
         </div>
       </div>
