@@ -20,14 +20,14 @@ const service = axios.create({
 
 // request interceptor
 service.interceptors.request.use(
-  config => {
+  (config: any) => {
     if(getToken()) {
       (config as any).headers.token = getToken() || ""
     }
 
     return config
   },
-  error => {
+  (error: any) => {
     // Do something with request error
     console.log(error) // for debug
     Promise.reject(error)
@@ -42,7 +42,7 @@ service.interceptors.response.use(
    * 如想通过 xmlhttprequest 来状态码标识 逻辑可写在下面error中
    * 以下代码均为样例，请结合自生需求加以修改，若不需要，则可删除
    */
-  response => {
+  (response: any) => {
     const res = response.data
 
     if (res.code === "400") {
@@ -61,7 +61,7 @@ service.interceptors.response.use(
 
     return res
   },
-  error => {
+  (error: any) => {
     if (axios.isCancel(error)) {
       console.log("request error：" + error.message)
     } else {

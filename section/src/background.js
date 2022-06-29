@@ -96,18 +96,8 @@ if (isDevelopment) {
   }
 }
 
-// import FormData from "form-data"
-// import fs from "fs"
-// // import { hupuUpload, kuaishouQiYeUpload, kuaishouUpload } from './api/upload'
-// import { bilibiliUpload } from './api/upload'
+import { uploadImg } from './api/upload'
 
-
-
-// const file = fs.createReadStream('C:/Users/admin/Pictures/animation1.png')
-// bilibiliUpload(file).then(res => {
-//   console.log(res)
-// }).catch(err => {
-//   console.log(err)
-// })
-
-// const res = await kuaishouQiYeUpload(formData)
+uploadImg('C:/Users/32185/Pictures/DM_20220326112405_001.jpg').then(res => {
+  console.log(res)
+})

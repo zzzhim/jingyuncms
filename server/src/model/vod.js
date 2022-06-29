@@ -22,7 +22,8 @@ const Vod = sequelize.define(
     },
     vodNamePinYin: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: "",
       comment: "视频名称拼音"
     },
     vodSub: {
@@ -33,6 +34,7 @@ const Vod = sequelize.define(
     vodWeight: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: "",
       comment: "视频权重词",
     },
     vodEn: {
@@ -230,16 +232,6 @@ const Vod = sequelize.define(
       allowNull: true,
       comment: "评分次数"
     },
-    vodTime: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      comment: "更新时间",
-    },
-    vodTimeAdd: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      comment: "添加时间",
-    },
     vodTimeHits: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -265,16 +257,11 @@ const Vod = sequelize.define(
       allowNull: true,
       comment: "豆瓣评分",
     },
-    vodReurl: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      comment: "来源地址",
-    },
-    vodRelVod: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      comment: "关联视频ids",
-    },
+    // vodRelVod: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true,
+    //   comment: "关联视频ids",
+    // },
     vodRelArt: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -284,11 +271,6 @@ const Vod = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: true,
       comment: "详细介绍",
-    },
-    vodNotes: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      comment: "简介",
     },
     vodPlayFrom: {
       type: DataTypes.STRING,
@@ -305,21 +287,21 @@ const Vod = sequelize.define(
       allowNull: true,
       comment: "播放地址",
     },
-    vodPlot: {
-      type: DataTypes.TINYINT({ length: 1 }),
-      allowNull: true,
-      comment: "是否包含分集剧情",
-    },
-    vodPlotName: {
-      type: DataTypes.TEXT({ length: "medium" }),
-      allowNull: true,
-      comment: "分集剧情名称",
-    },
-    vodPlotDetail: {
-      type: DataTypes.TEXT({ length: "medium" }),
-      allowNull: true,
-      comment: "分集剧情详情",
-    },
+    // vodPlot: {
+    //   type: DataTypes.TINYINT({ length: 1 }),
+    //   allowNull: true,
+    //   comment: "是否包含分集剧情",
+    // },
+    // vodPlotName: {
+    //   type: DataTypes.TEXT({ length: "medium" }),
+    //   allowNull: true,
+    //   comment: "分集剧情名称",
+    // },
+    // vodPlotDetail: {
+    //   type: DataTypes.TEXT({ length: "medium" }),
+    //   allowNull: true,
+    //   comment: "分集剧情详情",
+    // },
     isDelete: {
       type: DataTypes.ENUM("0", "1"),
       allowNull: true,
@@ -329,7 +311,7 @@ const Vod = sequelize.define(
   {
     underscored: true,
     freezeTableName: true,
-    indexes: [],
+    // indexes: [],
   }
 )
 

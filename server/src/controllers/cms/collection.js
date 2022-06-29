@@ -1,3 +1,4 @@
+import { getCollectionVideoSetting, setCollectionVideoSetting } from "../../model/collectionVideoSetting"
 import { InterfaceSetupModel } from "../../model/InterfaceSetup"
 import { collectionVideo } from "../../utils/collectionVideo"
 import logger from "../../utils/logger"
@@ -22,6 +23,58 @@ export const maccmsCollection = async ({ id, h = '' }) => {
     })
 
     return response.success(200, {}, '开始采集视频')
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, error, '服务器异常')
+  }
+}
+
+/**
+ * 
+ * @description 获取采集视频配置
+ */
+export const collectionVideoSettingGet = async ({}) => {
+  try {
+    const data = getCollectionVideoSetting()
+
+    return response.success(200, data)
+  } catch (error) {
+    logger.error(error)
+    return response.error(500, error, '服务器异常')
+  }
+}
+
+/**
+ * 
+ * @description 修改采集视频配置
+ */
+export const collectionVideoSettingUpdate = async ({
+  status,
+  createPinYin,
+  createWeight,
+  vodNameSynonymReplace,
+  descSynonymReplace,
+  traditionalizeEnable,
+  descDecorateState,
+  collectionVideoActive,
+  coolectionVideoContentUpdateActive,
+  contentFilter,
+}) => {
+  try {
+    setCollectionVideoSetting({
+      status,
+      createPinYin,
+      createWeight,
+      vodNameSynonymReplace,
+      descSynonymReplace,
+      traditionalizeEnable,
+      descDecorateState,
+      collectionVideoActive,
+      coolectionVideoContentUpdateActive,
+      contentFilter,
+    })
+
+    return response.success(200, {})
   } catch (error) {
     logger.error(error)
     return response.error(500, error, '服务器异常')

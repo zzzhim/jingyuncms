@@ -1,12 +1,29 @@
-import type { NextPage } from 'next'
+import type { InferGetServerSidePropsType, NextPage } from 'next'
 import Head from 'next/head'
+import { getRecommendList } from '../api/recommend'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { VideoCard } from '../components/VideoCard'
 import { VideoCardUpdate } from '../components/VideoCardUpdate'
 import { VideoCardWrapper } from '../components/VideoCardWrapper'
 
-const Home: NextPage = () => {
+export const getServerSideProps = async () => {
+  const result = await getRecommendList({})
+
+  if(result.code === 200) {
+    return {
+      props: {
+        list: result.data!.list
+      }
+    }
+  }
+
+  return {
+    props: {},
+  }
+}
+
+function HomePage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <Head>
@@ -24,10 +41,11 @@ const Home: NextPage = () => {
 
         <main id="index-main" className="wrapper">
           <div className="content">
-            <VideoCardWrapper />
-            <VideoCardWrapper />
-            <VideoCardWrapper />
-            <VideoCardUpdate />
+            {
+              props?.list?.map(item => (
+                <VideoCardWrapper key={item.id} { ...item } />
+              ))
+            }
           </div>
         </main>
 
@@ -38,4 +56,4 @@ const Home: NextPage = () => {
 }
 
 
-export default Home
+export default HomePage
