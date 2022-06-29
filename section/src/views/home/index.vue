@@ -140,6 +140,11 @@ export default {
     },
   },
   created() {
+   
+    if (!sessionStorage.getItem('token')){
+      this.$router.push('/login')
+    }
+
     ipcRenderer.on("cuttingStart", (event, res) => {
       this.isStart = true
     })
