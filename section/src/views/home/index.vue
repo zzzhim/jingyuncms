@@ -138,17 +138,16 @@ export default {
       })
     },
     async getUploadList(){
-      ipcRenderer.send("getUploadList",{}).then(res => {
-        console.log(res)
-      })
+      ipcRenderer.invoke("getUploadList", {})
+        .then(res => {
+          console.log(res)
+        })
     }
   },
   mounted() {
     this.getUploadList()
   },
   created() {
-    
-    
     ipcRenderer.on("cuttingStart", (event, res) => {
       this.isStart = true
     })

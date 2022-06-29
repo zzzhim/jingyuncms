@@ -1,3 +1,4 @@
+import { ipcMain } from "electron"
 import { uploadConfigImgList } from "../api/upload"
 import { setUploadList } from "../utils/auth"
 
