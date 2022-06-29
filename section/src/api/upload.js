@@ -72,10 +72,24 @@ const uploadConfigList = [
     },
     result: "url"
   },
+  { // 机核
+    url: "https://www.gcores.com/gapi/v1/images",
+    formData: {
+      fileParamName: "file",
+      addParam: [],
+    },
+    headers: {
+      "Authorization": "Token token=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJ1c2VyX2lkIjo2MTQyMjMsImF1dGhfdG9rZW4iOiJEd3FqRHdHOEVjLWVSeXE3eXNFY1dRIn0.fjK9mk94P63XAN_JZjXFgP_OBEchYpW7cqsmX_X7pmJxoFHl6Fm_RJy5PtekIET39pfWfmbA1R5eZPYHqSAzBQ",
+      "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryRBNqRvA78ni1jMpJ",
+      "cookie": "sajssdk_2015_cross_new_user=1; wechatTicket=kgt8ON7yVITDhtdwci0qeVh-oVHCGueploMGrzaCyq_E3oojlWbla3bDUR1j6fOXXGeHdO1oscZ5M9FeDU42Ww; _ga=GA1.2.486368736.1656465340; _gid=GA1.2.1322259502.1656465340; __snaker__id=KaaBZebuYTBtD4ao; gdxidpyhxdE=BAveT9ZVO6JMNAB1LqwWDPws0yC2hipTTo12D%2FkZwBwAJO8KurjIKG7s%2F6DwTCNXhRKrsmrJcijXqEwMAciBbk3WJmtUDQXBqJmrXRnzIEZnDlnIpbvVdry5p%2F8DB%5C62wNb7SJJVAT%2B%2Bv648BAynEj%2BwJxvyb%2FR3uK4%2B6B6jRRkmpNpK%3A1656466240733; _9755xjdesxxd_=32; YD00528483946303%3AWM_NI=zrkZCw9fuYTYLhLARJ%2BqeygITTvaRd4qCxj1FlVabPi4LXFAZvPMa8LGtd7b0pEDUuZMi97NgJ%2B7ysYKbqA7Gl3buftubNoXBOOc3v1sOd8rsl1JZ7pHiUyGbTD8iW%2F9Nzg%3D; YD00528483946303%3AWM_NIKE=9ca17ae2e6ffcda170e2e6eea9cc7afbbabaa3c6488feb8fa6d14a839a8fb0c15ff8a6fda3db34a6a99a93cd2af0fea7c3b92abaaea5bbc27dfbbabbbad75390b884a2d142e9afab9ae643988cba82d170f8af8d99e93b86b49a82e15cabec84b9c54b9aaaa0aee4349099bc85b66af4b08ba5d87f9a93a7dab646a596e5d8fc799b95ae92c43d85b4fd83f86eb8abaeafee5482918184b27ef3ad8185bb7ab1b4ffabd93db498a7b6fc4da28c8cd9ec5dede7829be637e2a3; YD00528483946303%3AWM_TID=yr00yUSN8QRBRFFAFEKUBt2zBHtOlUvN; appToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJ1c2VyX2lkIjo2MTQyMjMsImF1dGhfdG9rZW4iOiJEd3FqRHdHOEVjLWVSeXE3eXNFY1dRIn0.fjK9mk94P63XAN_JZjXFgP_OBEchYpW7cqsmX_X7pmJxoFHl6Fm_RJy5PtekIET39pfWfmbA1R5eZPYHqSAzBQ; userID=614223; auth_token=IkR3cWpEd0c4RWMtZVJ5cTd5c0VjV1Ei--f4034f7a86562ef9119be23f3721b75d5682a035; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%22614223%22%2C%22first_id%22%3A%22181ad073298cf7-01509dea499b74-26021b51-1382400-181ad073299cb7%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%A4%BE%E4%BA%A4%E7%BD%91%E7%AB%99%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC%22%2C%22%24latest_referrer%22%3A%22https%3A%2F%2Fopen.weixin.qq.com%2F%22%7D%2C%22%24device_id%22%3A%22181ad073298cf7-01509dea499b74-26021b51-1382400-181ad073299cb7%22%7D; _gat=1"
+    },
+    baseUrl: "https://image.gcores.com/",
+    result: "path",
+  },
 ]
 
 export async function uploadImg(filePath) {
-  const config = uploadConfigList[4]
+  const config = uploadConfigList[5]
 
   let form
 
@@ -94,6 +108,7 @@ export async function uploadImg(filePath) {
     }
   }else { // FormData形式上传
     const file = fs.createReadStream(filePath)
+    // const file = fs.readFileSync(filePath, "binary")
 
     // paramType
     form = new FormData()
@@ -130,7 +145,7 @@ export async function uploadImg(filePath) {
     return {
       code: 200,
       data: {
-        url: result
+        url: (config.baseUrl || '') + result
       }
     }
   }
