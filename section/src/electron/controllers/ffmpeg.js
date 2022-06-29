@@ -4,13 +4,13 @@ import path from "path"
 import fluentFfmpeg from "fluent-ffmpeg"
 // import ffmpegInstaller from "@ffmpeg-installer/ffmpeg"
 import ffmpegStaticElectron from "ffmpeg-static-electron"
-import { isPathExists } from "@/utils/isPathExists"
-import { base64_img } from "@/config"
-import { uploadImg } from "@/api/upload"
-import { createPath } from "@/utils/createPath"
-import { sleep } from "@/utils/sleep"
-import { logger } from "@/utils/logger"
-import { fixFfmpegPath } from "@/utils/fixFfmpegPath"
+import { isPathExists } from "../utils/isPathExists"
+import { base64_img } from "../config"
+import { uploadImg } from "../api/upload"
+import { createPath } from "../electron/utils/createPath"
+import { sleep } from "../utils/sleep"
+import { logger } from "../utils/logger"
+import { fixFfmpegPath } from "../utils/fixFfmpegPath"
 
 /**
  * 
@@ -131,10 +131,7 @@ export async function tsToPng({
 
       try {
         logger.info(`${fileName}开始上传`)
-        // const uploadList = [ douyinUpload, kuaishouUpload, hupuUpload, doubanUpload, bilibiliUpload ]
-        
-        // const uploadApi = uploadList[Math.floor(Math.random() * 4)]
-        const res = await uploadImg(fileDataPath)
+        const res = await uploadImg(fileDataPath, )
         
         if(res.code === 200) {
           updateM3u8File(m3u8Path, fileName, res.data.url)

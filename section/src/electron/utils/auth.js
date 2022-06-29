@@ -2,6 +2,8 @@ import { delStore, getStore, setStore } from "./store"
 
 const TokenKey = 'jingyunshipin_section_token'
 const UserKey = 'jingyunshipin_section_user'
+const UploadListkey = 'jingyunshipin_section_upload_list'
+
 
 export function getToken() {
   return getStore(TokenKey)
@@ -25,4 +27,17 @@ export function setUserInfo(userinfo) {
 
 export function removeUserInfo() {
   return delStore(UserKey)
+}
+
+
+export function getUploadList() {
+  return JSON.parse(getStore(UploadListkey))
+}
+
+export function setUploadList(UploadList) {
+  return setStore(UploadListkey, JSON.stringify(UploadList))
+}
+
+export function removeUploadList() {
+  return delStore(UploadListkey)
 }

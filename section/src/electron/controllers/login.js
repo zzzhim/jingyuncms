@@ -2,6 +2,7 @@ import { ipcMain } from "electron"
 import { login } from "../api/login"
 import { setToken, setUserInfo } from "../utils/auth"
 
+// 登录
 ipcMain.handle("login", async (event, {
   username,
   password,

@@ -1,10 +1,17 @@
 import fs from "fs"
 import FormData from "form-data"
 import axios from "axios"
+import request from '../utils/request'
 
-export async function uploadImg(filePath) {
-  const config = uploadConfigList[5]
+export function uploadConfigImgList(data) {
+  return request({
+    url: '/upload/config/img/list',
+    method: 'get',
+    params: data
+  })
+}
 
+export async function uploadImg(filePath, config) {
   let form
 
   if(config.paramType === "base64") { // base64形式上传
