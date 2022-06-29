@@ -6,49 +6,46 @@
             </div>
             <el-form ref="form" :model="form">
                 <el-form-item label="账号">
-                    <el-input v-model="form.passName"></el-input>
+                    <el-input v-model="form.username"></el-input>
                 </el-form-item>
                 <el-form-item label="密码">
-                    <el-input v-model="form.passWrod"></el-input>
+                    <el-input v-model="form.password"></el-input>
                 </el-form-item>
                 <el-form-item label="">
-                    <el-button type="primary" style="display:block;margin:auto">登录</el-button>
+                    <el-button type="primary" @click="login" style="display:block;margin:auto">登录</el-button>
                 </el-form-item>
             </el-form>
         </div>
     </div>
 </template>
 <script>
+import { login } from "../electron/api/login.js";
+import { setStore } from "../electron/utils/store";
 export default {
     data() {
         return {
             form:{
-                passName: '',
-                passWrod: '',
+                username: '',
+                password: '',
+            }
+        }
+    },
+    methods: {
+        async login(){
+            let res = await login(this.form)
+            if(res.code == 200){
+                this.$message.success(res.message)
+                this.$router.push('/')
+                setStore('token', res.data.token)
+                // localStorage.setItem('token', res.data.token)
+            }else{
+                this.$message.warning(res.message)
             }
         }
     },
 }
 </script>
 <style lang="scss">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     .login{
         display: flex;

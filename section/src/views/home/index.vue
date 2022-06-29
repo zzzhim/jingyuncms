@@ -102,7 +102,7 @@
 
 <script>
 import { ipcRenderer } from "electron"
-
+import { getUploadList } from "@/electron/api/home";
 export default {
   name: 'HomeView',
   components: {},
@@ -116,8 +116,7 @@ export default {
   },
   methods: {
     handleGetVideo() {
-      ipcRenderer
-        .invoke("getLocalVideoList", {
+      ipcRenderer.invoke("getLocalVideoList", {
           path: this.pathInput
         })
         .then(res => {
@@ -138,13 +137,18 @@ export default {
         videoList: this.list,
       })
     },
+    async getUploadList(){
+      ipcRenderer.send("getUploadList",{}).then(res => {
+        console.log(res)
+      })
+    }
+  },
+  mounted() {
+    this.getUploadList()
   },
   created() {
-   
-    if (!sessionStorage.getItem('token')){
-      this.$router.push('/login')
-    }
-
+    
+    
     ipcRenderer.on("cuttingStart", (event, res) => {
       this.isStart = true
     })
