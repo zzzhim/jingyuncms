@@ -46,6 +46,12 @@ export const constantRoutes = [
         meta: { title: '首页推荐', icon: 'dashboard' }
       },
       {
+        path: 'passToStock',
+        name: 'passToStock',
+        component: () => import('@/views/recommend/pc/passToStock/index'),
+        meta: { title: '入库配置', icon: 'dashboard' }
+      },
+      {
         path: 'bind',
         name: 'bindVideo',
         hidden: true,
