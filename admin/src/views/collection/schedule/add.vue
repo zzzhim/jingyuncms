@@ -1,8 +1,8 @@
 <template>
     <div>
-        <el-dialog title="提示" :visible.sync="dialogVisible" width="800px" :before-close="handleClose">
+        <el-dialog title="提示" :visible.sync="dialogVisible" width="900px" :before-close="handleClose">
             <div>
-                <el-form ref="form" :model="form" label-width="80px">
+                <el-form ref="form" :model="form" label-width="120px">
                     <el-form-item label="活动名称">
                         <el-input v-model="form.jobName"></el-input>
                     </el-form-item>
@@ -25,17 +25,26 @@
                     <el-form-item label="备注">
                         <el-input v-model="form.remarks"></el-input>
                     </el-form-item>
-                    <el-form-item label="周几">
-                        <el-select v-model="form.dayOfWeek" multiple placeholder="请选择">
+                    <el-form-item label="执行周期：">
+                        <!-- <el-select v-model="form.dayOfWeek" multiple placeholder="请选择">
                             <el-option v-for="item in options1" :key="item.id" :label="item.name" :value="item.id">
                             </el-option>
-                        </el-select>
+                        </el-select> -->
+                        <el-checkbox-group v-model="form.dayOfWeek">
+                            <el-checkbox v-for="item in options1" :key="item.id" :label="item.id" :value="item.id">
+                                {{item.name}}
+                            </el-checkbox>
+                        </el-checkbox-group>
                     </el-form-item>
-                    <el-form-item label="小时">
-                        <el-select v-model="form.hour" multiple placeholder="请选择">
+                    <el-form-item label="执行时间：">
+                        <!-- <el-select v-model="form.hour" multiple placeholder="请选择">
                             <el-option v-for="item in options2" :key="item" :label="item" :value="item">
                             </el-option>
-                        </el-select>
+                        </el-select> -->
+                        <el-checkbox-group v-model="form.hour">
+                            <el-checkbox v-for="item in options2" :key="item" :label="item" :value="item">
+                            </el-checkbox>
+                        </el-checkbox-group>
                     </el-form-item>
                     <el-form-item label="分钟">
                         <el-input v-model="form.minute"></el-input>
@@ -114,18 +123,31 @@ export default {
                 minute: JSON.parse(e.cron).minute,
                 dayOfWeek: JSON.parse(e.cron).dayOfWeek,
                 hour: JSON.parse(e.cron).hour,
+                id:e.id
             }
             this.dialogVisible = true
         },
         async  upData(){
-            let res = await scheduleAdd(this.form)
-            if (res.code === 200) {
-                this.$message.success("添加成功")
-                this.handleClose()
-                this.$emit("shuaxin")
-            }else {
-                console.log('error submit!!')
+            if(this.form.id){
+                let res = await scheduleEdit(this.form)
+                if (res.code === 200) {
+                    this.$message.success("成功")
+                    this.handleClose()
+                    this.$emit("shuaxin")
+                } else {
+                    console.log('error submit!!')
+                }
+            }else{
+                let res = await scheduleAdd(this.form)
+                if (res.code === 200) {
+                    this.$message.success("添加成功")
+                    this.handleClose()
+                    this.$emit("shuaxin")
+                } else {
+                    console.log('error submit!!')
+                }
             }
+            
         }
 
     },

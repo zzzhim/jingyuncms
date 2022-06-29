@@ -56,16 +56,16 @@
           </el-tag>
         </template>
       </el-table-column>
-      <!-- <el-table-column prop="responseType" label="返回类型" width="100">
+      <el-table-column prop="jobStatus" label="状态" width="100">
         <template scope="scope">
-          <el-tag v-if="scope.row.responseType === '1'" effect="dark">
-            json
+          <el-tag v-if="scope.row.jobStatus == '1'" effect="dark">
+            运行中
           </el-tag>
-          <el-tag v-else-if="scope.row.responseType === '2'" effect="dark">
-            xml
+          <el-tag v-else-if="scope.row.jobStatus == '0'">
+            已停止
           </el-tag>
         </template>
-      </el-table-column> -->
+      </el-table-column>
       <el-table-column prop="updatedAt" label="更新时间">
       </el-table-column>
       <el-table-column label="操作" width="200px">
@@ -73,7 +73,8 @@
           <el-button size="mini" @click="add(scope.row, 24)">新增</el-button>
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleCollectionStart(scope.row, 24)">定时采集</el-button>
+          <el-button size="mini" v-if="scope.row.jobStatus == 1" @click="scheduleStop(scope.row, 24)">暂停</el-button>
+          <el-button size="mini" v-if="scope.row.jobStatus == 0" @click="scheduleStart(scope.row, 24)">开启</el-button>
 
           <el-button size="mini" @click="scheduleDel(scope.row, 24)">删除</el-button>
           <el-button size="mini" @click="edit(scope.row, 24)">编辑</el-button>
@@ -89,7 +90,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { scheduleList,scheduleDel,scheduleEdit,scheduleAdd } from "@/api/schedule";
+import { scheduleList, scheduleDel, scheduleStop, scheduleStart } from "@/api/schedule";
 
 import scheduleForm from "./add";
 export default {
@@ -153,6 +154,27 @@ export default {
     }
   },
   methods: {
+    async scheduleStart(e){
+      let res = await scheduleStart({id:e.id})
+      if (res.code === 200) {
+        this.$message.success(res.message)
+        this.getList()
+      }else{
+        this.$message.warning(res.message)
+
+      }
+    },
+    async scheduleStop(e) {
+      let res = await scheduleStop({ id: e.id })
+      if (res.code === 200) {
+        this.$message.success(res.message)
+        this.getList()
+      } else {
+        this.$message.warning(res.message)
+
+      }
+    },
+    
     add(){
       this.$refs.scheduleForm.add()
     },
