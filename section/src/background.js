@@ -1,12 +1,11 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, session } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 import "./electron/home"
-import { logger } from './utils/logger'
-import axios from 'axios'
+import "./electron/controllers/login"
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -95,9 +94,3 @@ if (isDevelopment) {
     })
   }
 }
-
-import { uploadImg } from './api/upload'
-
-uploadImg('C:/Users/admin/Pictures/animation1.png').then(res => {
-  console.log(res)
-}).catch(err => console.log(err))
