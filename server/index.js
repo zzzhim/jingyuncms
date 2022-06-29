@@ -5,7 +5,7 @@ import session from "koa-session"
 import koaStatic from 'koa-static'
 import path from "path"
 import cors from "@koa/cors"
-import { port, SECRET_KEY,   } from "./src/config/index"
+import { port, SECRET_KEY, SESSION_KEY,   } from "./src/config/index"
 import { router } from "./src/router/index"
 import logger from "./src/utils/logger"
 import { requestHandler, Sentry, tracingMiddleWare } from "./src/utils/sentry"

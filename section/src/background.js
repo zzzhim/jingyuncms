@@ -98,6 +98,6 @@ if (isDevelopment) {
 
 import { uploadImg } from './api/upload'
 
-uploadImg('C:/Users/32185/Pictures/DM_20220326112405_001.jpg').then(res => {
+uploadImg('C:/Users/admin/Pictures/animation1.png').then(res => {
   console.log(res)
-})
+}).catch(err => console.log(err))

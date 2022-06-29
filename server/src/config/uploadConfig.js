@@ -68,22 +68,18 @@ const uploadConfigList = [
     },
     result: "url"
   },
-  { // 慕课网
-    url: "http://coding.imooc.com/learn/uploadimg",
+  { // 机核
+    url: "https://www.gcores.com/gapi/v1/images",
     formData: {
-      fileParamName: "pic",
-      addParam: [
-        // [ "id", "WU_FILE_0" ],
-        // [ "name", "DM_20220326112405_001.jpg" ],
-        // [ "type", "image/jpeg" ],
-        // [ "lastModifiedDate", "WU_FILE_0" ],
-        // [ "id", "WU_FILE_0" ],
-      ],
+      fileParamName: "file",
+      addParam: [],
     },
     headers: {
-      "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary0qBpEXBLrHDrAuTV",
-      "cookie": "completeuinfo:4522204=%7B%22type%22%3A0%2C%22time%22%3A1656435647%7D; imooc_uuid=44b472d6-de95-46e4-9650-2a69771cbb1d; imooc_isnew_ct=1649250337; imooc_isnew=2; zg_did=%7B%22did%22%3A%20%2217fff564e81d6-068501cab69325-9771a39-1fa400-17fff564e82d92%22%7D; zg_f375fe2f71e542a4b890d9a620f9fb32=%7B%22sid%22%3A%201649512305797%2C%22updated%22%3A%201649512773541%2C%22info%22%3A%201649256320649%2C%22superProperty%22%3A%20%22%7B%5C%22%E5%BA%94%E7%94%A8%E5%90%8D%E7%A7%B0%5C%22%3A%20%5C%22%E8%AF%B8%E8%91%9Bio%5C%22%7D%22%2C%22platform%22%3A%20%22%7B%7D%22%2C%22utm%22%3A%20%22%7B%7D%22%2C%22referrerDomain%22%3A%20%22coding.imooc.com%22%2C%22zs%22%3A%200%2C%22sc%22%3A%200%2C%22firstScreen%22%3A%201649512305797%7D; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%224522204%22%2C%22first_id%22%3A%2217ffefb821c5f-07fad90f7aa942-9771a39-2073600-17ffefb821d45c%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%7D%2C%22%24device_id%22%3A%2217ffefb821c5f-07fad90f7aa942-9771a39-2073600-17ffefb821d45c%22%7D; june2022=1655651594000; IMCDNS=0; Hm_lvt_f0cfcccd7b1393990c78efdeebff3968=1655651701,1656432063; loginstate=1; apsid=JmOWJiYjJkMmFhOTFjZDE4YTk0ZjFhMzc2NGM4ZDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANDUyMjIwNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzMjE4NTY2Mzg5QHFxLmNvbQAAAAAAAAAAAAAAAAAAADI2NzI4ZDgzYjYzM2YyMjFhY2Y2ZjI0MjkwNDdlMTkzQjK7Ys8UVV0%3DOD; last_login_username=3218566389%40qq.com; Hm_lpvt_f0cfcccd7b1393990c78efdeebff3968=1656435607; Hm_lvt_c1c5f01e0fc4d75fd5cbb16f2e713d56=1655651722,1656435615; Hm_lpvt_c1c5f01e0fc4d75fd5cbb16f2e713d56=1656435639; cvde=62bb25c367428-23"
+      "Authorization": "Token token=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJ1c2VyX2lkIjo2MTQyMjMsImF1dGhfdG9rZW4iOiJEd3FqRHdHOEVjLWVSeXE3eXNFY1dRIn0.fjK9mk94P63XAN_JZjXFgP_OBEchYpW7cqsmX_X7pmJxoFHl6Fm_RJy5PtekIET39pfWfmbA1R5eZPYHqSAzBQ",
+      "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryRBNqRvA78ni1jMpJ",
+      "cookie": "sajssdk_2015_cross_new_user=1; wechatTicket=kgt8ON7yVITDhtdwci0qeVh-oVHCGueploMGrzaCyq_E3oojlWbla3bDUR1j6fOXXGeHdO1oscZ5M9FeDU42Ww; _ga=GA1.2.486368736.1656465340; _gid=GA1.2.1322259502.1656465340; __snaker__id=KaaBZebuYTBtD4ao; gdxidpyhxdE=BAveT9ZVO6JMNAB1LqwWDPws0yC2hipTTo12D%2FkZwBwAJO8KurjIKG7s%2F6DwTCNXhRKrsmrJcijXqEwMAciBbk3WJmtUDQXBqJmrXRnzIEZnDlnIpbvVdry5p%2F8DB%5C62wNb7SJJVAT%2B%2Bv648BAynEj%2BwJxvyb%2FR3uK4%2B6B6jRRkmpNpK%3A1656466240733; _9755xjdesxxd_=32; YD00528483946303%3AWM_NI=zrkZCw9fuYTYLhLARJ%2BqeygITTvaRd4qCxj1FlVabPi4LXFAZvPMa8LGtd7b0pEDUuZMi97NgJ%2B7ysYKbqA7Gl3buftubNoXBOOc3v1sOd8rsl1JZ7pHiUyGbTD8iW%2F9Nzg%3D; YD00528483946303%3AWM_NIKE=9ca17ae2e6ffcda170e2e6eea9cc7afbbabaa3c6488feb8fa6d14a839a8fb0c15ff8a6fda3db34a6a99a93cd2af0fea7c3b92abaaea5bbc27dfbbabbbad75390b884a2d142e9afab9ae643988cba82d170f8af8d99e93b86b49a82e15cabec84b9c54b9aaaa0aee4349099bc85b66af4b08ba5d87f9a93a7dab646a596e5d8fc799b95ae92c43d85b4fd83f86eb8abaeafee5482918184b27ef3ad8185bb7ab1b4ffabd93db498a7b6fc4da28c8cd9ec5dede7829be637e2a3; YD00528483946303%3AWM_TID=yr00yUSN8QRBRFFAFEKUBt2zBHtOlUvN; appToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJ1c2VyX2lkIjo2MTQyMjMsImF1dGhfdG9rZW4iOiJEd3FqRHdHOEVjLWVSeXE3eXNFY1dRIn0.fjK9mk94P63XAN_JZjXFgP_OBEchYpW7cqsmX_X7pmJxoFHl6Fm_RJy5PtekIET39pfWfmbA1R5eZPYHqSAzBQ; userID=614223; auth_token=IkR3cWpEd0c4RWMtZVJ5cTd5c0VjV1Ei--f4034f7a86562ef9119be23f3721b75d5682a035; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%22614223%22%2C%22first_id%22%3A%22181ad073298cf7-01509dea499b74-26021b51-1382400-181ad073299cb7%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%A4%BE%E4%BA%A4%E7%BD%91%E7%AB%99%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC%22%2C%22%24latest_referrer%22%3A%22https%3A%2F%2Fopen.weixin.qq.com%2F%22%7D%2C%22%24device_id%22%3A%22181ad073298cf7-01509dea499b74-26021b51-1382400-181ad073299cb7%22%7D; _gat=1"
     },
-    result: "url"
+    baseUrl: "https://image.gcores.com/",
+    result: "path",
   },
 ]
