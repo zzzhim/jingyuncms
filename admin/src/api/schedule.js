@@ -31,3 +31,21 @@ export function scheduleDel(data) {
     data
   })
 }
+
+
+
+export function scheduleStart(data) {
+  return request({
+    url: '/schedule/start',
+    method: 'post',
+    data
+  })
+}
+
+export function scheduleStop(data) {
+  return request({
+    url: '/schedule/stop',
+    method: 'post',
+    data
+  })
+}
