@@ -1,5 +1,5 @@
-import { isPathExists } from "@/utils/isPathExists"
-import { logger } from "@/utils/logger"
+import { isPathExists } from "../utils/isPathExists"
+import { logger } from "../utils/logger"
 import fs from "fs"
 
 export const getLocalVideoList = async (path) => {

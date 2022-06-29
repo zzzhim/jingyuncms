@@ -1,9 +1,9 @@
-import { isPathExists } from "@/utils/isPathExists"
+import { isPathExists } from "../utils/isPathExists"
 import { ipcMain } from "electron"
 import { mp4ToM3U8, tsToPng } from "./ffmpeg"
 import { getLocalVideoList } from "./video"
 import { v4 as uuidv4 } from 'uuid'
-import { logger } from "@/utils/logger"
+import { logger } from "../utils/logger"
 
 ipcMain.handle("getLocalVideoList", async (event, { path }) => {
   if(!isPathExists(path)) {
