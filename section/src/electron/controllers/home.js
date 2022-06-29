@@ -1,9 +1,11 @@
 import { isPathExists } from "../utils/isPathExists"
 import { ipcMain } from "electron"
-import { mp4ToM3U8, tsToPng } from "./ffmpeg"
 import { getLocalVideoList } from "./video"
 import { v4 as uuidv4 } from 'uuid'
 import { logger } from "../utils/logger"
+import { mp4ToM3U8 } from "../utils/mp4ToM3U8"
+import { tsToPng } from "../utils/tsToPng"
+import { tsUpload } from "../utils/tsUpload"
 
 ipcMain.handle("getLocalVideoList", async (event, { path }) => {
   if(!isPathExists(path)) {
@@ -33,7 +35,7 @@ ipcMain.handle("getLocalVideoList", async (event, { path }) => {
  * 
  * @description 开始切片
  */
-ipcMain.on("cutting", async (event, { videoPath, videoList }) => {
+ipcMain.on("cutting", async (event, { videoPath, videoList, uploadImgList }) => {
   // 切片开始
   event.sender.send("cuttingStart", {})
 
@@ -52,12 +54,14 @@ ipcMain.on("cutting", async (event, { videoPath, videoList }) => {
 
     try {
       for (let index = 0; index < cuttingList.length; index++) {
+        // 视频切片
         const data = await mp4ToM3U8(
           {
             uuid: cuttingList[index].uuid,
             filePath: videoPath,
             fileName: cuttingList[index].fileName + '.' + cuttingList[index].type,
             fileType: cuttingList[index].type,
+            line: uploadImgList.length, // 线路数量，根据线路数量生成对应m3u8文件
           },
           (uuid, percent, progress) => {
             // 发送切片进度
@@ -70,18 +74,26 @@ ipcMain.on("cutting", async (event, { videoPath, videoList }) => {
           }
         )
 
-        tsToPng({
-          uuid: cuttingList[index].uuid,
-          dirPath: data.tsFilePath,
-          m3u8Path: data.m3u8Path,
-        }, (uuid, percent) => {
-          // 发送切片进度
-          event.sender.send("cuttingProgress", {
-            uuid,
-            percent,
-            taskType: '2',
-          })
-        })
+        // ts生成Png
+        tsToPng({ dirPath: data.tsFilePath })
+
+        // 视频上传到图床
+        tsUpload(
+          {
+            uuid: cuttingList[index].uuid,
+            dirPath: data.tsFilePath,
+            m3u8PathList: data.m3u8PathList,
+            uploadImgList,
+          },
+          (uuid, percent) => {
+            // 发送切片进度
+            event.sender.send("cuttingProgress", {
+              uuid,
+              percent,
+              taskType: '2',
+            })
+          }
+        )
       }
     } catch (error) {
       logger.error(error)
