@@ -3,9 +3,8 @@ import { ipcMain } from "electron"
 import { getLocalVideoList } from "./video"
 import { v4 as uuidv4 } from 'uuid'
 import { logger } from "../utils/logger"
-import { mp4ToM3U8 } from "../utils/mp4ToM3U8"
-import { tsToPng } from "../utils/tsToPng"
-import { tsUpload } from "../utils/tsUpload"
+import { arrToDim } from "../utils/arrToDim"
+import { section } from "../utils/section"
 
 ipcMain.handle("getLocalVideoList", async (event, { path }) => {
   if(!isPathExists(path)) {
@@ -53,47 +52,29 @@ ipcMain.on("cutting", async (event, { videoPath, videoList, uploadImgList }) => 
     })
 
     try {
-      for (let index = 0; index < cuttingList.length; index++) {
-        // 视频切片
-        const data = await mp4ToM3U8(
-          {
-            uuid: cuttingList[index].uuid,
+      const list = arrToDim(cuttingList, uploadImgList.length)
+
+      for (let index = 0; index < list.length; index++) {
+        const arr = list[index]
+        const sendList = []
+
+        for (let i = 0; i < arr.length; i++) {
+          sendList.push({
+            uuid: arr[i].uuid,
             filePath: videoPath,
-            fileName: cuttingList[index].fileName + '.' + cuttingList[index].type,
-            fileType: cuttingList[index].type,
-            line: uploadImgList.length, // 线路数量，根据线路数量生成对应m3u8文件
-          },
-          (uuid, percent, progress) => {
-            // 发送切片进度
-            event.sender.send("cuttingProgress", {
-              uuid,
-              percent,
-              progress,
-              taskType: '1',
-            })
-          }
-        )
+            fileName: arr[i].fileName,
+            fileType: arr[i].type,
+            uploadImgList: uploadImgList,
+          })
+        }
 
-        // ts生成Png
-        tsToPng({ dirPath: data.tsFilePath })
-
-        // 视频上传到图床
-        tsUpload(
-          {
-            uuid: cuttingList[index].uuid,
-            dirPath: data.tsFilePath,
-            m3u8PathList: data.m3u8PathList,
-            uploadImgList,
-          },
-          (uuid, percent) => {
+        await Promise.all(sendList.map(item => section(
+          item,
+          (params) => {
             // 发送切片进度
-            event.sender.send("cuttingProgress", {
-              uuid,
-              percent,
-              taskType: '2',
-            })
+            event.sender.send("cuttingProgress", { ...params })
           }
-        )
+        )))
       }
     } catch (error) {
       logger.error(error)

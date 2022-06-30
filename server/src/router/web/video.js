@@ -7,14 +7,14 @@ const router = new Router({
 
 /**
  * @param {string} vodName 视频名
- * @param {number} categoryId 分类Id
+ * @param {string} category 分类Id
  * @param {number} pageNo 页码
  * @param {number} pageSize 页数
  * @description 获取推荐视频列表
  */
 router.get('/list', async (ctx, next) => {
-  const { vodName, categoryId, pageNo, pageSize } = ctx.request.query
-  const data = await videoList({ vodName, categoryId, pageNo, pageSize })
+  const { vodName, category, order, pageNo, pageSize } = ctx.request.query
+  const data = await videoList({ vodName, category, order, pageNo, pageSize })
 
   ctx.body = data
 })
