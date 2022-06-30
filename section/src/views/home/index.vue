@@ -1,26 +1,52 @@
 <template>
   <el-container class="home">
     <el-aside class="left">
+      <el-form ref="form" :model="form" label-width="120px">
 
+        <el-form-item label="图床">
+          <el-checkbox-group v-model="form.checkList">
+            <el-checkbox :label="item.id" v-for="item,index in getUploadDataList" :key="index">{{
+            item.configName }}
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label="选择线路">
+
+          <el-checkbox-group v-model="form.checkList2" :max="form.checkList.length">
+            <el-checkbox :label="item.name" v-for="item,index in xianluList" :key="index">{{
+            item.name }}
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label='是否删除视频'>
+          <el-radio-group v-model="form.check" @change="checkChange">
+            <el-radio :label="1">是</el-radio>
+            <el-radio :label="2">否</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label='重新拉视频'>
+          <el-radio-group v-model="form.check2">
+            <el-radio :disabled="form.check == 2" :label="1">是</el-radio>
+            <el-radio :label="2">否</el-radio>
+          </el-radio-group>
+        </el-form-item>
+
+
+
+        <el-form-item>
+          <el-button @click="ceshi">测试</el-button>
+        </el-form-item>
+      </el-form>
     </el-aside>
 
     <el-container class="center">
       <el-main class="main">
         <div class="table">
           <el-table :data="cuttingList">
-            <el-table-column
-              align="center"
-              label="序号"
-              type="index"
-              width="50">
+            <el-table-column align="center" label="序号" type="index" width="50">
             </el-table-column>
-    
-            <el-table-column
-              align="center"
-              label="文件名"
-              show-overflow-tooltip
-              prop="fileName"
-            />
+
+            <el-table-column align="center" label="文件名" show-overflow-tooltip prop="fileName" />
 
             <el-table-column label="文件类型" width="80" align="center">
               <template slot-scope="scope">
@@ -31,11 +57,11 @@
             <el-table-column label="进度" align="center">
               <template slot-scope="scope">
                 {{
-                  scope.row.taskType === '1'
-                  ?
-                  `切片进度${Math.floor(scope.row.progress)}%`
-                  :
-                  `上传进度${Math.floor(scope.row.progress)}%`
+                scope.row.taskType === '1'
+                ?
+                `切片进度${Math.floor(scope.row.progress)}%`
+                :
+                `上传进度${Math.floor(scope.row.progress)}%`
                 }}
               </template>
             </el-table-column>
@@ -44,7 +70,7 @@
 
         <div class="total">
           <div class="block">
-            
+
           </div>
 
           <div class="block">
@@ -54,34 +80,17 @@
       </el-main>
 
       <el-footer class="footer">
-        <el-button
-          round
-          type="primary"
-          class="submit"
-          @click="handleCutting"
-          :disabled="isStart"
-        >开始切片</el-button>
+        <el-button round type="primary" class="submit" @click="handleCutting" :disabled="isStart">开始切片</el-button>
       </el-footer>
     </el-container>
 
     <el-aside class="right">
       <div class="table">
-        <el-table
-          :data="list"
-          :show-header="false"
-        >
-          <el-table-column
-            align="center"
-            type="index"
-            width="50">
+        <el-table :data="list" :show-header="false">
+          <el-table-column align="center" type="index" width="50">
           </el-table-column>
-  
-          <el-table-column
-            align="center"
-            label="文件名"
-            show-overflow-tooltip
-            prop="fileName"
-          />
+
+          <el-table-column align="center" label="文件名" show-overflow-tooltip prop="fileName" />
 
           <el-table-column label="类型" width="80" align="center">
             <template slot-scope="scope">
@@ -94,7 +103,9 @@
       <div class="form">
         <el-input :disabled="isStart" size="small" v-model="pathInput" placeholder="请输入视频路径" class="input"></el-input>
 
-        <el-button :disabled="isStart" size="small" round plain type="primary" class="path" @click="handleGetVideo">获取视频</el-button>
+        <el-button :disabled="isStart" size="small" round plain type="primary" class="path" @click="handleGetVideo">
+          获取视频
+        </el-button>
       </div>
     </el-aside>
   </el-container>
@@ -111,10 +122,29 @@ export default {
       cuttingList: [],
       pathInput: '',
       list: [],
-      isStart: false
+      isStart: false,
+      getUploadDataList:[],
+      form:{
+        checkList: [],
+        checkList2: [],
+        check: 1,
+        check: 2,
+      },
+      xianluList:[
+        {name:'线路1'},
+        {name:'线路2'},
+        {name:'线路3'},
+        {name:'线路4' },
+      ]
+      
     }
   },
   methods: {
+    checkChange(){
+      if(this.form.check == 2){
+        this.form.check2 = 2
+      }
+    },
     handleGetVideo() {
       ipcRenderer.invoke("getLocalVideoList", {
           path: this.pathInput
@@ -137,10 +167,14 @@ export default {
         videoList: this.list,
       })
     },
+    ceshi(){
+      console.log(this.form.checkList)
+    },
     async getUploadList(){
       ipcRenderer.invoke("getUploadList", {})
         .then(res => {
           console.log(res)
+          this.getUploadDataList = res
         })
     }
   },
@@ -201,14 +235,15 @@ export default {
     background-color: #F5F5F5;
 
     .left {
-      width: 20% !important;
+      padding:20px 0;
+      width: 30% !important;
       height: 100%;
       background-color: #FFFFFF;
     }
 
     .center {
       box-sizing: border-box;
-      width: 50%;
+      width: 40%;
       height: 100%;
       padding: 20px;
       background-color: #F5F5F5;

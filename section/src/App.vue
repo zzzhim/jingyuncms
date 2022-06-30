@@ -8,9 +8,10 @@
 export default {
   mounted() {
     // console.log(getStore('token'),'token')
-    // if (!getStore('token')) {
-      // this.$router.push('/login')
-    // }
+    
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    }
   },
 }
 </script>

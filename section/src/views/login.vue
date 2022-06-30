@@ -40,6 +40,7 @@ export default {
       }).then((res) => {
         if (res.code === 200) {
           this.$router.push("/")
+          localStorage.setItem('token',res.data.token)
         } else {
           this.$message.warning(res.message);
         }
