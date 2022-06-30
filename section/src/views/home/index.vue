@@ -34,7 +34,7 @@
 
 
         <el-form-item>
-          <el-button @click="ceshi">测试</el-button>
+          <el-button @click="testUploadList">测试</el-button>
         </el-form-item>
       </el-form>
     </el-aside>
@@ -172,14 +172,15 @@ export default {
       console.log(this.form.checkList)
     },
     async testUploadList(){
-       ipcRenderer.invoke("testUploadList", { uploadImgList:this.form.checkList }) .then(result => {
-              console.log(result)
-        })
+      ipcRenderer.invoke("testUploadList", { uploadImgList:this.form.checkList ,videoDelType:this.form.check, pushVideoType:this.form.check2
+      }) .then(result => {
+          console.log(result)
+      })
     },
     async getUploadList(){
       ipcRenderer.invoke("getUploadList", {})
         .then(result => {
-          this.getUploadDataList = res
+          this.getUploadDataList = result
           // 测试图床上传
          
         })
