@@ -15,23 +15,35 @@ export const videoList = async (params) => {
   try {
     const {
       vodName,
-      categoryId,
+      category = '',
+      order = '1',
       pageNo = '1',
       pageSize = '10',
     } = params
+
+    const categoryList = category.split(",").filter(item => item.length > 0)
+
+    let param = {}
+
+    if(categoryList.length > 0) {
+      param.categoryId = {
+        [Op.or]: categoryList.map(item => parseInt(item))
+      }
+    }
 
     const { count = 0, rows = [] } = await VodModel.findAndCountAll({
       where: {
         vodName: {
           [Op.like]: `%${vodName || ''}%`,
         },
-        categoryId: {
-          [Op.like]: `%${categoryId || ''}%`,
-        },
+        ...param,
         isDelete: "0",
       },
       limit: parseInt(pageSize),
       offset: parseInt(pageSize) * (parseInt(pageNo) - 1),
+      order: [
+        [ 'updatedAt', order === '1' ? 'DESC' : 'ASC' ]
+      ]
     })
 
     return response.success(
@@ -53,7 +65,7 @@ export const videoList = async (params) => {
  * @param {string} id 视频id
  * @description 查询视频详情
  */
- export const videoDetail = async (params) => {
+export const videoDetail = async (params) => {
   try {
     const { id } = params
 

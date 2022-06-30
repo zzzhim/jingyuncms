@@ -19,11 +19,11 @@ export async function uploadImg(filePath, config) {
 
     form = {}
 
-    form[config.formData.fileParamName] = "data:image/jpeg;base64," + file
+    form[config.fileParamName] = "data:image/jpeg;base64," + file
 
     // 附加参数
-    if(config.formData.addParam.length > 0) {
-      config.formData.addParam.forEach(item => {
+    if(config.addParam.length > 0) {
+      config.addParam.forEach(item => {
         form[item[0]] = item[1]
       })
     }
@@ -33,11 +33,11 @@ export async function uploadImg(filePath, config) {
 
     // paramType
     form = new FormData()
-    form.append(config.formData.fileParamName, file)
+    form.append(config.fileParamName, file)
 
     // 附加参数
-    if(config.formData.addParam.length > 0) {
-      config.formData.addParam.forEach(item => {
+    if(config.addParam.length > 0) {
+      config.addParam.forEach(item => {
         form.append(item[0], item[1])
       })
     }

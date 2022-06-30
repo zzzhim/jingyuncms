@@ -113,7 +113,7 @@
 
 <script>
 import { ipcRenderer } from "electron"
-import { getUploadList } from "@/electron/api/home";
+
 export default {
   name: 'HomeView',
   components: {},
@@ -147,15 +147,15 @@ export default {
     },
     handleGetVideo() {
       ipcRenderer.invoke("getLocalVideoList", {
-          path: this.pathInput
-        })
-        .then(res => {
-          if(res.code === 200) {
-            this.$message.success(res.message)
-          }else {
-            this.$message.warning(res.message)
-          }
-        })
+        path: this.pathInput
+      })
+      .then(res => {
+        if(res.code === 200) {
+          this.$message.success(res.message)
+        }else {
+          this.$message.warning(res.message)
+        }
+      })
     },
     /**
      * 
@@ -165,16 +165,23 @@ export default {
       ipcRenderer.send("cutting", {
         videoPath: this.pathInput,
         videoList: this.list,
+        uploadImgList: this.uploadImgList,
       })
     },
     ceshi(){
       console.log(this.form.checkList)
     },
+    async testUploadList(){
+       ipcRenderer.invoke("testUploadList", { uploadImgList:this.form.checkList }) .then(result => {
+              console.log(result)
+        })
+    },
     async getUploadList(){
       ipcRenderer.invoke("getUploadList", {})
-        .then(res => {
-          console.log(res)
+        .then(result => {
           this.getUploadDataList = res
+          // 测试图床上传
+         
         })
     }
   },
