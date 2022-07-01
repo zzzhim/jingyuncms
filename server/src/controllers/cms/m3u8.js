@@ -34,6 +34,10 @@ export const m3u8List = async ({
       },
       limit: parseInt(pageSize),
       offset: parseInt(pageSize) * (parseInt(pageNo) - 1),
+      order: [
+        [ 'updatedAt', 'DESC' ],
+        [ 'id', 'DESC' ],
+      ],
     })
 
     return response.success(

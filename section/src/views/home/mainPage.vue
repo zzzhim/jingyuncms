@@ -40,7 +40,7 @@
     </el-main>
 
     <el-footer class="footer">
-      <el-button round type="primary" class="submit" @click="handleCutting" :disabled="isCuttingStart">开始切片</el-button>
+      <el-button round type="primary" class="submit" @click="handleClick" :disabled="isCuttingStart">开始切片</el-button>
     </el-footer>
   </el-container>
 </template>
@@ -53,7 +53,9 @@ export default {
   name: 'HomeViewMain',
   components: {},
   data() {
-    return {}
+    return {
+      loading: false
+    }
   },
   computed: {
     ...mapState("cuttingStore", [ "cuttingList", "isCuttingStart" ]),
@@ -85,6 +87,19 @@ export default {
     cuttingEnd(event, res) {
       this.SET_CUTTING_START(false)
     },
+    async handleClick() {
+      if(this.loading) {
+        return 
+      }
+
+      this.loading = true
+
+      await this.handleCutting()
+
+      setTimeout(() => {
+        this.loading = false
+      }, 1000)
+    }
   },
   mounted() {
     ipcRenderer.on("cuttingStart", this.cuttingStart)

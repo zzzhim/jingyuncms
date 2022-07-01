@@ -1,6 +1,7 @@
 import fs from "fs"
 import path from "path"
 import { uploadM3u8File } from "../api/file"
+import { addM3u8 } from "../api/m3u8"
 import { uploadImg } from "../api/upload"
 import { logger } from "./logger"
 import { sleep } from "./sleep"
@@ -69,11 +70,14 @@ async function uploadM3u8(m3u8PathList, uploadImgList) {
   try {
     const result = await Promise.all(m3u8PathList.map(item => uploadM3u8File({ filePath: item })))
 
+
+    console.log(result)
     for (let index = 0; index < result.length; index++) {
       const m3u8 = result[index]
+      const uploadImg = uploadImgList[index]
 
       if(m3u8.code === 200) {
-        const m3u8Name = m3u8.substring(0, fileName.length - 5) + '.m3u8'
+        const m3u8Name = m3u8PathList[index].substring(0, m3u8PathList[index].length - 5)
         const list = m3u8Name.split('_')
         const doubanId = isNaN(parseInt(list[list.length - 1])) ? null : parseInt(list[list.length - 1])
 
@@ -82,7 +86,7 @@ async function uploadM3u8(m3u8PathList, uploadImgList) {
           fileUrl: m3u8.data.m3u8Url,
           vodName: list.filter((item, index) => index !== (list.length - 1)).join('_'),
           doubanId: doubanId,
-          remarks: ''
+          remarks: `切片工具上传，上传图床_id：${uploadImg.id}_configName：${uploadImg.configName}_remarks：${uploadImg.remarks}`
         }
 
         const res = await addM3u8(params)
