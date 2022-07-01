@@ -1,6 +1,11 @@
 <template>
   <el-aside class="left">
-    <el-form ref="form" :model="uploadSetting" label-width="120px">
+    <el-form
+      ref="form"
+      :model="uploadSetting"
+      label-width="120px"
+      :disabled="isCuttingStart"
+    >
       <el-form-item label="选择线路">
         <el-radio
           v-for="item,index in lineList"
@@ -51,17 +56,11 @@ export default {
   name: 'HomeViewLeft',
   components: {},
   data() {
-    return {
-      form:{
-        activeNum: 3,
-        isDelVideo: '1',
-        uploadImgIds: [],
-        refreshVideo: '1',
-      },
-    }
+    return {}
   },
   computed: {
     ...mapState("uploadStore", [ "uploadImgList", "uploadSetting", "lineList" ]),
+    ...mapState("cuttingStore", [ "isCuttingStart" ]),
   },
   methods: {
     ...mapActions("uploadStore", [ "getUploadList", "testUploadList" ]),

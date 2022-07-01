@@ -47,13 +47,15 @@ export const cuttingStore = {
         return 
       }
 
-      const result = dispatch("uploadStore/testUploadList", null, { root: true })
-      
+      const result = await dispatch("uploadStore/testUploadList", null, { root: true })
+      const uploadImgIds = rootState.uploadStore.uploadSetting.uploadImgIds
+      const uploadImgList = rootState.uploadStore.uploadImgList
+
       if(result.code === 200) {
         ipcRenderer.send("cutting", {
           videoPath: state.videoForm.videoPathInput,
           videoList: state.videoForm.videoLocalList,
-          uploadImgList: rootState.uploadStore.uploadImgList,
+          uploadImgList: uploadImgList.filter(item => uploadImgIds.includes(item.id)),
         })
       }
     }

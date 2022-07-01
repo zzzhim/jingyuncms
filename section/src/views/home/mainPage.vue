@@ -74,16 +74,16 @@ export default {
         return item
       })
 
-      SET_CUTTING_LIST(list)
+      this.SET_CUTTING_LIST(list)
     },
     getCuttingList(event, res) {
-      SET_CUTTING_LIST(res.cuttingList)
+      this.SET_CUTTING_LIST(res.cuttingList)
     },
     cuttingStart(event, res) {
-      SET_CUTTING_LIST(true)
+      this.SET_CUTTING_START(true)
     },
     cuttingEnd(event, res) {
-      SET_CUTTING_LIST(false)
+      this.SET_CUTTING_START(false)
     },
   },
   mounted() {
