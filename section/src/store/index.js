@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { uploadStore } from './modules/upload'
 
 Vue.use(Vuex)
 
@@ -9,9 +10,12 @@ export default new Vuex.Store({
   getters: {
   },
   mutations: {
+
   },
   actions: {
+
   },
   modules: {
+    uploadStore,
   }
 })
