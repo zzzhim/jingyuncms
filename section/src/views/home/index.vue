@@ -1,38 +1,7 @@
 <template>
   <el-container class="home">
     <el-aside class="left">
-      <el-form ref="form" :model="form" label-width="120px">
-        <el-form-item label="选择线路">
-          <el-checkbox-group v-model="form.checkList2">
-            <el-checkbox :label="item.name" v-for="item,index in xianluList" :key="index">{{
-              item.name }}
-            </el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-        <el-form-item label="图床">
-          <el-checkbox-group v-model="form.checkList" :max="form.checkList2.length">
-            <el-checkbox :label="item.id" v-for="item,index in getUploadDataList" :key="index">{{
-              item.configName }}
-            </el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-
-        <el-form-item label='是否删除视频'>
-          <el-radio-group v-model="form.check" @change="checkChange">
-            <el-radio :label="1">是</el-radio>
-            <el-radio :label="2">否</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label='重新拉视频'>
-          <el-radio-group v-model="form.check2">
-            <el-radio :disabled="form.check == 2" :label="1">是</el-radio>
-            <el-radio :label="2">否</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="testUploadList">测试</el-button>
-        </el-form-item>
-      </el-form>
+      <Left />
     </el-aside>
 
     <el-container class="center">
@@ -109,10 +78,13 @@
 
 <script>
 import { ipcRenderer } from "electron"
+import Left from "./left.vue"
 
 export default {
   name: 'HomeView',
-  components: {},
+  components: {
+    Left
+  },
   data() {
     return {
       cuttingList: [],
@@ -164,32 +136,8 @@ export default {
         uploadImgList: this.uploadImgList,
       })
     },
-    ceshi(){
-    },
-    async testUploadList(){
-
-      let data = {
-        uploadImgList: this.form.checkList, videoDelType: this.form.check, pushVideoType: this.form.check2
-      }
-      console.log(data,'datadata')
-
-      ipcRenderer.invoke("testUploadList",data).then(result => {
-          console.log(result)
-      })
-    },
-    async getUploadList(){
-      ipcRenderer.invoke("getUploadList", {})
-        .then(result => {
-          this.getUploadDataList = result
-          // 测试图床上传
-         
-        })
-    }
   },
   mounted() {
-    this.getUploadList()
-  },
-  created() {
     ipcRenderer.on("cuttingStart", (event, res) => {
       this.isStart = true
     })

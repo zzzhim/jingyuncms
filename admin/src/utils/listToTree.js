@@ -8,8 +8,12 @@ export function listToTree(list) {
   
   for (i = 0; i < list.length; i += 1) {
     node = list[i];
+    console.log(node,'xxx')
     if (node.parentId != null && node.parentId != 0) {
-      list[map[node.parentId]].children.push(node);
+     
+      if (list[map[node.parentId]] && list[map[node.parentId]].children){
+        list[map[node.parentId]].children.push(node);
+      }
     } else {
       roots.push(node);
     }

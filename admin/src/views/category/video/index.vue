@@ -1,21 +1,10 @@
 <template>
   <div class="dashboard-container">
-    <AccurateSearch
-      :list="list"
-      :formData="queryParams"
-      @queryTable="getList"
-      @handleQuery="handleQuery"
-      :isOneRow="true"
-      >
-      <el-button
-        slot="toolbar"
-        type="primary"
-        icon="el-icon-plus"
-        size="mini"
-        @click="handleAdd"
-      >新增</el-button>
+    <AccurateSearch :list="list" :formData="queryParams" @queryTable="getList" @handleQuery="handleQuery"
+      :isOneRow="true">
+      <el-button slot="toolbar" type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">新增</el-button>
     </AccurateSearch>
-
+    <!-- {{treeData}} -->
     <el-table
       :data="treeData"
       row-key="id"
@@ -63,13 +52,8 @@
       </el-table-column>
     </el-table>
 
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="queryParams.pageNo"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <!-- <pagination v-show="total>0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
+      @pagination="getList" /> -->
 
     <Add ref="Add" @getList="getList" />
     <Edit ref="Edit" @getList="getList" />
@@ -94,7 +78,7 @@ export default {
       tableData: [],
       queryParams: {
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 10000,
         keyword: '',
         // interfaceType: '',
         // cmsType: '',
@@ -142,7 +126,6 @@ export default {
     },
     handleEdit(index, row) {
       const list = this.tableData.filter(item => item.id != row.id)
-
       this.$refs.Edit.isShow(true, { ...row, list: [ ...list] });
     },
     handleDelete(index, row) {
@@ -167,7 +150,6 @@ export default {
     listToTree,
     formatter(row, column, cellValue, index) {
       const find = this.tableData.find(item => item.id == row.parentId)
-
       return find ? find.categoryName : '顶级分类'
     }
   },
