@@ -45,27 +45,33 @@ export const uploadStore = {
     },
     // 测试图床是否正常
     testUploadList({ state }){
-      const list = state.uploadSetting.uploadImgIds
+      return new Promise((resolve, reject) => {
+        const list = state.uploadSetting.uploadImgIds
 
-      if(list.length === 0) {
-        Message.warning("请选择图床")
-        return 
-      }
-
-      if(list.length !== state.uploadSetting.activeNum) {
-        Message.warning("图床数量与线路数量需保持一致")
-        return 
-      }
-
-      // 测试图床上传
-      ipcRenderer.invoke("testUploadList", {
-        uploadImgList: state.uploadImgList.filter(item => list.includes(item.id)),
-      }).then(result => {
-        if(result.code === 200) {
-          Message.success("图床接口正常")
-        }else {
-          Message.warning(result.message)
+        if(list.length === 0) {
+          Message.warning("请选择图床")
+          return 
         }
+
+        if(list.length !== state.uploadSetting.activeNum) {
+          Message.warning("图床数量与线路数量需保持一致")
+          return 
+        }
+
+        // 测试图床上传
+        ipcRenderer.invoke("testUploadList", {
+          uploadImgList: state.uploadImgList.filter(item => list.includes(item.id)),
+        }).then(result => {
+          if(result.code === 200) {
+            // Message.success("图床接口正常")
+            resolve(result)
+          }else {
+            Message.warning(result.message)
+            reject(result)
+          }
+        }).catch(err => {
+          reject(err)
+        })
       })
     }
   },
