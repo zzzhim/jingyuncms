@@ -3,19 +3,15 @@ import { logger } from "../utils/logger"
 import fs from "fs"
 
 export const getLocalVideoList = async (path) => {
-  return new Promise((resolve, reject) => {
+  try {
     if(!isPathExists(path)) {
-      logger.info('文件不存在')
+      logger.info('文件不存在', path)
       return 
     }
   
-    fs.readdir(path, (err, list) => {
-      if(err) {
-        reject()
-        return 
-      }
-  
-      list = list
+    let list = fs.readdirSync(path)
+
+    list = list
         .filter(fileName => fileName.substring(fileName.length - 4).toLocaleLowerCase() === '.mp4')
         .map((item, index) => ({
           id: index + 1,
@@ -23,11 +19,11 @@ export const getLocalVideoList = async (path) => {
           type: 'mp4',
         }))
 
-      resolve({
-        channel: 'updateVideoList',
-        list,
-        totalCount: list.length
-      })
-    })
-  })
+    return {
+      list,
+      totalCount: list.length
+    }
+  } catch (error) {
+    logger.info(error)
+  }
 }

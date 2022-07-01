@@ -59,6 +59,7 @@ export default {
   },
   computed: {
     ...mapState("cuttingStore", [ "cuttingList", "isCuttingStart" ]),
+    ...mapState("uploadStore", [ "uploadSetting" ]),
   },
   methods: {
     ...mapMutations("cuttingStore", [ "SET_CUTTING_LIST", "SET_CUTTING_START" ]),
@@ -86,6 +87,11 @@ export default {
     },
     cuttingEnd(event, res) {
       this.SET_CUTTING_START(false)
+
+      // 重新获取视频切片
+      if(this.uploadSetting.isDelVideo == '1' && this.uploadSetting.refreshVideo == '1') {
+        this.handleClick()
+      }
     },
     async handleClick() {
       if(this.loading) {

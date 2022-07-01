@@ -41,10 +41,10 @@
           <el-radio label="0">否</el-radio>
         </el-radio-group>
       </el-form-item>
-  <!-- 
+  
       <el-form-item>
         <el-button @click="testUploadList">测试</el-button>
-      </el-form-item> -->
+      </el-form-item>
     </el-form>
   </el-aside>
 </template>

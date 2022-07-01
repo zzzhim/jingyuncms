@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import { ipcRenderer } from "electron"
 import { mapActions, mapMutations, mapState } from "vuex"
 
 export default {
@@ -68,23 +67,7 @@ export default {
   methods: {
     ...mapMutations("cuttingStore", [ "SET_VIDEO_FORM" ]),
     ...mapActions("cuttingStore", [ "handleGetVideo" ]),
-    updateVideoList(event, res) {
-      console.log(this.videoForm)
-      if(res.code === 200) {
-        this.SET_VIDEO_FORM({
-          ...this.videoForm,
-          videoLocalList: res.data.list
-        })
-      }
-    }
   },
-  mounted() {
-    // 更新右侧视频列表
-    ipcRenderer.on("updateVideoList", this.updateVideoList)
-  },
-  destroyed() {
-    ipcRenderer.removeListener("updateVideoList", this.updateVideoList)
-  }
 }
 </script>
 

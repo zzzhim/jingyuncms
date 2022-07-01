@@ -23,17 +23,23 @@ export const cuttingStore = {
     },
   },
   actions: {
-    handleGetVideo({ state }) {
-      ipcRenderer.invoke("getLocalVideoList", {
-        path: state.videoForm.videoPathInput
-      })
-      .then(res => {
+    async handleGetVideo({ state, commit }) {
+      try {
+        const res = await ipcRenderer.invoke("getLocalVideoList", {
+          path: state.videoForm.videoPathInput
+        })
+
         if(res.code === 200) {
-          Message.success(res.message)
+          commit("SET_VIDEO_FORM", {
+            ...state.videoForm,
+            videoLocalList: res.data.list
+          })
         }else {
           Message.warning(res.message)
         }
-      })
+      } catch (error) {
+        console.log(error)
+      }
     },
     /**
      * 
@@ -41,6 +47,10 @@ export const cuttingStore = {
      */
     async handleCutting(store) {
       const { rootState, dispatch, state } = store
+      const uploadImgIds = rootState.uploadStore.uploadSetting.uploadImgIds
+      const uploadImgList = rootState.uploadStore.uploadImgList
+
+      await dispatch("handleGetVideo")
 
       if(!state.videoForm.videoLocalList.length) {
         Message.warning('视频列表为空')
@@ -48,14 +58,13 @@ export const cuttingStore = {
       }
 
       const result = await dispatch("uploadStore/testUploadList", null, { root: true })
-      const uploadImgIds = rootState.uploadStore.uploadSetting.uploadImgIds
-      const uploadImgList = rootState.uploadStore.uploadImgList
 
-      if(result.code === 200) {
+      if(result && result.code === 200) {
         ipcRenderer.send("cutting", {
           videoPath: state.videoForm.videoPathInput,
           videoList: state.videoForm.videoLocalList,
           uploadImgList: uploadImgList.filter(item => uploadImgIds.includes(item.id)),
+          uploadSetting: rootState.uploadStore.uploadSetting
         })
       }
     }

@@ -44,8 +44,8 @@ export const uploadStore = {
         })
     },
     // 测试图床是否正常
-    testUploadList({ state }){
-      return new Promise((resolve, reject) => {
+    async testUploadList({ state }){
+      try {
         const list = state.uploadSetting.uploadImgIds
 
         if(list.length === 0) {
@@ -59,20 +59,19 @@ export const uploadStore = {
         }
 
         // 测试图床上传
-        ipcRenderer.invoke("testUploadList", {
+        const result = await ipcRenderer.invoke("testUploadList", {
           uploadImgList: state.uploadImgList.filter(item => list.includes(item.id)),
-        }).then(result => {
-          if(result.code === 200) {
-            // Message.success("图床接口正常")
-            resolve(result)
-          }else {
-            Message.warning(result.message)
-            reject(result)
-          }
-        }).catch(err => {
-          reject(err)
         })
-      })
+
+        return result
+        // if(result.code === 200) {
+        //   // Message.success("图床接口正常")
+        // }else {
+        //   Message.warning(result.message)
+        // }
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   modules: {
