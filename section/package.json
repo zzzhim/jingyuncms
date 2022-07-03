@@ -20,6 +20,7 @@
     "electron-is-dev": "^2.0.0",
     "electron-store": "^8.0.2",
     "element-ui": "^2.15.9",
+    "ffmpeg-static": "^5.0.2",
     "ffmpeg-static-electron": "^2.0.3",
     "fluent-ffmpeg": "^2.1.2",
     "log4js": "^6.5.2",
