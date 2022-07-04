@@ -43,7 +43,7 @@
       </el-form-item>
   
       <el-form-item>
-        <el-button @click="testUploadList">测试</el-button>
+        <el-button @click="handleClick">测试</el-button>
       </el-form-item>
     </el-form>
   </el-aside>
@@ -64,6 +64,15 @@ export default {
   },
   methods: {
     ...mapActions("uploadStore", [ "getUploadList", "testUploadList" ]),
+    handleClick() {
+      this.testUploadList().then((result) => {
+        if(result.code === 200) {
+          this.$message.success("图床接口正常")
+        }else {
+          this.$message.warning(result.message)
+        }
+      })
+    }
   },
   mounted() {
     this.getUploadList()

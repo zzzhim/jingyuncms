@@ -7,14 +7,17 @@ import { isPathExists } from "./isPathExists"
 import { createPath } from "./createPath"
 import { logger } from "./logger"
 import { fixFfmpegPath } from "./fixFfmpegPath"
+import { graphics, IsAMD } from "./getGraphics"
 
-export function mp4ToM3U8({
+export async function mp4ToM3U8({
   filePath = '',
   fileName = '',
   fileType,
   uuid,
   line,
 }, callBack) {
+  const controllers = await graphics()
+
   return new Promise((resolve, reject) => {
     const name = fileName.substring(0, fileName.length - 4)
     const tsFileName = `${dayjs().format('YYYY-MM-DD')}`
@@ -50,18 +53,25 @@ export function mp4ToM3U8({
     try {
       const ffmpeg = fluentFfmpeg()
 
-
       ffmpeg.setFfmpegPath(fixFfmpegPath(ffmpegStaticElectron.path))
+
+      console.log(controllers[0])
+      console.log(IsAMD(controllers[0]))
+      const inputOption = IsAMD(controllers[0]) ? [
+        "-hwaccel dxva2",
+        "-hwaccel_device 0",
+      ] : [
+        "-hwaccel cuvid",
+        "-hwaccel_device 0",
+        "-c:v h264_cuvid", // 英伟达硬解码
+      ]
+
+      const videoCodec = IsAMD(controllers[0]) ? "hevc_amf" : "h264_nvenc"
 
       ffmpeg
         .input(videoFilePath)
-        .inputOption([
-          "-hwaccel cuvid",
-          // "-hwaccel_device 1",
-          "-c:v h264_cuvid",
-          // "-c:v h264_nvenc",
-        ])
-        .videoCodec("h264_nvenc")
+        .inputOption(inputOption)
+        .videoCodec(videoCodec)
         .outputOptions([
           '-map 0',
           '-f hls',

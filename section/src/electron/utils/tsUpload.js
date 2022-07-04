@@ -48,7 +48,7 @@ export async function tsUpload({ uuid, dirPath, m3u8PathList, uploadImgList, upl
         }
 
         // 延迟3秒，然后开始下次请求
-        await sleep(1500)
+        await sleep(3000)
       }
       
       await uploadM3u8(m3u8PathList, uploadImgList, uploadSetting)
