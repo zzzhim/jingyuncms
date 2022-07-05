@@ -48,6 +48,7 @@ function listToTree(myId: string, pId: string, list: string | any[]) {
   }
   return nodes;
 }
+
 export const getServerSideProps = async () => {
   const result = await getCategoryList()
   let data: Daum[] = []

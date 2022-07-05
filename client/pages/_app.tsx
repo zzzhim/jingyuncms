@@ -4,6 +4,7 @@ import { TokenKey } from '../utils/auth'
 import PropTypes from 'prop-types'
 import cookies from 'next-cookies'
 import service from '../utils/request'
+import { RecoilRoot } from 'recoil'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -27,7 +28,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         {/* <script src="/js/script.js"></script> */}
       </Head>
 
-      <Component {...pageProps} />
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
     </>
   )
 }
