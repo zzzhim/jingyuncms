@@ -50,8 +50,7 @@ ipcMain.on("cutting", async (event, {
     })
 
     try {
-      // const list = arrToDim(cuttingList, uploadImgList.length)
-      const list = arrToDim(cuttingList, 1)
+      const list = arrToDim(cuttingList, uploadImgList.length)
 
       for (let index = 0; index < list.length; index++) {
         const arr = list[index]

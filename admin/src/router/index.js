@@ -45,18 +45,24 @@ export const constantRoutes = [
         component: () => import('@/views/recommend/pc/home/index'),
         meta: { title: '首页推荐', icon: 'dashboard' }
       },
-      {
-        path: 'passToStock',
-        name: 'passToStock',
-        component: () => import('@/views/recommend/pc/passToStock/index'),
-        meta: { title: '入库配置', icon: 'dashboard' }
-      },
+      // {
+      //   path: 'passToStock',
+      //   name: 'passToStock',
+      //   component: () => import('@/views/recommend/pc/passToStock/index'),
+      //   meta: { title: '入库配置', icon: 'dashboard' }
+      // },
       {
         path: 'bind',
         name: 'bindVideo',
         hidden: true,
         component: () => import('@/views/recommend/pc/bind/index'),
         meta: { title: '绑定视频', icon: 'dashboard' }
+      },
+       {
+        path: 'imgMange',
+         name: 'imgMange',
+         component: () => import('@/views/recommend/pc/imgMange/index'),
+        meta: { title: '上传图片配置', icon: 'dashboard' }
       },
     ]
   },
