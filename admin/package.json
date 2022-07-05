@@ -23,7 +23,9 @@
     "nprogress": "0.2.0",
     "path-to-regexp": "2.4.0",
     "socket.io-client": "^4.4.1",
+    "sql-formatter": "^8.0.0",
     "vue": "2.6.10",
+    "vue-monaco-editor": "^0.0.19",
     "vue-router": "3.0.6",
     "vuex": "3.1.0"
   },
