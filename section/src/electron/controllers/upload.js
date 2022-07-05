@@ -2,6 +2,9 @@ import path from "path"
 import { ipcMain } from "electron"
 import { uploadConfigImgList, uploadImg } from "../api/upload"
 import { setUploadList } from "../utils/auth"
+import { isPathExists } from "../utils/isPathExists"
+import fs from "fs"
+import { base64_img } from "../config"
 
 // 获取图片上传接口
 ipcMain.handle("getUploadList", async (event, {}) => {
@@ -18,6 +21,10 @@ ipcMain.handle("getUploadList", async (event, {}) => {
 })
 
 ipcMain.handle("testUploadList", async (event, { uploadImgList }) => {
+  if(!isPathExists(path.join(process.cwd(), 'tp.png'))) {
+    fs.writeFileSync(path.join(process.cwd(), 'tp.png'), base64_img, "base64")
+  }
+
   const sendList = uploadImgList.map(item => uploadImg(path.join(process.cwd(), 'tp.png'), item))
   
   const result = await Promise.all(sendList)

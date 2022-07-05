@@ -18,8 +18,6 @@ export const handleHlsVideo = (xhr: any, callbacks: (arr: Uint8Array) => void) =
     // var base64 = base64String.split(',')[1]
     const base64 = base64String
 
-
-    console.log(base64)
     var rawData = (window as any).atob(base64)
     var outputArray = new Uint8Array(rawData.length)
 

@@ -14,19 +14,12 @@ ipcMain.handle("getLocalVideoList", async (event, { path }) => {
     }
   }
 
-  getLocalVideoList(path).then(res => {
-    event.sender.send(res.channel, {
-      code: 200,
-      data: {
-        list: res.list,
-        totalCount: res.totalCount,
-      }
-    })
-  })
+  const data = await getLocalVideoList(path)
 
   return {
     code: 200,
     message: '获取视频列表成功',
+    data,
   }
 })
 
@@ -34,7 +27,12 @@ ipcMain.handle("getLocalVideoList", async (event, { path }) => {
  * 
  * @description 开始切片
  */
-ipcMain.on("cutting", async (event, { videoPath, videoList, uploadImgList }) => {
+ipcMain.on("cutting", async (event, {
+  videoPath,
+  videoList,
+  uploadImgList,
+  uploadSetting,
+}) => {
   // 切片开始
   event.sender.send("cuttingStart", {})
 
@@ -64,7 +62,8 @@ ipcMain.on("cutting", async (event, { videoPath, videoList, uploadImgList }) => 
             filePath: videoPath,
             fileName: arr[i].fileName,
             fileType: arr[i].type,
-            uploadImgList: uploadImgList,
+            uploadImgList: [ ...uploadImgList ],
+            uploadSetting: { ...uploadSetting },
           })
         }
 

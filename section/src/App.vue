@@ -4,11 +4,9 @@
   </div>
 </template>
 <script>
-// import { getStore } from "./electron/utils/store";
+
 export default {
   mounted() {
-    // console.log(getStore('token'),'token')
-    
     if (!localStorage.getItem('token')) {
       this.$router.push('/login')
     }

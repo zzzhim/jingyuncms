@@ -1,6 +1,11 @@
 <template>
   <el-aside class="left">
-    <el-form ref="form" :model="uploadSetting" label-width="120px">
+    <el-form
+      ref="form"
+      :model="uploadSetting"
+      label-width="120px"
+      :disabled="isCuttingStart"
+    >
       <el-form-item label="选择线路">
         <el-radio
           v-for="item,index in lineList"
@@ -36,10 +41,10 @@
           <el-radio label="0">否</el-radio>
         </el-radio-group>
       </el-form-item>
-  <!-- 
+  
       <el-form-item>
-        <el-button @click="testUploadList">测试</el-button>
-      </el-form-item> -->
+        <el-button @click="handleClick">测试</el-button>
+      </el-form-item>
     </el-form>
   </el-aside>
 </template>
@@ -51,20 +56,23 @@ export default {
   name: 'HomeViewLeft',
   components: {},
   data() {
-    return {
-      form:{
-        activeNum: 3,
-        isDelVideo: '1',
-        uploadImgIds: [],
-        refreshVideo: '1',
-      },
-    }
+    return {}
   },
   computed: {
     ...mapState("uploadStore", [ "uploadImgList", "uploadSetting", "lineList" ]),
+    ...mapState("cuttingStore", [ "isCuttingStart" ]),
   },
   methods: {
     ...mapActions("uploadStore", [ "getUploadList", "testUploadList" ]),
+    handleClick() {
+      this.testUploadList().then((result) => {
+        if(result.code === 200) {
+          this.$message.success("图床接口正常")
+        }else {
+          this.$message.warning(result.message)
+        }
+      })
+    }
   },
   mounted() {
     this.getUploadList()

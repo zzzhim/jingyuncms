@@ -40,7 +40,7 @@
     </el-main>
 
     <el-footer class="footer">
-      <el-button round type="primary" class="submit" @click="handleCutting" :disabled="isCuttingStart">开始切片</el-button>
+      <el-button round type="primary" class="submit" @click="handleClick" :disabled="isCuttingStart">开始切片</el-button>
     </el-footer>
   </el-container>
 </template>
@@ -53,10 +53,13 @@ export default {
   name: 'HomeViewMain',
   components: {},
   data() {
-    return {}
+    return {
+      loading: false
+    }
   },
   computed: {
     ...mapState("cuttingStore", [ "cuttingList", "isCuttingStart" ]),
+    ...mapState("uploadStore", [ "uploadSetting" ]),
   },
   methods: {
     ...mapMutations("cuttingStore", [ "SET_CUTTING_LIST", "SET_CUTTING_START" ]),
@@ -74,17 +77,35 @@ export default {
         return item
       })
 
-      SET_CUTTING_LIST(list)
+      this.SET_CUTTING_LIST(list)
     },
     getCuttingList(event, res) {
-      SET_CUTTING_LIST(res.cuttingList)
+      this.SET_CUTTING_LIST(res.cuttingList)
     },
     cuttingStart(event, res) {
-      SET_CUTTING_LIST(true)
+      this.SET_CUTTING_START(true)
     },
     cuttingEnd(event, res) {
-      SET_CUTTING_LIST(false)
+      this.SET_CUTTING_START(false)
+
+      // 重新获取视频切片
+      if(this.uploadSetting.isDelVideo == '1' && this.uploadSetting.refreshVideo == '1') {
+        this.handleClick()
+      }
     },
+    async handleClick() {
+      if(this.loading) {
+        return 
+      }
+
+      this.loading = true
+
+      await this.handleCutting()
+
+      setTimeout(() => {
+        this.loading = false
+      }, 1000)
+    }
   },
   mounted() {
     ipcRenderer.on("cuttingStart", this.cuttingStart)
