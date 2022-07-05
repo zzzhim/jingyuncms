@@ -24,7 +24,7 @@ function VideoCard(props: Props) {
           <div className="loading"></div>
         </div>
         <div className="module-item-caption">
-          <span>{ props.vodName }</span>
+          <span>{props.vodName}</span>
           <span className="video-class">国产剧</span>
           <span>内地</span>
         </div>
@@ -40,7 +40,7 @@ function VideoCard(props: Props) {
       <div className="module-item-titlebox">
         <a href="/voddetail/XIySCS.html" className="module-item-title" title={props.vodName}>{props.vodName}</a>
       </div>
-      <div className="module-item-text">{ props.vodRemarks }</div>
+      <div className="module-item-text">{props.vodRemarks}</div>
     </div>
   )
 }

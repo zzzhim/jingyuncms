@@ -320,7 +320,7 @@ input[type=checkbox] {
 @font-face {
   font-family: dianyingim;
   src: url(../font/dianyingim.eot);
-  src: url(../font/dianyingim.eot#iefix) format("embedded-opentype"), url(../font/dianyingim.ttf) format("truetype"), url(../font/dianyingim.woff) format("woff"), url(../font/dianyingim.svg#dianyingim) format("svg");
+  src: url(../font/dianyingim.eot#iefix) format("embedded-opentype"), url(../js/dianyingim.ttf) format("truetype"), url(../js/dianyingim.ttf) format("woff"), url(../font/dianyingim.svg#dianyingim) format("svg");
   font-weight: 400;
   font-style: normal;
   font-display: block
