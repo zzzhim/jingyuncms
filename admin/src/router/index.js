@@ -45,12 +45,12 @@ export const constantRoutes = [
         component: () => import('@/views/recommend/pc/home/index'),
         meta: { title: '首页推荐', icon: 'dashboard' }
       },
-      // {
-      //   path: 'passToStock',
-      //   name: 'passToStock',
-      //   component: () => import('@/views/recommend/pc/passToStock/index'),
-      //   meta: { title: '入库配置', icon: 'dashboard' }
-      // },
+      {
+        path: 'userMange',
+        name: 'userMange',
+        component: () => import('@/views/recommend/pc/userMange/index'),
+        meta: { title: '个人中心', icon: 'dashboard' }
+      },
       {
         path: 'bind',
         name: 'bindVideo',

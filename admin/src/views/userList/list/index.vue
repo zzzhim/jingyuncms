@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
 
-     <el-form :inline="true" :model="form" class="demo-form-inline">
+    <el-form :inline="true" :model="form" class="demo-form-inline">
       <el-form-item label="用户名称">
         <el-input v-model="form.username" @change="sousuo" placeholder="用户名称"></el-input>
       </el-form-item>
@@ -12,19 +12,10 @@
       </el-form-item>
     </el-form>
 
-    <el-table
-      :data="list" height="calc(100vh - 270px)"
-      style="width: 100%"
-    >
-      <el-table-column
-        type="index"
-        label="序号"
-        >
+    <el-table :data="list" height="calc(100vh - 270px)" style="width: 100%">
+      <el-table-column type="index" label="序号">
       </el-table-column>
-      <el-table-column
-        prop="vodPic"
-        label="用户头像"
-      >
+      <el-table-column prop="avatar" label="用户头像">
         <template slot-scope="scope">
           <!-- {{scope.row.avatar}} -->
           <img :src="scope.row.avatar" style="width:80px" alt="" srcset="">
@@ -34,42 +25,31 @@
           /> -->
         </template>
       </el-table-column>
-      <el-table-column
-        prop="username"
-        label="用户名称 "
-        >
+      <el-table-column prop="username" label="用户名称 ">
       </el-table-column>
-      <!-- <el-table-column
-        prop="vod_class"
-        label="分类"
-        >
-      </el-table-column> -->
-      <el-table-column
-        prop="email"
-        label="邮箱"
-      >
-    
+      <el-table-column prop="role" label="权限">
+        <template slot-scope="scope">
+          <span v-if="scope.row.role == '0'">超级管理员</span>
+          <span v-if="scope.row.role == '1'">普通用户</span>
+          <span v-if="scope.row.role == '2'">管理员</span>
+        </template>
       </el-table-column>
-      <el-table-column
-        prop="createdAt"
-        label="创建时间"
-      >
+      <el-table-column prop="email" label="邮箱">
+
+      </el-table-column>
+      <el-table-column prop="createdAt" label="创建时间">
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)"
-          >编辑</el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-          >删除</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" @click="quanxian(scope.row)">权限</el-button>
+          <!-- <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
         </template>
       </el-table-column>
     </el-table>
-    <Pagination style="text-align:center" :pageSize="form.pageSize" :page="form.pageNo" :total="total" @pagination="pagination"></Pagination>
+    <Pagination style="text-align:center" :pageSize="form.pageSize" :page="form.pageNo" :total="total"
+      @pagination="pagination"></Pagination>
+    <permission ref="permission" @shuaxin="userList"></permission>
   </div>
 </template>
 
@@ -77,9 +57,10 @@
 import { mapGetters } from 'vuex'
 import { userList } from '../../../api/user'
 import Pagination from '@/components/Pagination';
+import permission from "../permission/index";
 export default {
   components:{
-    Pagination
+    Pagination,permission
   },
   data() {
     return {
@@ -111,6 +92,9 @@ export default {
       this.form.pageNo = 1
       this.userList()
 
+    },
+    quanxian(e){
+      this.$refs.permission.init(e)
     },
     pagination(e){
       this.form.pageSize = e.limit

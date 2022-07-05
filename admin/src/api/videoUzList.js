@@ -24,6 +24,20 @@ export function fileUpload(data) {
 }
 
 
+export function videoList(params) {
+  return request({
+    url: '/m3u8/list',
+    method: 'get',
+    params
+  })
+}
 
+export function videpDel(data) {
+  return request({
+    url: '/m3u8/del',
+    method: 'post',
+    data
+  })
+}
 
 

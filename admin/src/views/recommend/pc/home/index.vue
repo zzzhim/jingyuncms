@@ -107,8 +107,8 @@ export default {
     getList() {
       this.recommendConfigList()
     },
-    async recommendConfigList(params = {}) {
-      const res = await recommendConfigList(params)
+    async recommendConfigList() {
+      const res = await recommendConfigList(this.queryParams)
 
       if(res.code === 200) {
         this.list = res.data.list
