@@ -34,8 +34,6 @@
 </template>
 <script>
 import { videoObjEdit, fileUpload } from '@/api/videoUzList';
-import { uploadImg, } from '@/api/video';
-
 export default {
   data() {
     return {

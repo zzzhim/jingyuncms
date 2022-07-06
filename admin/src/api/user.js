@@ -22,3 +22,19 @@ export function userList(params) {
     params
   })
 }
+
+export function userRole(data) {
+  return request({
+    url: '/user/role/edit',
+    method: 'post',
+    data
+  })
+}
+
+export function accountAndPass(data) {
+  return request({
+    url: '/user/edit/accountAndPass',
+    method: 'post',
+    data
+  })
+}
