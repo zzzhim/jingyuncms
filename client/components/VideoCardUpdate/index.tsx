@@ -13,21 +13,21 @@ function VideoCardUpdate() {
             <div className="module-tab-title">选择类型<span className="close-drop"><i className="icon-close-o"></i></span></div>
             <div>
               <span className="module-tab-item tab-item selected" data-dropdown-value="全部">全部</span>
-                
+
               <span className="module-tab-item tab-item" data-dropdown-value="蓝光&4K">蓝光&4K</span>
-                
+
               <span className="module-tab-item tab-item" data-dropdown-value="影视">影视</span>
-                
+
               <span className="module-tab-item tab-item" data-dropdown-value="连续剧">连续剧</span>
-                
+
               <span className="module-tab-item tab-item" data-dropdown-value="综艺">综艺</span>
-                
+
               <span className="module-tab-item tab-item" data-dropdown-value="番剧">番剧</span>
-                
+
               <span className="module-tab-item tab-item" data-dropdown-value="少儿">少儿</span>
-                
+
               <span className="module-tab-item tab-item" data-dropdown-value="其他">其他</span>
-                
+
             </div>
           </div>
         </div>
@@ -36,9 +36,9 @@ function VideoCardUpdate() {
 
       <div className="module-list module-lines-list">
         <div className="module-items">
-          {
+          {/* {
             [ ...new Array(20) ].map((item, index) => <VideoCard key={index} />)
-          }
+          } */}
         </div>
       </div>
 

@@ -3,6 +3,23 @@ function Footer() {
   return (
     <>
       <footer id="footer" className="wrapper pd60">
+        {/* <div className="fixed_right_bar">
+          <div className="mx-lrmenu mx-lrshow">
+            <div className="ant-back-top dbicon" >
+              <i className="iconfont icon-a-zhiding5"></i>
+            </div>
+            <div className="dbicon" id="clothes" >
+
+              <i className="iconfont icon-rijianmoshi"></i>
+            </div>
+            <div className="dbicon">
+              <a href="/topic.html"><i className="iconfont icon-zhuanti-2"></i></a>
+            </div>
+          </div>
+          <div className="moremeum">
+            <i className="iconfont icon-a-gengduo1"></i>
+          </div>
+        </div> */}
         <p className="sitemap">
           <img src="/mxstatic/picture/logo.png" height="10" />
           <a target="_blank" href="/label/about.html">关于</a><span className="space-line-bold"></span>

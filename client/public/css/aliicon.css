@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'iconfont';
-  src: url('//at.alicdn.com/t/font_2614090_df1ikcweji.woff2?t=1625393507529') format('woff2'),
-    url('//at.alicdn.com/t/font_2614090_df1ikcweji.woff?t=1625393507529') format('woff'),
-    url('//at.alicdn.com/t/font_2614090_df1ikcweji.ttf?t=1625393507529') format('truetype');
+  src: url('/js/font_2614090_df1ikcweji.woff2') format('woff2'),
+    url('/js/font_2614090_df1ikcweji.woff') format('woff'),
+    url('/js/dianyingim.ttf') format('truetype');
 }
 
 .iconfont {

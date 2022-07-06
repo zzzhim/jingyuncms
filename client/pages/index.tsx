@@ -31,7 +31,7 @@ function HomePage(props: InferGetServerSidePropsType<typeof getServerSideProps>)
       </Head>
 
       <div className='homepage'>
-        <Header />
+        <Header active={0}/>
 
         <div className="app-text">
           <a href="/label/app.html"><i className="icon-download"></i>下载<strong>免费视频分享大全-鲸云视频APP</strong>客户端</a>
