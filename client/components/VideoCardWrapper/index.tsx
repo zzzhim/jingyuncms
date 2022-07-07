@@ -23,7 +23,7 @@ function VideoCardWrapper(props: Props) {
       <div className="module-list module-lines-list">
         <div className="module-items">
           {
-            props.children.map(item => (
+            props.children?.map(item => (
               <VideoCard key={item.id} {...item} />
             ))
           }

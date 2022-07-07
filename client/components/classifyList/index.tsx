@@ -18,6 +18,9 @@ function classifyList() {
               <a className="block-box-content" href="/vodtype/JCCCCS.html" title="综艺"><strong className="title">综艺</strong></a>
               <div className="block-box-bg">综艺</div>
             </div>
+            <div>
+              
+            </div>
             <div className="block-box-item ">
               <a className="block-box-content" href="/vodtype/OCCCCS.html" title="蓝光番剧"><strong className="title">蓝光番剧</strong></a>
               <div className="block-box-bg">蓝光番剧</div>

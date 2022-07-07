@@ -12,7 +12,7 @@ function VideoCard(props: Props) {
     <div className="module-item">
       <div className="module-item-cover">
         <div className="module-item-pic">
-          <a href="/voddetail/XIySCS.html" title={props.vodName} >
+          <a href={'/videoDetail/'+props.id} title={props.vodName} >
             <i className="icon-play"></i>
           </a>
 

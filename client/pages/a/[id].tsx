@@ -128,8 +128,7 @@ const LogProps = React.forwardRef((props: any, ref: any) => {
     }
   }))
 
-  return <button ref={ref}>
-  </button>
+  return
 })
 
 

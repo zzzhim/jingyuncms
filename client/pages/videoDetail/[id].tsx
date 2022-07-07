@@ -1,21 +1,32 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Footer } from '../../components/Footer'
-import { Header } from '../../components/Header'
 import { MiniHeader } from '../../components/MiniHeader'
-import { VideoCard } from '../../components/VideoCard'
-import { VideoCardWrapper } from '../../components/VideoCardWrapper'
+import type { InferGetServerSidePropsType } from 'next'
+import { useRouter } from "next/router"
+import { VdeoDetail } from "../../types/category";
+import { videoDetail } from '../../api/videoDetail'
+export const getServerSideProps = async () => {
+  let data = {}
+  const result = await videoDetail({ id: 4 })
+  if (result.code === 200 && result.data) {
+    data = result.data
+  }
+  return {
+    props: {data},
+  }
+}
 
-const Page: NextPage = () => {
+function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter()
+  const num = router.query.id
   return (
     <>
       <Head>
         <title>视频详情页面</title>
       </Head>
-
       <div className='homepage'>
         <MiniHeader />
-
         <div className="app-text">
           <a href="/label/app.html"><i className="icon-download"></i>下载<strong>免费视频分享大全-鲸云视频APP</strong>客户端</a>
           <div className="bg-ball">
@@ -24,12 +35,9 @@ const Page: NextPage = () => {
 
         <main id="index-main" className="wrapper">
           <div className="content">
-            <Desc />
-
+            <Desc datas={props?.data} />
             <VideoList />
-
-            <VideoCardWrapper />
-            <VideoCardWrapper />
+            {/* <VideoCardWrapper /> */}
           </div>
         </main>
 
@@ -38,27 +46,32 @@ const Page: NextPage = () => {
     </>
   )
 }
-
-function Desc() {
+interface DescProps {
+  datas?: VdeoDetail
+}
+function Desc(props: DescProps) {
+  console.log(props.datas,'props')
+  let data = props.datas
   return (
     <div className="box view-heading">
       <div className="mobile-play">
         <div className="module-item-cover">
-          <div className="module-item-pic"><img className="lazyload" data-src="https://www.qbqbb.cn/upload/vod/20220605-1/fc08b43db1b70b258ecda10e31b2d6ba.jpg" src="https://www.qbqbb.cn/mxstatic/image/loading.gif" /></div>
+          <div className="module-item-pic"><img className="lazyload" data-src={data?.vodPic} src={data?.vodPic} /></div>
         </div>
       </div>
       <div className="video-cover">
         <div className="module-item-cover">
           <div className="module-item-pic">
-            <a href="/vodplay/uIySCS-1-1.html" title="立刻播放奔跑吧 第六季"><i className="icon-play"></i></a><img className="lazyload" alt="奔跑吧 第六季" data-src="https://www.qbqbb.cn/upload/vod/20220605-1/fc08b43db1b70b258ecda10e31b2d6ba.jpg" src="https://www.qbqbb.cn/mxstatic/image/loading.gif" />
+            <a href="/vodplay/uIySCS-1-1.html" title={data?.vodName}><i className="icon-play"></i></a>
+            <img className="lazyload" alt={data?.vodName} data-src={data?.vodPic} src={data?.vodPic} />
             <div className="loading"></div>
           </div>
         </div>
       </div>
       <div className="video-info">
         <div className="video-info-header">
-          <h1 className="page-title">奔跑吧 第六季</h1>
-          <h2 className="video-subtitle" title="又名：benpaobadiliuji">benpaobadiliuji</h2>
+          <h1 className="page-title">{data?.vodName}</h1>
+          <h2 className="video-subtitle" title="又名：benpaobadiliuji">{data?.vodEn}</h2>
           <div className="scroll-box">
             <div className="video-info-aux scroll-content">
               <a href="/vodtype/xCCCCS.html" title="综艺" className="tag-link">
