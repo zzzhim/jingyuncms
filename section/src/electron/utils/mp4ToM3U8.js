@@ -25,12 +25,12 @@ export async function mp4ToM3U8({
     controller: controllers[0]
   }
 
-  if(controllers.length > 1) {
-    activeGraphics = {
-      num: controllers.length - 1,
-      controller: controllers[controllers.length - 1]
-    }
-  }
+  // if(controllers.length > 1) {
+  //   activeGraphics = {
+  //     num: controllers.length - 1,
+  //     controller: controllers[controllers.length - 1]
+  //   }
+  // }
 
   return new Promise((resolve, reject) => {
     const name = fileName.substring(0, fileName.length - 4)
@@ -70,12 +70,16 @@ export async function mp4ToM3U8({
       ffmpeg.setFfmpegPath(fixFfmpegPath(ffmpegStaticElectron.path))
 
       const inputOption = IsAMD(activeGraphics.controller) ? [
+        "-strict -2",
         "-hwaccel dxva2",
-        `-hwaccel_device ${activeGraphics.num}`,
+        // `-hwaccel_device ${activeGraphics.num}`,
+        `-hwaccel_device 0`,
         // "-c:v libx264",
       ] : [
+        "-strict -2",
         "-hwaccel cuvid",
-        `-hwaccel_device ${activeGraphics.num}`,
+        // `-hwaccel_device ${activeGraphics.num}`,
+        `-hwaccel_device 0`,
         "-c:v h264_cuvid", // 英伟达硬解码
       ]
 
@@ -84,7 +88,7 @@ export async function mp4ToM3U8({
       getVideoDurationInSeconds(videoFilePath, fixFfmpegPath(ffprobeStaticElectron.path)).then(duration => {
         ffmpeg
           .input(videoFilePath)
-          .inputOption([ "-strict -2", ...inputOption,  ])
+          .inputOption([ ...inputOption, ])
           .videoCodec(videoCodec)
           .outputOptions([
             '-map 0',
