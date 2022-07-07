@@ -11,6 +11,7 @@ export interface Daum {
 
 
 export interface VdeoDetail {
+  vodWeight:string
   vodWeekday: string
   vodArea: string
   vodLang: string

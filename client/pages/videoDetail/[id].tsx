@@ -2,13 +2,14 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Footer } from '../../components/Footer'
 import { MiniHeader } from '../../components/MiniHeader'
-import type { InferGetServerSidePropsType } from 'next'
+import type { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next'
 import { useRouter } from "next/router"
 import { VdeoDetail } from "../../types/category";
 import { videoDetail } from '../../api/videoDetail'
-export const getServerSideProps = async () => {
+import { string } from 'prop-types'
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   let data = {}
-  const result = await videoDetail({ id: 4 })
+  const result = await videoDetail({ id: context.query?.id })
   if (result.code === 200 && result.data) {
     data = result.data
   }
@@ -20,6 +21,7 @@ export const getServerSideProps = async () => {
 function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter()
   const num = router.query.id
+  
   return (
     <>
       <Head>
@@ -35,7 +37,7 @@ function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
         <main id="index-main" className="wrapper">
           <div className="content">
-            <Desc datas={props?.data} />
+            <Desc datas={props.data} />
             <VideoList />
             {/* <VideoCardWrapper /> */}
           </div>
@@ -62,7 +64,7 @@ function Desc(props: DescProps) {
       <div className="video-cover">
         <div className="module-item-cover">
           <div className="module-item-pic">
-            <a href="/vodplay/uIySCS-1-1.html" title={data?.vodName}><i className="icon-play"></i></a>
+            <a href="" title={data?.vodName}><i className="icon-play"></i></a>
             <img className="lazyload" alt={data?.vodName} data-src={data?.vodPic} src={data?.vodPic} />
             <div className="loading"></div>
           </div>
@@ -71,26 +73,25 @@ function Desc(props: DescProps) {
       <div className="video-info">
         <div className="video-info-header">
           <h1 className="page-title">{data?.vodName}</h1>
-          <h2 className="video-subtitle" title="又名：benpaobadiliuji">{data?.vodEn}</h2>
+          <h2 className="video-subtitle" title={data?.vodEn}>{data?.vodEn}</h2>
           <div className="scroll-box">
             <div className="video-info-aux scroll-content">
-              <a href="/vodtype/xCCCCS.html" title="综艺" className="tag-link">
-                <span className="video-tag-icon">
-                  <i className="icon-cate-zy"></i>
-                  综艺						     </span>
-              </a>
-              <div className="tag-link">
-                <span className="slash">/</span>
-
-                <a href="/vodshow/CCCCCS---%E7%BB%BC%E8%89%BA--------.html">综艺</a><span className="slash">/</span>
-              </div>
-
-              <a className="tag-link" href="/vodshow/CCCCCS-----------2022.html">2022	</a>
-
-              <a className="tag-link" href="/vodshow/CCCCCS-%E4%B8%AD%E5%9B%BD----------.html">中国	</a>
+              {
+                data?.vodClass.split(',').map((item,index) => 
+                  <a href="" title={item} className="tag-link">
+                    <span className="video-tag-icon">
+                      {index == 0?(
+                        <i className="icon-cate-zy" ></i>
+                      ):''}
+                      {item}						     </span>
+                  </a>
+                ) 
+              }
+              <a className="tag-link" href="">{data?.vodYear}</a>
+              <a className="tag-link" href="">{data?.vodArea}</a>
             </div>
           </div>
-          <a href="/vodplay/uIySCS-1-1.html" className="btn-important btn-large shadow-drop video-info-play" title="立刻播放奔跑吧 第六季"><i className="icon-play"></i><strong>立即播放</strong></a>
+          <a href="" className="btn-important btn-large shadow-drop video-info-play" title={"立刻播放" + data?.vodName}><i className="icon-play"></i><strong>立即播放</strong></a>
         </div>
 
         <div className="video-info-main">
@@ -104,18 +105,25 @@ function Desc(props: DescProps) {
               <a href="/vodsearch/-%E6%9C%AA%E7%9F%A5------------.html" target="_blank">未知</a><span className="slash">/</span>						</div>
           </div>
           <div className="video-info-items"><span className="video-info-itemtitle">上映：</span>
-            <div className="video-info-item">2022-05-13</div>
+            <div className="video-info-item">{data?.vodYear}</div>
           </div>
           <div className="video-info-items"><span className="video-info-itemtitle">  备注：</span>
-            <div className="video-info-item">更新至06-10期</div>
+            <div className="video-info-item">{data?.vodRemarks}</div>
           </div>
-          <p className="data video-info-items"><span className="text-muted"><img src="https://img3.doubanio.com/favicon.ico" style={{ width: '15px', height: '15px' }} /></span><a href="https://search.douban.com/movie/subject_search?search_text=奔跑吧 第六季" target="_blank" title="到豆瓣页面查看" rel="nofollow"><span style={{ color: '#007711' }}>&nbsp;&nbsp;&nbsp;：奔跑吧 第六季</span></a></p>
+          <p className="data video-info-items"><span className="text-muted">
+            <img src="https://img3.doubanio.com/favicon.ico" style={{ width: '15px', height: '15px' }} /></span>
+            <a href="" target="_blank" title="到豆瓣页面查看" rel="nofollow">
+              <span style={{ color: '#007711' }}>&nbsp;&nbsp;&nbsp;：奔跑吧 第六季</span></a></p>
           <div className="video-info-items"><span className="video-info-itemtitle">TAG：</span>
-            <div className="video-info-item"><a href="/vodsearch/------------%E5%A5%94%E8%B7%91%E5%90%A7-.html" target="_blank">奔跑吧</a>&nbsp;<a href="/vodsearch/------------%E7%AC%AC%E5%85%AD%E5%AD%A3-.html" target="_blank">第六季</a>&nbsp;<a href="/vodsearch/------------%E5%A5%94%E8%B7%91-.html" target="_blank">奔跑</a>&nbsp;<a href="/vodsearch/------------%E7%AC%AC%E5%85%AD-.html" target="_blank">第六</a>&nbsp;</div>
+            <div className="video-info-item">
+              {
+                data?.vodWeight.split(',')
+              }
+            </div>
           </div>
           <div className="video-info-items"><span className="video-info-itemtitle">剧情：</span>
             <div className="video-info-item video-info-content vod_content">
-              <span>《奔跑吧第六季》是浙江卫视推出的户外竞技真人秀，由浙江卫视节目中心星图工作室制作，由李晨、Angelababy、郑恺、沙溢、蔡徐坤、白鹿、周深担任常驻MC，以“奔跑不停，爱你不变”为主题，传递出满满的温暖、幸福及爱意，带领观众开启全新一季的浪漫旅程。</span>
+              <span>{data?.vodContent}</span>
               <a href="javaScript:;" className="shrink">收起</a>
             </div>
           </div>
