@@ -1,6 +1,7 @@
 import { isPathExists } from "../utils/isPathExists"
 import { logger } from "../utils/logger"
 import fs from "fs"
+import { mediaType } from "../config"
 
 export const getLocalVideoList = async (path) => {
   try {
@@ -12,12 +13,23 @@ export const getLocalVideoList = async (path) => {
     let list = fs.readdirSync(path)
 
     list = list
-        .filter(fileName => fileName.substring(fileName.length - 4).toLocaleLowerCase() === '.mp4')
-        .map((item, index) => ({
-          id: index + 1,
-          fileName: item.substring(0, item.length - 4),
-          type: 'mp4',
-        }))
+        .filter(fileName => {
+          const arr = fileName.split(".")
+
+          const fileType = arr[arr.length - 1].toLocaleLowerCase()
+
+          return mediaType.includes(fileType)
+        })
+        .map((item, index) => {
+          const arr = item.split(".")
+          const fileType = arr[arr.length - 1].toLocaleLowerCase()
+
+          return {
+            id: index + 1,
+            fileName: item.substring(0, item.length - fileType.length - 1),
+            type: fileType,
+          }
+        })
 
     return {
       list,

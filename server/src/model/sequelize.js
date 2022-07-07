@@ -1,10 +1,10 @@
 import { Sequelize } from 'sequelize'
 import { logger } from '../utils/logger'
 
-// const sequelize = new Sequelize('jingyuncms', 'jingyuncms', '3Z6Ry36dfAwk4TJS', {
-//   host: '101.35.189.229',
-const sequelize = new Sequelize('jingyun_cms', 'jingyun_cms', 'rR2pTetdacaM4yYB', {
-  host: '127.0.0.1',
+const sequelize = new Sequelize('jingyuncms', 'jingyuncms', '3Z6Ry36dfAwk4TJS', {
+  host: '101.35.189.229',
+// const sequelize = new Sequelize('jingyun_cms', 'jingyun_cms', 'rR2pTetdacaM4yYB', {
+//   host: '127.0.0.1',
   dialect: 'mysql', /* 选择 'mysql' | 'mariadb' | 'postgres' | 'mssql' 其一 */
   define: {
     charset: "utf8",

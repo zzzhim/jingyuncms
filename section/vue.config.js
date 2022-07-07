@@ -11,7 +11,14 @@ module.exports = defineConfig({
       contextIsolation: false,
       //渲染进程是否启用remote模块
       enableRemoteModule: true,
-      externals: ['ffmpeg-static-electron', 'fluent-ffmpeg', '@ffmpeg-installer/ffmpeg', 'ffmpeg-static'],
+      externals: [
+        'ffmpeg-static-electron',
+        'fluent-ffmpeg',
+        '@ffmpeg-installer/ffmpeg',
+        '@ffprobe-installer/ffprobe',
+        'ffmpeg-static',
+        'ffprobe-static-electron',
+      ],
       // If you are using Yarn Workspaces, you may have multiple node_modules folders
       // List them all here so that VCP Electron Builder can find them
       nodeModulesPath: ['../../node_modules', './node_modules'],
