@@ -1,5 +1,6 @@
 import { logger } from "@sentry/utils"
 import fs from "fs"
+import mkdirp from "mkdirp"
 import path from "path"
 import { createPath } from "../utils/createPath"
 import { isPathExists } from "../utils/isPathExists"
@@ -61,7 +62,8 @@ export const collectionVideoSetting = {
 const collectionVideoSettingPath = path.join(process.cwd(), 'json', 'collectionVideoSetting.json')
 
 if(!isPathExists(collectionVideoSettingPath)) {
-  createPath(path.join(process.cwd(), 'json'))
+  // createPath(path.join(process.cwd(), 'json'))
+  mkdirp.sync(path.join(process.cwd(), 'json'))
 
   fs.writeFileSync(collectionVideoSettingPath, JSON.stringify(collectionVideoSetting), "utf-8")
 }

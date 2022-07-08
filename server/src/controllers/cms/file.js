@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import fs from 'fs'
+import mkdirp from 'mkdirp'
 import path from 'path'
 import { v4 as uuidV4 } from 'uuid'
 import { createPath } from '../../utils/createPath'
@@ -20,7 +21,8 @@ export const uploadM3u8 = async ({ file, username_dir, prefixHost }) => {
     const dirPath = path.join(process.cwd(), `/public/${dir}`)
 
     if (!fs.existsSync(dirPath)) {
-      createPath(dirPath)
+      // createPath(dirPath)
+      mkdirp.sync(dirPath)
     }
 
     // 生成文件名称
@@ -48,7 +50,8 @@ export const uploadImg = async ({ file, username_dir, prefixHost }) => {
     const dir = `/image/${username_dir}/${dayjs().format('YYYY_MM_DD')}`
     const dirPath = path.join(process.cwd(), `/public/${dir}`)
     if (!fs.existsSync(dirPath)) {
-      createPath(dirPath)
+      // createPath(dirPath)
+      mkdirp.sync(dirPath)
     }
 
 
