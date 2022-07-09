@@ -76,9 +76,8 @@ export default{
 
             // return
             let res = {}
-            if (this.id){
+            if (!this.id){
                  res = await configImgAdd(data)
-
             }else{
                 data.id = this.id
                 res = await configImgEdit(data)
