@@ -12,7 +12,7 @@ export function uploadM3u8File(params) {
     method: 'post',
     data: form,
     headers: {
-      "Content-Type": "multipart/form-data" 
+      "Content-Type": "multipart/form-data"
     }
   })
 }

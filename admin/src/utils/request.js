@@ -5,9 +5,8 @@ import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: '/cms', // url = base url + request url  http://frp.lovewyf.xyz:7600' + process.env.VUE_APP_BASE_API + '
-  // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  // withCredentials: true, // send cookies when cross-domain requests
+  baseURL: process.env.VUE_APP_BASE_API,
+  // baseURL: 'https://www.yunnetflix.com/api/cms',
   timeout: 15000 // request timeout
   
 })
