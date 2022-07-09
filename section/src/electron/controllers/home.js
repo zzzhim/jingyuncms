@@ -4,7 +4,7 @@ import { getLocalVideoList } from "./video"
 import { v4 as uuidv4 } from 'uuid'
 import { logger } from "../utils/logger"
 import { arrToDim } from "../utils/arrToDim"
-import { section } from "../utils/section"
+import { section, sectionQueue } from "../utils/section"
 
 ipcMain.handle("getLocalVideoList", async (event, { path }) => {
   if(!isPathExists(path)) {
@@ -50,36 +50,60 @@ ipcMain.on("cutting", async (event, {
     })
 
     try {
-      const list = arrToDim(cuttingList, uploadImgList.length)
+      // const list = arrToDim(cuttingList, uploadImgList.length)
+      const list = [ ...cuttingList ]
 
       for (let index = 0; index < list.length; index++) {
-        const arr = list[index]
-        const sendList = []
+        const item = list[index]
 
-        for (let i = 0; i < arr.length; i++) {
-          sendList.push({
-            uuid: arr[i].uuid,
+        await section(
+          {
+            uuid: item.uuid,
             filePath: videoPath,
-            fileName: arr[i].fileName,
-            fileType: arr[i].type,
+            fileName: item.fileName,
+            fileType: item.type,
             uploadImgList: [ ...uploadImgList ],
             uploadSetting: { ...uploadSetting },
-          })
-        }
-
-        await Promise.all(sendList.map(item => section(
-          item,
+          },
           (params) => {
             // 发送切片进度
             event.sender.send("cuttingProgress", { ...params })
           }
-        )))
+        )
       }
+
+      // const list = arrToDim(cuttingList, uploadImgList.length)
+
+      // for (let index = 0; index < list.length; index++) {
+      //   const arr = list[index]
+      //   const sendList = []
+
+      //   for (let i = 0; i < arr.length; i++) {
+      //     sendList.push({
+      //       uuid: arr[i].uuid,
+      //       filePath: videoPath,
+      //       fileName: arr[i].fileName,
+      //       fileType: arr[i].type,
+      //       uploadImgList: [ ...uploadImgList ],
+      //       uploadSetting: { ...uploadSetting },
+      //     })
+      //   }
+
+      //   await Promise.all(sendList.map(item => section(
+      //     item,
+      //     (params) => {
+      //       // 发送切片进度
+      //       event.sender.send("cuttingProgress", { ...params })
+      //     }
+      //   )))
+      // }
     } catch (error) {
       logger.error(error)
     }
   }
 
-  // 切片结束
-  event.sender.send("cuttingEnd", {})
+  sectionQueue.onEnd = () => {
+    // 切片结束
+    event.sender.send("cuttingEnd", {})
+  }
 })

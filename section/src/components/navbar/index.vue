@@ -1,5 +1,9 @@
 <template>
   <div class="navbar">
+    <div class="logo">
+      <img class="icon" :src="require('../../../public/logo.png')" />
+    </div>
+
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -54,6 +58,9 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 60px;
   margin: 10px 0px;
@@ -62,8 +69,18 @@ export default {
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
+  .logo {
+    width: 40px;
+    height: 40px;
+    margin-left: 20px;
+
+    .icon {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   .right-menu {
-    float: right;
     height: 100%;
     line-height: 50px;
 

@@ -48,7 +48,8 @@ export async function tsUpload({ uuid, dirPath, m3u8PathList, uploadImgList, upl
         }
 
         // 延迟3秒，然后开始下次请求
-        await sleep(3000)
+        // await sleep(3000)
+        await sleep(800)
       }
       
       await uploadM3u8(m3u8PathList, uploadImgList, uploadSetting)
@@ -101,7 +102,7 @@ async function uploadM3u8Info({ m3u8, uploadImg, m3u8Url }) {
     const params = {
       fileName: m3u8Name,
       fileUrl: m3u8.data.m3u8Url,
-      vodName: list.filter((item, index) => index < (list.length - 2)).join('_'),
+      vodName: list.filter((item, index) => index < (list.length - 1)).join('_'),
       doubanId: doubanId,
       remarks: `切片工具上传，上传图床_id：${uploadImg.id}_configName：${uploadImg.configName}_remarks：${uploadImg.remarks}`
     }
