@@ -96,7 +96,7 @@ async function uploadM3u8Info({ m3u8, uploadImg, m3u8Url }) {
     const name = m3u8Path[m3u8Path.length - 1]
     const m3u8Name = name.substring(0, name.length - 5)
     const list = m3u8Name.split('_')
-    const doubanId = isNaN(parseInt(list[list.length - 2])) ? null : parseInt(list[list.length - 2])
+    const doubanId = isNaN(parseInt(list[list.length - 2])) ? '0' : parseInt(list[list.length - 2])
 
     const params = {
       fileName: m3u8Name,
@@ -111,6 +111,7 @@ async function uploadM3u8Info({ m3u8, uploadImg, m3u8Url }) {
     if(res.code === 200) {
       logger.info('m3u8文件上传成功', params)
     }else {
+      logger.info('m3u8文件上传失败', res.message)
       throw Error(res.message)
     }
   }
