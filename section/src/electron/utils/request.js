@@ -3,8 +3,8 @@ import { getToken } from './auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://frp.lovewyf.xyz:7600/api/cms', // url = base url + request url
-  // baseURL: 'https://www.yunnetflix.com/api/cms', // url = base url + request url
+  // baseURL: 'http://frp.lovewyf.xyz:7600/api/cms', // url = base url + request url
+  baseURL: 'https://www.yunnetflix.com/api/cms', // url = base url + request url
   timeout: 15000 // request timeout
 })
 

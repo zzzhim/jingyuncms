@@ -1,10 +1,16 @@
 <template>
   <el-container class="home">
-    <LeftPage />
+    <el-header>
+      <NavBar />
+    </el-header>
 
-    <MainPage />
+    <el-container>
+      <LeftPage />
 
-    <RightPage />
+      <MainPage />
+
+      <RightPage />
+    </el-container>
   </el-container>
 </template>
 
@@ -12,13 +18,16 @@
 import LeftPage from "./leftPage.vue"
 import MainPage from "./mainPage.vue"
 import RightPage from "./rightPage.vue"
+import NavBar from "@/components/navbar"
+
 
 export default {
   name: 'HomeView',
   components: {
     LeftPage,
     MainPage,
-    RightPage
+    RightPage,
+    NavBar,
   },
   data() {
     return {

@@ -1,6 +1,7 @@
 <template>
   <el-aside class="left">
     <el-form
+      class="form"
       ref="form"
       :model="uploadSetting"
       label-width="120px"
@@ -89,9 +90,15 @@ export default {
 
 <style lang="scss" scoped>
   .left {
-    padding:20px 0;
     width: 30% !important;
     height: 100%;
-    background-color: #FFFFFF;
+    padding: 20px;
+    background-color: #F5F5F5;
+
+    .form {
+      width: 100%;
+      height: 100%;
+      background-color: #FFFFFF;
+    }
   }
 </style>

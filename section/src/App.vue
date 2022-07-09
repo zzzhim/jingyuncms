@@ -4,12 +4,15 @@
   </div>
 </template>
 <script>
+import { ipcRenderer } from "electron"
 
 export default {
   mounted() {
-    if (!localStorage.getItem('token')) {
-      this.$router.push('/login')
-    }
+    ipcRenderer.invoke("getToken").then((token) => {
+      if (!token.length) {
+        this.$router.push("/login")
+      }
+    })
   },
 }
 </script>
