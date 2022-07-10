@@ -83,7 +83,7 @@ export async function mp4ToM3U8({
         "-c:v h264_cuvid", // 英伟达硬解码
       ]
 
-      const videoCodec = IsAMD(activeGraphics.controller) ? "hevc_amf" : "h264_nvenc"
+      const videoCodec = IsAMD(activeGraphics.controller) ? "h264_amf" : "h264_nvenc"
 
       getVideoDurationInSeconds(videoFilePath, fixFfmpegPath(ffprobeStaticElectron.path)).then(duration => {
         ffmpeg
