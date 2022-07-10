@@ -1,32 +1,47 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Footer } from '../../components/Footer'
 import { MiniHeader } from '../../components/MiniHeader'
 import type { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next'
-import { useRouter } from "next/router"
-import { VdeoDetail } from "../../types/category";
 import { videoDetail } from '../../api/videoDetail'
-import { string } from 'prop-types'
+import React from 'react'
+import { VideoDetail } from '../../types/video'
+import classNames from 'classnames'
+import { videoList } from '../../api/video'
+import { VideoCardWrapper } from '../../components/VideoCardWrapper'
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  let data = {}
   const result = await videoDetail({ id: context.query?.id })
-  if (result.code === 200 && result.data) {
-    data = result.data
+
+  if(result.code === 200) {
+
+    const res = await videoList({ category: result.data!.categoryId, pageSize: 20 })
+
+    if(res.code === 200) {
+      return {
+        props: {
+          videoDetail: result.data!,
+          videoList: res.data!.list
+        }
+      }
+    }
   }
+
   return {
-    props: {data},
+    props: {},
   }
 }
 
 function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const router = useRouter()
-  const num = router.query.id
-  
+  React.useEffect(() => {
+    console.log(props)
+  }, [])
+
   return (
     <>
       <Head>
         <title>视频详情页面</title>
       </Head>
+
       <div className='homepage'>
         <MiniHeader />
         <div className="app-text">
@@ -37,9 +52,33 @@ function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
         <main id="index-main" className="wrapper">
           <div className="content">
-            <Desc datas={props.data} />
-            <VideoList />
+            <Desc datas={props.videoDetail} />
+
+            <VideoList { ...props } />
+
             {/* <VideoCardWrapper /> */}
+            {/* {
+              props?.videoList?.map(item => (
+                <VideoCardWrapper
+                  configName={''}
+                  styleName={''} sort={0} configType={''} styleType={''} recommendName={''} recommendIcon={''} updateAuthorId={0} updateAuthorName={''} createTime={''} updateTime={''} children={[]} key={item.id} {...item} />
+              ))
+            } */}
+
+            <VideoCardWrapper
+              configName={''}
+              styleName={''}
+              sort={0}
+              configType={''}
+              styleType={''}
+              recommendName={''}
+              recommendIcon={''}
+              updateAuthorId={0}
+              updateAuthorName={''}
+              createTime={''}
+              updateTime={''}
+              children={props.videoList}
+            />
           </div>
         </main>
 
@@ -48,11 +87,13 @@ function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
     </>
   )
 }
+
 interface DescProps {
-  datas?: VdeoDetail
+  datas?: VideoDetail
 }
+
 function Desc(props: DescProps) {
-  console.log(props.datas,'props')
+  console.log(props.datas, 'props')
   let data = props.datas
   return (
     <div className="box view-heading">
@@ -77,15 +118,16 @@ function Desc(props: DescProps) {
           <div className="scroll-box">
             <div className="video-info-aux scroll-content">
               {
-                data?.vodClass.split(',').map((item,index) => 
+                data?.vodClass.split(',').map((item, index) =>
                   <a href="" title={item} className="tag-link">
                     <span className="video-tag-icon">
-                      {index == 0?(
+                      {index == 0 ? (
                         <i className="icon-cate-zy" ></i>
-                      ):''}
-                      {item}						     </span>
+                      ) : ''}
+                      {item}
+                    </span>
                   </a>
-                ) 
+                )
               }
               <a className="tag-link" href="">{data?.vodYear}</a>
               <a className="tag-link" href="">{data?.vodArea}</a>
@@ -117,7 +159,7 @@ function Desc(props: DescProps) {
           <div className="video-info-items"><span className="video-info-itemtitle">TAG：</span>
             <div className="video-info-item">
               {
-                data?.vodWeight.split(',')
+                data?.vodWeight?.split(',')
               }
             </div>
           </div>
@@ -139,47 +181,67 @@ function Desc(props: DescProps) {
   )
 }
 
-function VideoList() {
+function VideoList(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [ active, setActive ] = React.useState(0)
+
   return (
     <div className="module">
       <div className="module-heading">
-        <h2 className="module-title" title="奔跑吧 第六季在线观看列表">在线观看</h2>
+        <h2 className="module-title" title={ props.videoDetail?.vodName + "在线观看列表" }>在线观看</h2>
+
         <div className="module-tab module-player-tab ">
           <div className="module-tab-items">
             <div className="module-tab-content">
-              <div className="module-tab-item tab-item selected" data-dropdown-value="优酷"><span>优酷</span><small>19</small></div>
-
-              <div className="module-tab-item tab-item" data-dropdown-value="腾讯视频"><span>腾讯视频</span><small>10</small></div>
+              {
+                props.videoDetail?.vodPlayFrom.map((item, index) => (
+                  <div
+                    className={classNames([
+                      "module-tab-item tab-item",
+                      {
+                        selected: active === index,
+                      }
+                    ])}
+                    data-dropdown-value={item}
+                    key={index}
+                    onClick={() => setActive(index)}
+                  >
+                    <span>{item}</span><small>{props.videoDetail?.vodPlayUrl[index].length}</small>
+                  </div>
+                ))
+              }
             </div>
           </div>
         </div>
+
         <div className="shortcuts-mobile-overlay"></div>
       </div>
 
-      {/* 播放列表 */}
-      <div className="module-list module-player-list tab-list sort-list selected" id="glist-1">
-        <div className="module-tab module-sorttab">
-          <input type="hidden" name="tab-sort" id="tab-sort" className="module-tab-input" />
-          <label className="module-tab-name"><i className="icon-sort"></i></label>
-          <div className="module-tab-items">
-            <div className="module-tab-title">选集<span className="close-drop"><i className="icon-close-o"></i></span><a className="desc sort-button" href="javascript:void(0);"><i className="icon-sort"></i>排序</a></div>
-            <div className="module-tab-content">
-              <div className="module-blocklist">
-                <div className="sort-item" id="sort-item-1">
-
-                  <a href="/vodplay/uIySCS-1-1.html" title="播放奔跑吧 第六季20220512"><span>20220512</span></a>
-                </div>
+      {
+        // 播放列表
+        props.videoDetail?.vodPlayUrl.map((item, index) => (
+          <div className={classNames([
+            "module-list module-player-list tab-list sort-list",
+            {
+              selected: active === index,
+            }
+          ])}>
+            <div className="module-blocklist scroll-box scroll-box-y">
+              <div className="scroll-content">
+                {
+                  item.map(target => (
+                    <a
+                      href={`/vodplay/${props.videoDetail?.id}`}
+                      title={props.videoDetail?.vodName + target.label}
+                    >
+                      <span>{ target.label }</span>
+                    </a>
+                  ))
+                }
               </div>
             </div>
           </div>
-        </div>
-        <div className="shortcuts-mobile-overlay"></div>
-        <div className="module-blocklist scroll-box scroll-box-y">
-          <div className="scroll-content">
-            <a href="/vodplay/uIySCS-1-1.html" title="播放奔跑吧 第六季20220512"><span>20220512</span></a>
-          </div>
-        </div>
-      </div>
+        ))
+      }
     </div>
   )
 }

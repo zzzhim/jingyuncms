@@ -1,4 +1,5 @@
 import { DataTypes } from "sequelize"
+import logger from "../utils/logger";
 import { sequelize } from "./sequelize"
 
 const Vod = sequelize.define(
@@ -276,6 +277,17 @@ const Vod = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
       comment: "播放组",
+      get() {
+        try {
+          const vodPlayFrom = this.getDataValue('vodPlayFrom')
+
+          return vodPlayFrom.split("$$$")
+        } catch (error) {
+          logger.info("播放地址列表", error)
+        }
+
+        return []
+      }
     },
     vodPlayNote: {
       type: DataTypes.STRING,
@@ -286,7 +298,63 @@ const Vod = sequelize.define(
       type: DataTypes.TEXT({ length: "medium" }),
       allowNull: true,
       comment: "播放地址",
+      get() {
+        try {
+          const vodPlayUrl = this.getDataValue('vodPlayUrl')
+
+          const group = vodPlayUrl.split("$$$")
+
+          const list = group.map(item => {
+            const list = item.split("#")
+
+            return list.map(target => {
+              const arr = target.split("$")
+
+              return {
+                label: arr[0],
+                value: arr[1],
+              }
+            })
+          })
+
+          return list
+        } catch (error) {
+          logger.info("播放地址列表", error)
+        }
+
+        return []
+      }
     },
+    // vodPlayUrlList: {
+    //   type: DataTypes.VIRTUAL,
+    //   comment: "播放地址列表",
+    //   get() {
+    //     try {
+    //       // const vodPlayUrl = this.getDataValue('vodPlayUrl');
+
+    //       const group = vodPlayUrl.split("$$$")
+
+    //       const list = group.map(item => {
+    //         const list = item.split("#")
+
+    //         return list.map(target => {
+    //           const arr = target.split("$")
+
+    //           return {
+    //             label: arr[0],
+    //             value: arr[1],
+    //           }
+    //         })
+    //       })
+
+    //       return list
+    //     } catch (error) {
+    //       logger.info("播放地址列表", error)
+    //     }
+
+    //     return []
+    //   }
+    // },
     // vodPlot: {
     //   type: DataTypes.TINYINT({ length: 1 }),
     //   allowNull: true,

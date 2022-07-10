@@ -4,14 +4,12 @@ import request from "../utils/request"
 
 /**
  * 
- * 视频详情
+ * 跟据视频名or视频分类获取视频列表
  */
-export const videoDetail = (params: any): Promise<Response<VideoDetail>> => {
+export const videoList = (params: any): Promise<Response<{ total: number, list: VideoDetail[] }>> => {
   return request({
-    url: "/video/detail",
+    url: "/video/list",
     method: 'get',
     params,
   }) as any
 }
-
-
