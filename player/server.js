@@ -4,7 +4,7 @@ const Router = require('@koa/router')
 const cors = require('@koa/cors')
 
 // const port = parseInt(process.env.PORT, 10) || 3001
-const port = 3000
+const port = 3050
 
 // const dev = process.env.NODE_ENV_API !== 'prod'
 const app = next({})

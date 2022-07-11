@@ -6,6 +6,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import theme from '../config/theme'
 import createEmotionCache from '../config/createEmotionCache'
 import PropTypes from 'prop-types'
+import "../styles/globals.css"
 
 const clientSideEmotionCache = createEmotionCache()
 
