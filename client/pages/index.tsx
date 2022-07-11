@@ -3,8 +3,6 @@ import Head from 'next/head'
 import { getRecommendList } from '../api/recommend'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
-import { VideoCard } from '../components/VideoCard'
-import { VideoCardUpdate } from '../components/VideoCardUpdate'
 import { VideoCardWrapper } from '../components/VideoCardWrapper'
 
 export const getServerSideProps = async () => {

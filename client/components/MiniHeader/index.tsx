@@ -50,7 +50,7 @@ function MiniHeader() {
             </form>
           </div>
 
-          <Toolbar />
+          <Toolbar active={1} />
         </div>
       </header>
     </>

@@ -8,6 +8,8 @@ import { VideoDetail } from '../../types/video'
 import classNames from 'classnames'
 import { videoList } from '../../api/video'
 import { VideoCardWrapper } from '../../components/VideoCardWrapper'
+import { VideoCard } from '../../components/VideoCard'
+import Link from 'next/link'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const result = await videoDetail({ id: context.query?.id })
@@ -45,7 +47,7 @@ function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
       <div className='homepage'>
         <MiniHeader />
         <div className="app-text">
-          <a href="/label/app.html"><i className="icon-download"></i>下载<strong>免费视频分享大全-鲸云视频APP</strong>客户端</a>
+          <Link href="/label/app.html"><i className="icon-download"></i>下载<strong>免费视频分享大全-鲸云视频APP</strong>客户端</Link>
           <div className="bg-ball">
           </div>
         </div>
@@ -65,20 +67,28 @@ function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
               ))
             } */}
 
-            <VideoCardWrapper
-              configName={''}
-              styleName={''}
-              sort={0}
-              configType={''}
-              styleType={''}
-              recommendName={''}
-              recommendIcon={''}
-              updateAuthorId={0}
-              updateAuthorName={''}
-              createTime={''}
-              updateTime={''}
-              children={props.videoList}
-            />
+            <div className="module">
+              <div className="module-heading">
+                <h2 className="module-title">相关视频</h2>
+                <Link
+                  className="more"
+                  href="/vodtype/qCCCCS.html"
+                  title={`更多相关视频`}
+                >
+                  更多相关视频<i className="icon-arrow-right-o"></i>
+                </Link>
+              </div>
+
+              <div className="module-list module-lines-list">
+                <div className="module-items">
+                  {
+                    props.videoList?.map(item => (
+                      <VideoCard {...item} key={item.id}  />
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
           </div>
         </main>
 
@@ -93,7 +103,6 @@ interface DescProps {
 }
 
 function Desc(props: DescProps) {
-  console.log(props.datas, 'props')
   let data = props.datas
   return (
     <div className="box view-heading">
@@ -105,7 +114,7 @@ function Desc(props: DescProps) {
       <div className="video-cover">
         <div className="module-item-cover">
           <div className="module-item-pic">
-            <a href="" title={data?.vodName}><i className="icon-play"></i></a>
+            <Link href="" title={data?.vodName}><i className="icon-play"></i></Link>
             <img className="lazyload" alt={data?.vodName} data-src={data?.vodPic} src={data?.vodPic} />
             <div className="loading"></div>
           </div>
@@ -119,32 +128,32 @@ function Desc(props: DescProps) {
             <div className="video-info-aux scroll-content">
               {
                 data?.vodClass.split(',').map((item, index) =>
-                  <a href="" title={item} className="tag-link">
+                  <Link href="" title={item} className="tag-link" key={index}>
                     <span className="video-tag-icon">
                       {index == 0 ? (
                         <i className="icon-cate-zy" ></i>
                       ) : ''}
                       {item}
                     </span>
-                  </a>
+                  </Link>
                 )
               }
-              <a className="tag-link" href="">{data?.vodYear}</a>
-              <a className="tag-link" href="">{data?.vodArea}</a>
+              <Link className="tag-link" href="">{data?.vodYear}</Link>
+              <Link className="tag-link" href="">{data?.vodArea}</Link>
             </div>
           </div>
-          <a href="" className="btn-important btn-large shadow-drop video-info-play" title={"立刻播放" + data?.vodName}><i className="icon-play"></i><strong>立即播放</strong></a>
+          <Link href="" className="btn-important btn-large shadow-drop video-info-play" title={"立刻播放" + data?.vodName}><i className="icon-play"></i><strong>立即播放</strong></Link>
         </div>
 
         <div className="video-info-main">
 
           <div className="video-info-items"><span className="video-info-itemtitle">导演：</span>
             <div className="video-info-item video-info-actor"><span className="slash">/</span>
-              <a href="/vodsearch/-----%E6%9C%AA%E7%9F%A5--------.html" target="_blank">未知</a><span className="slash">/</span>						</div>
+              <Link href="/vodsearch/-----%E6%9C%AA%E7%9F%A5--------.html" target="_blank">未知</Link><span className="slash">/</span>						</div>
           </div>
           <div className="video-info-items"><span className="video-info-itemtitle">主演：</span>
             <div className="video-info-item video-info-actor"><span className="slash">/</span>
-              <a href="/vodsearch/-%E6%9C%AA%E7%9F%A5------------.html" target="_blank">未知</a><span className="slash">/</span>						</div>
+              <Link href="/vodsearch/-%E6%9C%AA%E7%9F%A5------------.html" target="_blank">未知</Link><span className="slash">/</span>						</div>
           </div>
           <div className="video-info-items"><span className="video-info-itemtitle">上映：</span>
             <div className="video-info-item">{data?.vodYear}</div>
@@ -154,8 +163,8 @@ function Desc(props: DescProps) {
           </div>
           <p className="data video-info-items"><span className="text-muted">
             <img src="https://img3.doubanio.com/favicon.ico" style={{ width: '15px', height: '15px' }} /></span>
-            <a href="" target="_blank" title="到豆瓣页面查看" rel="nofollow">
-              <span style={{ color: '#007711' }}>&nbsp;&nbsp;&nbsp;：奔跑吧 第六季</span></a></p>
+            <Link href="" target="_blank" title="到豆瓣页面查看" rel="nofollow">
+              <span style={{ color: '#007711' }}>&nbsp;&nbsp;&nbsp;：奔跑吧 第六季</span></Link></p>
           <div className="video-info-items"><span className="video-info-itemtitle">TAG：</span>
             <div className="video-info-item">
               {
@@ -166,7 +175,8 @@ function Desc(props: DescProps) {
           <div className="video-info-items"><span className="video-info-itemtitle">剧情：</span>
             <div className="video-info-item video-info-content vod_content">
               <span>{data?.vodContent}</span>
-              <a href="javaScript:;" className="shrink">收起</a>
+              {/* <Link href="javaScript:;" className="shrink">收起</Link> */}
+              <span className="shrink">收起</span>
             </div>
           </div>
         </div>
@@ -174,7 +184,7 @@ function Desc(props: DescProps) {
           <div className="video-info-share">
             <button className="share-btn" data-clipboard-text="www.jingyunshipin.com/voddetail/uIySCS.html 我正在免费视频分享大全-鲸云视频观看《奔跑吧 第六季》，推荐给你一起看！">好影片，与好朋友一起分享<i className="icon-happy"></i></button>
           </div>
-          <a href="/vodplay/uIySCS-1-1.html" className="btn-important btn-large shadow-drop" title="立刻播放奔跑吧 第六季"><i className="icon-play"></i><strong>立即播放</strong></a>
+          <Link href="/vodplay/uIySCS-1-1.html" className="btn-important btn-large shadow-drop" title="立刻播放奔跑吧 第六季"><i className="icon-play"></i><strong>立即播放</strong></Link>
         </div>
       </div>
     </div>
@@ -219,22 +229,26 @@ function VideoList(props: InferGetServerSidePropsType<typeof getServerSideProps>
       {
         // 播放列表
         props.videoDetail?.vodPlayUrl.map((item, index) => (
-          <div className={classNames([
-            "module-list module-player-list tab-list sort-list",
-            {
-              selected: active === index,
-            }
-          ])}>
+          <div
+            className={classNames([
+              "module-list module-player-list tab-list sort-list",
+              {
+                selected: active === index,
+              }
+            ])}
+            key={index}
+          >
             <div className="module-blocklist scroll-box scroll-box-y">
               <div className="scroll-content">
                 {
-                  item.map(target => (
-                    <a
+                  item.map((target, i) => (
+                    <Link
                       href={`/vodplay/${props.videoDetail?.id}`}
                       title={props.videoDetail?.vodName + target.label}
+                      key={i}
                     >
                       <span>{ target.label }</span>
-                    </a>
+                    </Link>
                   ))
                 }
               </div>

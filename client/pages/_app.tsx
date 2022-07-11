@@ -5,8 +5,15 @@ import PropTypes from 'prop-types'
 import cookies from 'next-cookies'
 import service from '../utils/request'
 import { RecoilRoot } from 'recoil'
+import { getCategoryList } from '../api/recommend'
+import { globalStore } from '../store/global'
+import { Daum } from '../types/category'
 
-function MyApp({ Component, pageProps }: AppProps) {
+interface MyAppProps extends AppProps {
+  categoryList: Daum[]
+}
+
+function MyApp({ Component, pageProps, categoryList }: MyAppProps) {
   return (
     <>
       <Head>
@@ -28,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         {/* <script src="/js/script.js"></script> */}
       </Head>
 
-      <RecoilRoot>
+      <RecoilRoot initializeState={({ set }) => set(globalStore, { categoryList })}>
         <Component {...pageProps} />
       </RecoilRoot>
     </>
@@ -47,9 +54,18 @@ MyApp.getInitialProps = async (ctx: any) => {
     (service.defaults.headers as any).token = Cookie[TokenKey]
   }
 
+  const result = await getCategoryList()
+
+  if(result.code === 200) {
+    return {
+      pageProps: {},
+      categoryList: result.data!
+    }
+  }
 
   return {
     pageProps: {},
+    categoryList: []
   }
 }
 

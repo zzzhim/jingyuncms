@@ -1,5 +1,8 @@
 // import styles from "./index.module.scss"
 
+import React from "react"
+import { useRecoilValue } from "recoil"
+import { globalStore } from "../../store/global"
 import { Video } from "../../types/video"
 import { Image } from "../Image"
 
@@ -8,11 +11,23 @@ interface Props extends Video {
 }
 
 function VideoCard(props: Props) {
+  const { categoryList } = useRecoilValue(globalStore)
+
+  const category = React.useMemo(() => {
+    const find = categoryList.find(item => props.categoryId === item.id)
+
+    if(find) {
+      return find.categoryName
+    }
+
+    return "未知分类"
+  }, [ props.categoryId ])
+
   return (
     <div className="module-item">
       <div className="module-item-cover">
         <div className="module-item-pic">
-          <a href={'/videoDetail/'+props.id} title={props.vodName} >
+          <a href={'/videoDetail/' + props.id} title={props.vodName} >
             <i className="icon-play"></i>
           </a>
 
@@ -25,8 +40,8 @@ function VideoCard(props: Props) {
         </div>
         <div className="module-item-caption">
           <span>{props.vodName}</span>
-          <span className="video-class">国产剧</span>
-          <span>内地</span>
+          <span className="video-class">{ category }</span>
+          <span>{ props.vodArea }</span>
         </div>
         <div className="module-item-content">
           <div className="module-item-style video-name">

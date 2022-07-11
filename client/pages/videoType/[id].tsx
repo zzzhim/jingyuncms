@@ -16,7 +16,7 @@ const Page: NextPage = () => {
 
         <main id="main" className="wrapper">
           <div className="content">
-            <VideoCardWrapper />
+            {/* <VideoCardWrapper /> */}
           </div>
         </main>
 

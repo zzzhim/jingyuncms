@@ -1,16 +1,13 @@
 import { atom } from "recoil";
+import { Daum } from "../types/category";
 
 interface GlobalStoreState {
-  a: number
-  b: string
-  c: string[]
+  categoryList: Daum[]
 }
 
 export const globalStore = atom<GlobalStoreState>({
-  key: 'global/ceshi',
+  key: 'global/common',
   default: {
-    a: 1,
-    b: "22323撒大大",
-    c: [ '3', '4', '5' ]
+    categoryList: []
   },
 })

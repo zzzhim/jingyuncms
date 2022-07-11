@@ -55,8 +55,6 @@ export const getServerSideProps = async () => {
 
   if (result.code === 200 && result.data) {
     data = listToTree("id", "parentId", result.data)
-    console.log(data);
-
   }
 
   return {
@@ -65,7 +63,6 @@ export const getServerSideProps = async () => {
 }
 function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter()
-  console.log(router);
   const num = router.query.id
   return (
     <>

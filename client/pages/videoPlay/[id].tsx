@@ -29,8 +29,8 @@ const Page: NextPage = () => {
           </div>
 
           <div className="content">
-            <VideoCardWrapper />
-            <VideoCardWrapper />
+            {/* <VideoCardWrapper />
+            <VideoCardWrapper /> */}
           </div>
         </main>
 
@@ -95,7 +95,8 @@ function VideoPlay() {
               <div className="video-info-items"><span className="video-info-itemtitle">剧情：</span>
                 <div className="video-info-item video-info-content vod_content">
                   <span>《奔跑吧第六季》是浙江卫视推出的户外竞技真人秀，由浙江卫视节目中心星图工作室制作，由李晨、Angelababy、郑恺、沙溢、蔡徐坤、白鹿、周深担任常驻MC，以“奔跑不停，爱你不变”为主题，传递出满满的温暖、幸福及爱意，带领观众开启全新一季的浪漫旅程。</span>
-                  <a href="javaScript:;" className="shrink">收起</a>
+                  {/* <a href="javaScript:;" className="shrink">收起</a> */}
+                  <span className="shrink">收起</span>
                 </div>
               </div>
             </div>

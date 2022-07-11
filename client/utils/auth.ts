@@ -19,7 +19,7 @@ export function removeToken() {
 
 
 export function getUserInfo() {
-    const userInfo = decodeURIComponent(Cookies.get(UserInfoKey))
+    const userInfo = decodeURIComponent(Cookies.get(UserInfoKey) ?? '')
 
     if(userInfo !== null && userInfo) {
         return JSON.parse(userInfo)
@@ -39,7 +39,7 @@ export function getEnums() {
     const enums = Cookies.get(EnumsKey)
 
     if(enums !== null) {
-        return JSON.parse(enums)
+        return JSON.parse(enums ?? '')
     }
 
     return {}
