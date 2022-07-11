@@ -15,10 +15,6 @@ function Page(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
     <>
       <Head>
         <link rel="stylesheet" href="/css/Dplayer.min.css" />
-        {/* <script src={"/js/hls.js"} /> */}
-        <script src={"/js/flv.min.js"} />
-        <script src={"/js/hls.min.js"} />
-        <script src={"/js/dplayer.min.js"} />
       </Head>
 
       <div className={styles.page}>
@@ -34,13 +30,15 @@ function Player(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   React.useEffect(() => {
     (window as any).handleHlsVideo = handleHlsVideo
 
-    const dp = new (window as any).DPlayer({
-      container: document.getElementById('dplayer'),
-      video: {
-        url: props.videoUrl,
-        type: 'auto'
-      },
-    })
+    window.onload = () => {
+      const dp = new (window as any).DPlayer({
+        container: document.getElementById('dplayer'),
+        video: {
+          url: props.videoUrl,
+          type: 'auto'
+        },
+      })
+    }
   }, [])
 
   return (

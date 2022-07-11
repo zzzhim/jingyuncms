@@ -3,6 +3,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
 import theme from '../config/theme'
 import createEmotionCache from '../config/createEmotionCache'
+import Script from 'next/script'
 
 export default class MyDocument extends Document {
   render() {
@@ -13,6 +14,9 @@ export default class MyDocument extends Document {
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="shortcut icon" href="/static/favicon.ico" />
+          <script async src={"/js/flv.min.js"} />
+          <script async src={"/js/hls.min.js"} />
+          <script async src={"/js/dplayer.min.js"} />
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}
         </Head>
