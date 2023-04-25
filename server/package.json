@@ -22,7 +22,7 @@
     "@koa/cors": "^3.1.0",
     "@koa/multer": "^3.0.0",
     "@sentry/node": "^7.1.1",
-    "@sentry/tracing": "^7.1.1",
+    "@sentry/tracing": "^7.46.0",
     "axios": "^0.26.0",
     "dayjs": "^1.11.3",
     "form-data": "^4.0.0",
