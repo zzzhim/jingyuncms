@@ -22,7 +22,7 @@
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "path-to-regexp": "2.4.0",
-    "socket.io-client": "^4.4.1",
+    "socket.io-client": "^4.5.0",
     "sql-formatter": "^8.0.0",
     "vue": "2.6.10",
     "vue-monaco-editor": "^0.0.19",
