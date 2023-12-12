@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@koa/cors": "^3.1.0",
+    "@koa/cors": "^5.0.0",
     "@koa/multer": "^3.0.0",
     "@sentry/node": "^7.1.1",
     "@sentry/tracing": "^7.1.1",
