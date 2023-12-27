@@ -14,7 +14,7 @@
   "main": "background.js",
   "dependencies": {
     "@ffprobe-installer/ffprobe": "^1.4.1",
-    "axios": "^0.27.2",
+    "axios": "^1.6.3",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.3",
     "electron": "^19.0.3",
