@@ -14,10 +14,10 @@
   "main": "background.js",
   "dependencies": {
     "@ffprobe-installer/ffprobe": "^1.4.1",
-    "axios": "^0.27.2",
+    "axios": "^1.8.2",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.3",
-    "electron": "^19.0.3",
+    "electron": "^33.4.3",
     "electron-is-dev": "^2.0.0",
     "electron-store": "^8.0.2",
     "element-ui": "^2.15.9",
